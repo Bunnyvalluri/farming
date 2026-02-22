@@ -369,7 +369,7 @@ def schemes():
 
 @app.route('/market')
 def market():
-    return render_template('market.html')
+    return render_template('market.html', page_title='Market Price Index')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
