@@ -11,6 +11,3 @@ node_modules/
 dist/
 build/
 .cache/
-.dockerignore
-Dockerfile
-docker-compose.yml
