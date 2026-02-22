@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" style="padding-top: 100px;">
+  <h2 style="text-align: center; margin-bottom: 2rem;"><i class="fa-solid fa-hand-holding-dollar"></i> Government
+    Schemes (Yojanas)</h2>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+
+    <!-- PM-Kisan -->
+    <div
+      style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid var(--primary);">
+      <h3>PM-Kisan Samman Nidhi</h3>
+      <p style="color: #666; margin-top: 0.5rem; font-size: 0.95rem;">Financial benefit of Rs 6000/- per year is
+        provided to all landholding farmers' families.</p>
+      <ul style="margin-top: 1rem; color: #444; font-size: 0.9rem; padding-left: 1rem;">
+        <li>Who is eligible: All farmer families</li>
+        <li>Benefit: Rs 6,000 / year in 3 installments</li>
+      </ul>
+      <a href="https://pmkisan.gov.in/" target="_blank" class="btn"
+        style="margin-top: 1rem; display: inline-block; padding: 0.5rem 1rem;">Apply Now</a>
+    </div>
+
+    <!-- PMFBY -->
+    <div
+      style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid #f59e0b;">
+      <h3>Pradhan Mantri Fasal Bima Yojana (PMFBY)</h3>
+      <p style="color: #666; margin-top: 0.5rem; font-size: 0.95rem;">Crop insurance scheme offering financial support
+        to farmers suffering crop loss/damage.</p>
+      <ul style="margin-top: 1rem; color: #444; font-size: 0.9rem; padding-left: 1rem;">
+        <li>Coverage: Natural calamities, pests, diseases</li>
+        <li>Premium: Very low for farmers (1.5% - 2%)</li>
+      </ul>
+      <a href="https://pmfby.gov.in/" target="_blank" class="btn"
+        style="margin-top: 1rem; display: inline-block; padding: 0.5rem 1rem;">Apply Now</a>
+    </div>
+
+    <!-- Kisan Credit Card -->
+    <div
+      style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid #3b82f6;">
+      <h3>Kisan Credit Card (KCC)</h3>
+      <p style="color: #666; margin-top: 0.5rem; font-size: 0.95rem;">Provides timely credit support from banking system
+        for agriculture and allied activities.</p>
+      <ul style="margin-top: 1rem; color: #444; font-size: 0.9rem; padding-left: 1rem;">
+        <li>Loan limit: Flexible based on crop type</li>
+        <li>Interest rate: Subsidized (often 4%)</li>
+      </ul>
+      <a href="https://sbi.co.in/web/agri-rural/agriculture-banking/crop-loan/kisan-credit-card" target="_blank"
+        class="btn" style="margin-top: 1rem; display: inline-block; padding: 0.5rem 1rem;">View Details</a>
+    </div>
+
+    <!-- PKVY -->
+    <div
+      style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid #10b981;">
+      <h3>Paramparagat Krishi Vikas Yojana</h3>
+      <p style="color: #666; margin-top: 0.5rem; font-size: 0.95rem;">Promotion of commercial organic farming through
+        cluster approach.</p>
+      <ul style="margin-top: 1rem; color: #444; font-size: 0.9rem; padding-left: 1rem;">
+        <li>Govt aid: Rs 50,000 per hectare for 3 years</li>
+        <li>Goal: Improve soil health & organic production</li>
+      </ul>
+      <a href="https://dpg.gov.in/" target="_blank" class="btn"
+        style="margin-top: 1rem; display: inline-block; padding: 0.5rem 1rem;">Apply Now</a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
