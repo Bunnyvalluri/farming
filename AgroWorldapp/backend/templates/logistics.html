@@ -264,7 +264,12 @@
 
     // Simulation of response
     setTimeout(() => {
-      const replyText = currentLang === 'hi' ? "धन्यवाद, हमारी टीम जल्द ही आपसे संपर्क करेगी।" : "Thank you for your message. Our representative will get back to you within 15 minutes.";
+      const replies = {
+        'en': "Thank you for your message. Our representative will get back to you within 15 minutes.",
+        'hi': "धन्यवाद, हमारी टीम जल्द ही आपसे संपर्क करेगी।",
+        'te': "ధన్యవాదాలు, మా ప్రతినిధి 15 నిమిషాల్లో మిమ్మల్ని సంప్రదిస్తారు."
+      };
+      const replyText = replies[currentLang] || replies['en'];
       const replyDiv = document.createElement('div');
       replyDiv.className = "bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-100 text-slate-600 text-sm font-medium max-w-[85%] animate-[toastIn_0.3s_ease-out]";
       replyDiv.innerText = replyText;

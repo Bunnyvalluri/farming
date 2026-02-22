@@ -68,6 +68,24 @@ Visit `http://127.0.0.1:5000` in your web browser.
 
 ---
 
+## 🐳 Run with Docker (Recommended for other systems)
+
+If you want to run this project on another system without worrying about dependencies, use Docker.
+
+### 1. Prerequisite
+Make sure you have **Docker** and **Docker Compose** installed.
+
+### 2. Start the Application
+Run the following command in the root directory:
+```bash
+docker-compose up --build
+```
+
+### 3. Access the Project
+The app will be available at: `http://localhost:5000`
+
+---
+
 ## ☁️ Deployment
 
 ### Deploying to Vercel

@@ -175,8 +175,8 @@ def get_live_news(query="agriculture OR farming india"):
         from bs4 import BeautifulSoup
         
         safe_query = urllib.parse.quote(query)
-        # Switching from Google News to Bing News RSS for direct non-JS publisher redirects
-        url = f"https://www.bing.com/news/search?q={safe_query}&format=RSS"
+        # Using Google News RSS for better reliability and coverage
+        url = f"https://news.google.com/rss/search?q={safe_query}&hl=en-IN&gl=IN&ceid=IN:en"
         feed = feedparser.parse(url)
         
         images = [

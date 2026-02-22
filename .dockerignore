@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.git/
+venv/
+.env
+.cache/
+instance/
+*.sqlite
+*.log
+Dockerfile
+docker-compose.yml
+.vercel/
+node_modules/
