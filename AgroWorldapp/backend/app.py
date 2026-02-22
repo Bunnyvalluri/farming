@@ -175,7 +175,8 @@ def get_live_news(query="agriculture OR farming india"):
         from bs4 import BeautifulSoup
         
         safe_query = urllib.parse.quote(query)
-        url = f"https://news.google.com/rss/search?q={safe_query}&hl=en-IN&gl=IN&ceid=IN:en"
+        # Switching from Google News to Bing News RSS for direct non-JS publisher redirects
+        url = f"https://www.bing.com/news/search?q={safe_query}&format=RSS"
         feed = feedparser.parse(url)
         
         images = [
@@ -190,9 +191,11 @@ def get_live_news(query="agriculture OR farming india"):
         for i, entry in enumerate(feed.entries[:6]): # Get top 6 live news
             soup = BeautifulSoup(entry.summary, "html.parser")
             desc = soup.get_text()[:150] + "..." if soup.get_text() else "Read more about this agricultural update..."
-            title_parts = entry.title.rsplit(" - ", 1)
-            title = title_parts[0] if len(title_parts) > 0 else entry.title
-            publisher = title_parts[1] if len(title_parts) > 1 else "Google News"
+            # Bing provides source publisher in entry.source if available, else extract from title
+            publisher = "Agriculture News"
+            if hasattr(entry, 'source') and hasattr(entry.source, 'title'):
+                publisher = entry.source.title
+            title = entry.title
             
             # Simple timezone parse mapping
             import email.utils
@@ -230,7 +233,7 @@ def get_live_news(query="agriculture OR farming india"):
                     "category": "Policy",
                     "time": "2 hours ago",
                     "img": images[0],
-                    "link": "#"
+                    "link": "https://krishijagran.com/news/" # Real matter link
                 },
                 {
                     "title": f"New hybrid seed variants of {query.replace('OR farming india', '').strip() or 'Wheat'} yield 20% more output",
@@ -239,7 +242,7 @@ def get_live_news(query="agriculture OR farming india"):
                     "category": "Innovation",
                     "time": "5 hours ago",
                     "img": images[1],
-                    "link": "#"
+                    "link": "https://www.scidev.net/asia-pacific/agriculture/" # Real matter link
                 },
                 {
                     "title": "Monsoon forecast looks promising for the upcoming Kharif season",
@@ -248,7 +251,7 @@ def get_live_news(query="agriculture OR farming india"):
                     "category": "Live Updates",
                     "time": "12 hours ago",
                     "img": images[2],
-                    "link": "#"
+                    "link": "https://pib.gov.in/indexd.aspx" # Real matter link
                 }
             ]
         
@@ -263,7 +266,7 @@ def get_live_news(query="agriculture OR farming india"):
                 "category": "System Alert",
                 "time": "Just now",
                 "img": "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=400",
-                "link": "#"
+                "link": "https://krishijagran.com/" # Real matter fallback
             }
         ]
 
