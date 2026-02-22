@@ -164,13 +164,38 @@
       progressBar.style.width = '100%';
       loading.classList.add('hidden');
 
-      const mandis = [
-        { name: `${state} Central`, variety: 'A-Grade Premium' },
-        { name: `${state} South Hub`, variety: 'Hybrid FAQ' },
-        { name: `${state} Valley Mandi`, variety: 'Eco Certified' }
-      ];
+      const stateHubs = {
+        'Maharashtra': [
+          { hub: 'Pune Commodity Exchange', code: 'PCX' },
+          { hub: 'Nashik Agri Terminal', code: 'NAT' },
+          { hub: 'Mumbai Trade Hub', code: 'MTH' }
+        ],
+        'Punjab': [
+          { hub: 'Amritsar Grain Exchange', code: 'AGE' },
+          { hub: 'Ludhiana Agri Market', code: 'LAM' },
+          { hub: 'Patiala Commodity Hub', code: 'PCH' }
+        ],
+        'Uttar Pradesh': [
+          { hub: 'Lucknow Agri Exchange', code: 'LAE' },
+          { hub: 'Kanpur Grain Terminal', code: 'KGT' },
+          { hub: 'Agra Commodity Centre', code: 'ACC' }
+        ],
+        'Andhra Pradesh': [
+          { hub: 'Vijayawada Agri Hub', code: 'VAH' },
+          { hub: 'Guntur Crop Exchange', code: 'GCE' },
+          { hub: 'Kurnool Trade Terminal', code: 'KTT' }
+        ],
+        'Telangana': [
+          { hub: 'Hyderabad Agri Bourse', code: 'HAB' },
+          { hub: 'Warangal Crop Market', code: 'WCM' },
+          { hub: 'Nizamabad Grain Hub', code: 'NGH' }
+        ]
+      };
+      const mandis = stateHubs[state] || stateHubs['Maharashtra'];
+      const varieties = ['A-Grade Premium', 'Hybrid FAQ', 'Eco Certified'];
 
-      mandis.forEach(m => {
+      mandis.forEach((m, i) => {
+        const variety = varieties[i];
         const minP = Math.floor(basePrice * (0.95 + Math.random() * 0.1));
         const maxP = Math.floor(basePrice * (1.05 + Math.random() * 0.15));
         const isUp = Math.random() > 0.5;
@@ -178,40 +203,34 @@
         const row = document.createElement('tr');
         row.className = "hover:bg-primary-50/30 transition-colors group";
 
-        // Map crop value to translation key
         const cropKeyMap = {
           'Wheat': 'wheat_name', 'Rice': 'rice_name', 'Cotton': 'cotton_name', 'Soybean': 'soya_name', 'Corn': 'corn_name'
         };
         const cropKey = cropKeyMap[crop] || 'wheat_name';
 
-        // Map state to translation key
-        const stateKeyMap = {
-          'Maharashtra': 'state_mh', 'Punjab': 'state_pb', 'Uttar Pradesh': 'state_up', 'Andhra Pradesh': 'state_ap', 'Telangana': 'state_ts'
-        };
-        const stateKey = stateKeyMap[state] || 'state_mh';
-
-        // Map variety to translation key
         const varKeyMap = {
           'A-Grade Premium': 'var_premium', 'Hybrid FAQ': 'var_hybrid', 'Eco Certified': 'var_eco'
         };
-        const varKey = varKeyMap[m.variety] || 'var_premium';
+        const varKey = varKeyMap[variety] || 'var_premium';
 
         row.innerHTML = `
             <td class="p-8">
-                <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-primary-100 group-hover:text-primary-600 transition-all">
-                        <i class="fa-solid fa-warehouse text-xs"></i>
+                <div class="flex items-center gap-5">
+                    <div class="w-12 h-12 bg-slate-100 rounded-2xl flex flex-col items-center justify-center group-hover:bg-primary-100 group-hover:text-primary-600 transition-all shrink-0">
+                        <i class="fa-solid fa-building text-xs text-slate-400 group-hover:text-primary-600 transition-colors"></i>
+                        <span class="text-[8px] font-black text-slate-400 group-hover:text-primary-600 mt-0.5">${m.code}</span>
                     </div>
-                    <span class="font-outfit font-black text-slate-900 text-lg">
-                      <span data-key="${stateKey}"></span> ${m.name.split(' ').slice(1).join(' ')}
-                    </span>
+                    <div>
+                        <span class="font-black text-slate-900 text-base block">${m.hub}</span>
+                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">APMC Certified</span>
+                    </div>
                 </div>
             </td>
             <td class="p-8">
                 <span class="px-4 py-1.5 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase group-hover:bg-white transition-colors" data-key="${cropKey}">${crop}</span>
             </td>
             <td class="p-8">
-                <span class="text-slate-500 font-medium" data-key="${varKey}">${m.variety}</span>
+                <span class="text-slate-500 font-medium" data-key="${varKey}">${variety}</span>
             </td>
             <td class="p-8 text-center">
                 <div class="inline-flex flex-col">
@@ -220,7 +239,7 @@
                 </div>
             </td>
             <td class="p-8 text-right">
-                <span class="inline-flex items-center gap-2 font-black italic ${isUp ? 'text-emerald-600' : 'text-rose-600'}">
+                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-xl font-black text-xs ${isUp ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'}">
                     <i class="fa-solid ${isUp ? 'fa-arrow-trend-up' : 'fa-arrow-trend-down'}"></i>
                     <span data-key="${isUp ? 'market_surging' : 'market_dip'}">${isUp ? 'SURGING' : 'DIP'}</span>
                 </span>
