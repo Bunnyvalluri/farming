@@ -749,6 +749,14 @@
     };
 
     const langLabels = { 'en': 'English', 'hi': 'हिन्दी', 'te': 'తెలుగు' };
+
+    // ── Cache-bust: clear old translation cache if version changed ──
+    const TRANS_VERSION = 'v3';
+    if (localStorage.getItem('agroTransVer') !== TRANS_VERSION) {
+      localStorage.removeItem('agroLang');
+      localStorage.setItem('agroTransVer', TRANS_VERSION);
+    }
+
     let currentLang = localStorage.getItem('agroLang') || 'en';
 
     function applyTranslations() {
