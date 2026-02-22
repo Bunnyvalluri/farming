@@ -9,7 +9,8 @@ import pandas as pd
 from retry_requests import retry
 
 # Setup the Open-Meteo API client with cache and retry on error
-cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
+cache_dir = '/tmp/.cache' if os.environ.get("VERCEL") == "1" else '.cache'
+cache_session = requests_cache.CachedSession(cache_dir, expire_after = 3600)
 retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
 openmeteo = openmeteo_requests.Client(session = retry_session)
 
@@ -17,7 +18,11 @@ load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "agro_world_super_secret_key")
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL", "sqlite:///agro_world.db")
+
+db_url = os.getenv("DATABASE_URL")
+if not db_url:
+    db_url = "sqlite:////tmp/agro_world.db" if os.environ.get("VERCEL") == "1" else "sqlite:///agro_world.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 
 db = SQLAlchemy(app)
 
