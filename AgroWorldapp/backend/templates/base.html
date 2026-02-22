@@ -1,121 +1,271 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agro World | Smart Farming</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              300: '#86efac',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+              950: '#052e16',
+            },
+            accent: '#f59e0b',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            outfit: ['Outfit', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-20px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer base {
+      body {
+        @apply font-sans bg-slate-50 text-slate-900 antialiased;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        @apply font-outfit font-bold;
+      }
+    }
+    @layer components {
+      .glass {
+        @apply bg-white/70 backdrop-blur-md border border-white/20;
+      }
+      .btn-primary {
+        @apply px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg shadow-primary-600/20 hover:shadow-primary-600/40 hover:-translate-y-0.5 active:translate-y-0 text-center;
+      }
+      .nav-link {
+        @apply flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-primary-600 font-medium transition-colors rounded-lg hover:bg-primary-50;
+      }
+      .nav-link.active {
+        @apply text-primary-600 bg-primary-50;
+      }
+    }
+    @keyframes toastIn {
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes toastOut {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(100px); opacity: 0; }
+    }
+  </style>
   {% block head %}{% endblock %}
 </head>
 
-<body>
-  <nav>
-    <div style="display: flex; align-items: center; gap: 2rem;">
-      <a href="/" class="logo" style="display: flex; align-items: center; gap: 0.5rem;">
-        <i class="fa-solid fa-leaf"></i>
-        <span>AGRO WORLD</span>
-      </a>
-      <div class="nav-links">
-        <a href="/weather" data-key="nav_weather"><i class="fa-solid fa-cloud-sun"></i> Weather</a>
-        <a href="/news" data-key="nav_news"><i class="fa-solid fa-newspaper"></i> News</a>
-        <a href="/market" data-key="nav_market"><i class="fa-solid fa-chart-line"></i> Market</a>
-        <a href="/schemes" data-key="nav_schemes"><i class="fa-solid fa-hand-holding-dollar"></i> Schemes</a>
-        <a href="/tasks" data-key="nav_tasks"><i class="fa-solid fa-list-check"></i> Tasks</a>
-        <a href="/crop-care" data-key="nav_crop"><i class="fa-solid fa-bug-slash"></i> Crop Care</a>
-        <a href="/logistics" data-key="nav_logistics"><i class="fa-solid fa-truck-fast"></i> Logistics</a>
-      </div>
-    </div>
-    <div style="display: flex; align-items: center; gap: 1rem;">
-      <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn">हिन्दी</button>
-      {% if session.get('user_id') %}
-      <div style="display: flex; align-items: center; gap: 1rem;">
-        <div
-          style="width: 35px; height: 35px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
-          <i class="fa-solid fa-user"></i>
+<body class="min-h-screen flex flex-col">
+  <!-- Progress Bar -->
+  <div id="loadingBar" class="fixed top-0 left-0 h-1 bg-primary-500 z-[100] transition-all duration-500 w-0"></div>
+
+  <!-- Modern Navigation -->
+  <nav class="sticky top-0 z-[50] glass border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        <!-- Logo -->
+        <div class="flex items-center gap-8">
+          <a href="/" class="flex items-center gap-2 group">
+            <div
+              class="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary-600/30 group-hover:rotate-12 transition-transform duration-300">
+              <i class="fa-solid fa-leaf text-xl"></i>
+            </div>
+            <span
+              class="text-2xl font-outfit font-extrabold tracking-tight text-slate-900 group-hover:text-primary-600 transition-colors">AGRO
+              WORLD</span>
+          </a>
+
+          <!-- Desktop Navigation -->
+          <div class="hidden lg:flex items-center gap-1">
+            <a href="/weather" class="nav-link" data-key="nav_weather"><i class="fa-solid fa-cloud-sun text-sm"></i>
+              Weather</a>
+            <a href="/news" class="nav-link" data-key="nav_news"><i class="fa-solid fa-newspaper text-sm"></i> News</a>
+            <a href="/market" class="nav-link" data-key="nav_market"><i class="fa-solid fa-chart-line text-sm"></i>
+              Market</a>
+            <a href="/schemes" class="nav-link" data-key="nav_schemes"><i
+                class="fa-solid fa-hand-holding-dollar text-sm"></i> Schemes</a>
+            <a href="/tasks" class="nav-link" data-key="nav_tasks"><i class="fa-solid fa-list-check text-sm"></i>
+              Tasks</a>
+            <a href="/crop-care" class="nav-link" data-key="nav_crop"><i class="fa-solid fa-bug-slash text-sm"></i> Crop
+              Care</a>
+            <a href="/logistics" class="nav-link" data-key="nav_logistics"><i
+                class="fa-solid fa-truck-fast text-sm"></i> Logistics</a>
+          </div>
         </div>
-        <a href="/logout" class="lang-toggle"
-          style="background: transparent; color: #ef4444; border: 1px solid #ef4444; padding: 0.4rem 0.8rem; font-size: 0.8rem;">Logout</a>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-4">
+          <button onclick="toggleLanguage()" id="langBtn"
+            class="flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full font-semibold transition-all border border-slate-200">
+            <i class="fa-solid fa-language text-lg"></i>
+            <span>हिन्दी</span>
+          </button>
+
+          {% if session.get('user_id') %}
+          <div class="flex items-center gap-3 pl-4 border-l border-slate-200">
+            <div
+              class="w-10 h-10 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center font-bold">
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <a href="/logout"
+              class="px-4 py-2 text-rose-600 hover:bg-rose-50 rounded-lg font-medium transition-colors border border-rose-100 italic">Logout</a>
+          </div>
+          {% else %}
+          <a href="/login" class="btn-primary" data-key="nav_login">Login</a>
+          {% endif %}
+
+          <!-- Mobile Menu Button -->
+          <button
+            class="lg:hidden w-10 h-10 flex items-center justify-center text-slate-600 hover:bg-slate-100 rounded-lg"
+            onclick="toggleMobileMenu()">
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+        </div>
       </div>
-      {% else %}
-      <a href="/login" class="lang-toggle" style="text-decoration: none; display: inline-block;"
-        data-key="nav_login">Login</a>
-      {% endif %}
     </div>
   </nav>
 
-  <!-- Global Loading Bar -->
-  <div id="loadingBar"
-    style="position: fixed; top: 0; left: 0; height: 3px; background: var(--primary); width: 0; z-index: 10000; transition: width 0.3s ease;">
-  </div>
-
-  {% block content %}{% endblock %}
-
-  <!-- Global Toast System -->
-  <div id="toastContainer"
-    style="position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 10001; display: flex; flex-direction: column; gap: 10px;">
-  </div>
-
-  <footer
-    style="background: var(--bg-dark); padding: 4rem 10% 2rem; color: rgba(255,255,255,0.6); text-align: center; margin-top: 4rem;">
-    <div
-      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; margin-bottom: 3rem; text-align: left;">
-      <div>
-        <h3 style="color: white; margin-bottom: 1rem;">Agro World</h3>
-        <p style="font-size: 0.9rem;" data-key="footer_desc">Empowering small-scale farmers with big-scale technology.
-        </p>
+  <!-- Mobile Menu (Hidden by default) -->
+  <div id="mobileMenu" class="fixed inset-0 z-[60] bg-white hidden lg:hidden">
+    <div class="p-4 border-b">
+      <div class="flex justify-between items-center">
+        <span class="font-outfit font-extrabold text-xl text-primary-600">MENU</span>
+        <button onclick="toggleMobileMenu()" class="text-slate-600 text-2xl">&times;</button>
       </div>
-      <div>
-        <h4 style="color: white; margin-bottom: 1rem;" data-key="footer_links">Quick Links</h4>
-        <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem;">
-          <a href="/weather" style="color: inherit; text-decoration: none;" data-key="footer_weather">Weather
-            Updates</a>
-          <a href="/logistics" style="color: inherit; text-decoration: none;" data-key="footer_logistics">Logistics
-            Support</a>
-          <a href="/tasks" style="color: inherit; text-decoration: none;" data-key="footer_tasks">Task Manager</a>
+    </div>
+    <div class="p-4 flex flex-col gap-2 overflow-y-auto">
+      <a href="/weather" class="px-4 py-3 rounded-xl hover:bg-slate-50 font-medium flex items-center gap-3"><i
+          class="fa-solid fa-cloud-sun w-6"></i> Weather</a>
+      <a href="/news" class="px-4 py-3 rounded-xl hover:bg-slate-50 font-medium flex items-center gap-3"><i
+          class="fa-solid fa-newspaper w-6"></i> News</a>
+      <a href="/market" class="px-4 py-3 rounded-xl hover:bg-slate-50 font-medium flex items-center gap-3"><i
+          class="fa-solid fa-chart-line w-6"></i> Market</a>
+      <a href="/schemes" class="px-4 py-3 rounded-xl hover:bg-slate-50 font-medium flex items-center gap-3"><i
+          class="fa-solid fa-hand-holding-dollar w-6"></i> Schemes</a>
+      <a href="/tasks" class="px-4 py-3 rounded-xl hover:bg-slate-50 font-medium flex items-center gap-3"><i
+          class="fa-solid fa-list-check w-6"></i> Tasks</a>
+      <a href="/crop-care" class="px-4 py-3 rounded-xl hover:bg-slate-50 font-medium flex items-center gap-3"><i
+          class="fa-solid fa-bug-slash w-6"></i> Crop Care</a>
+      <a href="/logistics" class="px-4 py-3 rounded-xl hover:bg-slate-50 font-medium flex items-center gap-3"><i
+          class="fa-solid fa-truck-fast w-6"></i> Logistics</a>
+    </div>
+  </div>
+
+  <main class="flex-grow">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="bg-slate-900 text-slate-400 py-16 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div class="col-span-1 lg:col-span-1">
+          <a href="/" class="flex items-center gap-2 mb-6">
+            <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center text-white">
+              <i class="fa-solid fa-leaf text-sm"></i>
+            </div>
+            <span class="text-xl font-outfit font-extrabold text-white tracking-tight">AGRO WORLD</span>
+          </a>
+          <p class="text-sm leading-relaxed" data-key="footer_desc">Empowering small-scale farmers with big-scale
+            technology. Your partner in modern agriculture.</p>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold mb-6" data-key="footer_links">Quick Links</h4>
+          <ul class="space-y-4 text-sm">
+            <li><a href="/weather" class="hover:text-primary-400 transition-colors" data-key="footer_weather">Weather
+                Updates</a></li>
+            <li><a href="/logistics" class="hover:text-primary-400 transition-colors"
+                data-key="footer_logistics">Logistics Support</a></li>
+            <li><a href="/tasks" class="hover:text-primary-400 transition-colors" data-key="footer_tasks">Task
+                Manager</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold mb-6" data-key="footer_support">Support</h4>
+          <ul class="space-y-4 text-sm">
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-envelope text-primary-500"></i>
+              <span>help@agroworld.in</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-phone text-primary-500"></i>
+              <span>+91 1800-AGRO-SAFE</span>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold mb-6">Newsletter</h4>
+          <p class="text-sm mb-4">Get the latest farming tips and market updates directly.</p>
+          <div class="flex gap-2">
+            <input type="email" placeholder="Email address"
+              class="bg-slate-800 border-none rounded-lg px-4 py-2 text-sm w-full focus:ring-2 focus:ring-primary-500">
+            <button class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"><i
+                class="fa-solid fa-paper-plane"></i></button>
+          </div>
         </div>
       </div>
-      <div>
-        <h4 style="color: white; margin-bottom: 1rem;" data-key="footer_support">Support</h4>
-        <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem;">
-          <p><i class="fa-solid fa-envelope"></i> help@agroworld.in</p>
-          <p><i class="fa-solid fa-phone"></i> +91 1800-AGRO-SAFE</p>
+
+      <div class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+        <p data-key="footer_copy">© 2026 Agro World | Smart Farming Decision Support System</p>
+        <div class="flex gap-6 text-slate-500">
+          <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
         </div>
       </div>
     </div>
-    <hr style="opacity: 0.1; margin-bottom: 2rem;">
-    <p data-key="footer_copy">© 2026 Agro World | Smart Farming Decision Support System</p>
   </footer>
+
+  <!-- Global Toast System -->
+  <div id="toastContainer" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] flex flex-col gap-3"></div>
 
   <script>
     // Real-world Toast Notification System
     function showToast(message, type = 'success') {
       const container = document.getElementById('toastContainer');
       const toast = document.createElement('div');
-      toast.className = 'toast';
-      toast.style = `
-                background: ${type === 'success' ? '#059669' : '#ef4444'};
-                color: white;
-                padding: 0.8rem 1.5rem;
-                border-radius: 50px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-                font-size: 0.9rem;
-                font-weight: 600;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                animation: toastIn 0.3s ease;
-            `;
-      toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check' : 'fa-triangle-exclamation'}"></i> ${message}`;
+      const bgColor = type === 'success' ? 'bg-primary-600' : 'bg-rose-600';
+      const icon = type === 'success' ? 'fa-circle-check' : 'fa-triangle-exclamation';
+
+      toast.className = `${bgColor} text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 font-semibold text-sm whitespace-nowrap`;
+      toast.style.animation = 'toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+
+      toast.innerHTML = `<i class="fa-solid ${icon}"></i> <span>${message}</span>`;
       container.appendChild(toast);
+
       setTimeout(() => {
-        toast.style.animation = 'toastOut 0.3s ease';
+        toast.style.animation = 'toastOut 0.3s ease-in forwards';
         setTimeout(() => toast.remove(), 300);
-      }, 3000);
+      }, 4000);
     }
 
     // Loading bar simulation
@@ -123,376 +273,27 @@
       document.getElementById('loadingBar').style.width = '70%';
     });
 
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+    }
+
     const translations = {
       'en': {
-        'nav_weather': 'Weather',
-        'nav_news': 'News',
-        'nav_tasks': 'Tasks',
-        'nav_crop': 'Crop Care',
-        'nav_logistics': 'Logistics',
-        'nav_market': 'Market Prices',
-        'nav_schemes': 'Govt Schemes',
-        'nav_login': 'Login',
-        'hero_title': 'Empowering Farmers <br>for a Smarter Tomorrow',
-        'hero_desc': 'Agro World is your bilingual digital assistant for real-time weather, crop disease guidance, and direct communication with suppliers.',
-        'cta_start': 'Get Started',
-        'cta_learn': 'Explore Features',
-        'sec_features': 'Core Features',
-        'nav_about': 'About',
-        'f1_title': 'Weather Intelligence',
-        'f1_desc': '5-day location-based forecasts with precision updates on rain, humidity, and frost alerts.',
-        'f2_title': 'Crop Management',
-        'f2_desc': 'Identify diseases, learn about organic fertilizers, and optimize sowing schedules for 30+ crops.',
-
-        'wheat_name': 'Wheat',
-        'wheat_d1': 'Rust',
-        'wheat_d2': 'Smut',
-        'wheat_care': 'Requires cool climate and moderate watering.',
-
-        'rice_name': 'Rice',
-        'rice_d1': 'Blast',
-        'rice_d2': 'Bacterial Blight',
-        'rice_care': 'Requires standing water and high humidity.',
-
-        'cotton_name': 'Cotton',
-        'cotton_d1': 'Bollworm',
-        'cotton_d2': 'Leaf Spot',
-        'cotton_care': 'Requires high sunlight and well-drained soil.',
-
-        'f3_title': 'Task Manager',
-        'f3_desc': 'Structured daily and weekly reminders for irrigation, fertilization, and pest control.',
-        'f4_title': 'Direct Logistics',
-        'f4_desc': 'Connect directly with seed manufacturers and vehicle owners without any middlemen.',
-        'sec_abstract': 'Project Abstract',
-        'abstract_text': 'It is a farming application that helps farmers to track climate data and forecast information as well as find manufacturers and transporters from which the farmer can purchase seeds at an affordable price. The farmer can also communicate with the owner of the vehicle through the application. Additionally, this app provides information regarding crops, flowers, fruits, diseases, and how to expand skills to farmers.',
-        'footer_desc': 'Empowering small-scale farmers with big-scale technology.',
-        'footer_links': 'Quick Links',
-        'footer_weather': 'Weather Updates',
-        'footer_logistics': 'Logistics Support',
-        'footer_tasks': 'Task Manager',
-        'footer_support': 'Support',
-        'footer_copy': '© 2026 Agro World | Smart Farming Decision Support System',
-
-        'auth_login_title': 'Login to Agro World',
-        'auth_reg_title': 'Create Farmer Account',
-        'auth_email': 'Email or Phone',
-        'auth_pass': 'Password',
-        'auth_role': 'Your Role',
-        'role_farmer': 'Farmer',
-        'role_mfg': 'Seed Manufacturer',
-        'role_trans': 'Transporter',
-        'auth_login_btn': 'Login',
-        'auth_reg_btn': 'Join Community',
-        'auth_new_here': 'New here?',
-        'auth_create_acc': 'Create an account',
-        'auth_have_acc': 'Already have an account?',
-
-        'crop_page_title': 'Crops & Disease Management',
-        'crop_common_dis': 'Common Diseases',
-        'crop_care_tips': 'Care Tips',
-        'crop_btn_view': 'View Detailed Skills',
-
-        'news_page_title': 'Live Farming News',
-        'news_read_more': 'Read More',
-
-        'crop_ai_title': '<i class="fa-solid fa-microscope"></i> AI Disease Detection',
-        'crop_ai_desc': 'Upload a clear photo of the infected leaf or soil. Our AI model will detect the disease, identify soil conditions, and recommend immediate treatment.',
-        'crop_ai_upload': 'Click or drag image here',
-        'crop_ai_results': 'Analysis Results:',
-
-        'weather_title': 'Climate & Weather Forecast',
-        'weather_humidity': 'Humidity',
-        'weather_wind': 'Wind Speed',
-        'weather_uv': 'UV Index',
-        'weather_forecast': '5-Day Forecast',
-        'weather_alert_title': 'Hyperlocal Weather Alerts',
-        'weather_smart_rec': 'Smart Recommendation',
-        'weather_btn_loc': 'Use My Location',
-        'weather_search_ph': 'Search City...',
-
-        'task_title': 'Smart Task Manager',
-        'task_add_title': 'Add New Task',
-        'task_add_btn': 'Add Task',
-
-        'log_title': 'Logistics & Marketplace',
-        'tab_mfg': 'Seed Manufacturers',
-        'tab_trans': 'Transporters',
-        'btn_msg': 'Message Manufacturer',
-        'btn_contact': 'Contact Transporter',
-
-        'wheat_name': 'Wheat',
-        'wheat_d1': 'Rust',
-        'wheat_d2': 'Smut',
-        'wheat_care': 'Requires cool climate and moderate watering.',
-
-        'rice_name': 'Rice',
-        'rice_d1': 'Blast',
-        'rice_d2': 'Bacterial Blight',
-        'rice_care': 'Requires standing water and high humidity.',
-
-        'cotton_name': 'Cotton',
-        'cotton_d1': 'Bollworm',
-        'cotton_d2': 'Leaf Spot',
-        'cotton_care': 'Requires high sunlight and well-drained soil.',
-
-        'soya_name': 'Soybean',
-        'soya_d1': 'Rust',
-        'soya_d2': 'Blight',
-        'soya_care': 'Requires moderate rainfall and well-drained soil.',
-
-        'corn_name': 'Corn',
-        'corn_d1': 'Leaf Blight',
-        'corn_d2': 'Rust',
-        'corn_care': 'Needs regular watering and fertile soil.',
-
-        'cane_name': 'Sugarcane',
-        'cane_d1': 'Red Rot',
-        'cane_d2': 'Smut',
-        'cane_care': 'Requires heavy rainfall and hot climate.',
-
-        'sun_name': 'Sunflower',
-        'sun_d1': 'Rust',
-        'sun_d2': 'Downy Mildew',
-        'sun_care': 'Requires full sun and well-drained soil.'
+        'nav_weather': 'Weather', 'nav_news': 'News', 'nav_tasks': 'Tasks', 'nav_crop': 'Crop Care', 'nav_logistics': 'Logistics', 'nav_market': 'Market Prices', 'nav_schemes': 'Govt Schemes', 'nav_login': 'Login',
+        'footer_desc': 'Empowering small-scale farmers with big-scale technology.', 'footer_links': 'Quick Links', 'footer_weather': 'Weather Updates', 'footer_logistics': 'Logistics Support', 'footer_tasks': 'Task Manager', 'footer_support': 'Support', 'footer_copy': '© 2026 Agro World | Smart Farming Decision Support System'
       },
       'hi': {
-        'nav_weather': 'मौसम',
-        'nav_news': 'समाचार',
-        'nav_tasks': 'कार्य',
-        'nav_crop': 'फसल देखभाल',
-        'nav_logistics': 'रसद',
-        'nav_market': 'मंडी भाव',
-        'nav_schemes': 'सरकारी योजनाएं',
-        'nav_login': 'लॉगिन',
-        'hero_title': 'किसानों को बेहतर कल के लिए सशक्त बनाना',
-        'hero_desc': 'एग्रो वर्ल्ड वास्तविक समय के मौसम, फसल रोग मार्गदर्शन और आपूर्तिकर्ताओं के साथ सीधे संवाद के लिए आपका द्विभाषी डिजिटल सहायक है।',
-        'cta_start': 'शुरू करें',
-        'cta_learn': 'सुविधाओं का अन्वेषण करें',
-        'sec_features': 'मुख्य विशेषताएं',
-        'nav_about': 'बारे में',
-        'f1_title': 'मौसम बुद्धिमत्ता',
-        'f1_desc': 'बारिश, नमी और पाले की सूचनाओं पर सटीक अपडेट के साथ 5-दिवसीय स्थान-आधारित पूर्वानुमान।',
-        'f2_title': 'फसल प्रबंधन',
-        'f2_desc': 'बीमारियों की पहचान करें, जैविक उर्वरकों के बारे में जानें, और 30+ फसलों के लिए बुवाई कार्यक्रम अनुकूलित करें।',
-        'f3_title': 'कार्य प्रबंधक',
-        'f3_desc': 'सिंचाई, निषेचन और कीट नियंत्रण के लिए संरचित दैनिक और साप्ताहिक अनुस्मारक।',
-        'f4_title': 'प्रत्यक्ष रसद',
-        'f4_desc': 'बिना किसी बिचौलिए के सीधे बीज निर्माताओं और वाहन मालिकों से जुड़ें।',
-        'sec_abstract': 'परियोजना सार',
-        'abstract_text': 'यह एक कृषि अनुप्रयोग है जो किसानों को जलवायु डेटा और पूर्वानुमान जानकारी को ट्रैक करने के साथ-साथ ऐसे निर्माताओं और ट्रांसपोर्टरों को खोजने में मदद करता है जिनसे किसान सस्ती कीमत पर बीज खरीद सकते हैं। किसान आवेदन के माध्यम से वाहन के मालिक से भी संवाद कर सकता है। इसके अतिरिक्त, यह ऐप फसलों, फूलों, फलों, बीमारियों और किसानों के कौशल के विस्तार के बारे में भी जानकारी प्रदान करता है।',
-        'footer_desc': 'बड़े पैमाने की तकनीक के साथ छोटे पैमाने के किसानों को सशक्त बनाना।',
-        'footer_links': 'त्वरित लिंक',
-        'footer_weather': 'मौसम अद्यतन',
-        'footer_logistics': 'लॉजिस्टिक्स सहायता',
-        'footer_tasks': 'कार्य प्रबंधक',
-        'footer_support': 'सहायता',
-        'footer_copy': '© 2026 एग्रो वर्ल्ड | स्मार्ट फार्मिंग डिसीजन सपोर्ट सिस्टम',
-
-        'auth_login_title': 'एग्रो वर्ल्ड में लॉगिन करें',
-        'auth_reg_title': 'किसान खाता बनाएं',
-        'auth_email': 'ईमेल या फोन',
-        'auth_pass': 'पासवर्ड',
-        'auth_role': 'आपकी भूमिका',
-        'role_farmer': 'किसान',
-        'role_mfg': 'बीज निर्माता',
-        'role_trans': 'ट्रांसपोर्टर',
-        'auth_login_btn': 'लॉगिन',
-        'auth_reg_btn': 'समुदाय से जुड़ें',
-        'auth_new_here': 'नए हैं?',
-        'auth_create_acc': 'खाता बनाएं',
-        'auth_have_acc': 'पहले से खाता है?',
-
-        'crop_page_title': 'फसल और रोग प्रबंधन',
-        'crop_common_dis': 'सामान्य रोग',
-        'crop_care_tips': 'देखभाल के सुझाव',
-        'crop_btn_view': 'विस्तृत कौशल देखें',
-
-        'news_page_title': 'लाइव खेती समाचार',
-        'news_read_more': 'और पढ़ें',
-
-        'crop_ai_title': '<i class="fa-solid fa-microscope"></i> एआई रोग पहचान',
-        'crop_ai_desc': 'संक्रमित पत्ती या मिट्टी की एक स्पष्ट तस्वीर अपलोड करें। हमारा एआई मॉडल बीमारी का पता लगाएगा, मिट्टी की स्थिति की पहचान करेगा, और तत्काल उपचार की सिफारिश करेगा।',
-        'crop_ai_upload': 'यहां छवि क्लिक करें या खींचें',
-        'crop_ai_results': 'विश्लेषण परिणाम:',
-
-        'weather_title': 'जलवायु और मौसम पूर्वानुमान',
-        'weather_humidity': 'आर्द्रता',
-        'weather_wind': 'हवा की गति',
-        'weather_uv': 'यूवी सूचकांक',
-        'weather_forecast': '5-दिवसीय पूर्वानुमान',
-        'weather_alert_title': 'हाइपरलोकल मौसम अलर्ट',
-        'weather_smart_rec': 'स्मार्ट सिफारिश',
-        'weather_btn_loc': 'मेरा स्थान उपयोग करें',
-        'weather_search_ph': 'शहर खोजें...',
-
-        'task_title': 'स्मार्ट कार्य प्रबंधक',
-        'task_add_title': 'नया कार्य जोड़ें',
-        'task_add_btn': 'कार्य जोड़ें',
-
-        'log_title': 'रसद और बाजार',
-        'tab_mfg': 'बीज निर्माता',
-        'tab_trans': 'ट्रांसपोर्टर',
-        'btn_msg': 'संदेश भेजें',
-        'btn_contact': 'संपर्क करें',
-
-        'wheat_name': 'गेहूँ',
-        'wheat_d1': 'रस्ट',
-        'wheat_d2': 'स्मट',
-        'wheat_care': 'ठंडी जलवायु और मध्यम पानी की आवश्यकता होती है।',
-
-        'rice_name': 'धान',
-        'rice_d1': 'ब्लास्ट',
-        'rice_d2': 'बैक्टीरियल ब्लाइट',
-        'rice_care': 'खड़े पानी और उच्च आर्द्रता की आवश्यकता होती है।',
-
-        'cotton_name': 'कपास',
-        'cotton_d1': 'बोलवर्म',
-        'cotton_d2': 'लीफ स्पॉट',
-        'cotton_care': 'अधिक धूप और अच्छी जल निकासी वाली मिट्टी की आवश्यकता होती है।',
-
-        'soya_name': 'सोयाबीन',
-        'soya_d1': 'रस्ट',
-        'soya_d2': 'ब्लाइट',
-        'soya_care': 'मध्यम वर्षा और अच्छी जल निकासी की आवश्यकता होती है।',
-
-        'corn_name': 'मक्का',
-        'corn_d1': 'ब्लाइट',
-        'corn_d2': 'रस्ट',
-        'corn_care': 'नियमित पानी और उपजाऊ मिट्टी की आवश्यकता होती है।',
-
-        'cane_name': 'गन्ना',
-        'cane_d1': 'रेड रॉट',
-        'cane_d2': 'स्मट',
-        'cane_care': 'भारी वर्षा और गर्म जलवायु की आवश्यकता होती है।',
-
-        'sun_name': 'सूरजमुखी',
-        'sun_d1': 'रस्ट',
-        'sun_d2': 'डाउनी मिल्ड्यू',
-        'sun_care': 'पूर्ण धूप और अच्छी जल निकासी वाली मिट्टी की आवश्यकता होती है।'
+        'nav_weather': 'मौसम', 'nav_news': 'समाचार', 'nav_tasks': 'कार्य', 'nav_crop': 'फसल देखभाल', 'nav_logistics': 'रसद', 'nav_market': 'मंडी भाव', 'nav_schemes': 'सरकारी योजनाएं', 'nav_login': 'लॉगिन',
+        'footer_desc': 'बड़े पैमाने की तकनीक के साथ छोटे पैमाने के किसानों को सशक्त बनाना।', 'footer_links': 'त्वरित लिंक', 'footer_weather': 'मौसम अद्यतन', 'footer_logistics': 'लॉजिस्टिक्स सहायता', 'footer_tasks': 'कार्य प्रबंधक', 'footer_support': 'सहायता', 'footer_copy': '© 2026 एग्रो वर्ल्ड | स्मार्ट फार्मिंग डिसीजन सपोर्ट सिस्टम'
       },
       'te': {
-        'nav_weather': 'వాతావరణం',
-        'nav_news': 'వార్తలు',
-        'nav_tasks': 'పనులు',
-        'nav_crop': 'పంట సంరక్షణ',
-        'nav_logistics': 'రవాణా',
-        'nav_market': 'మార్కెట్ ధరలు',
-        'nav_schemes': 'ప్రభుత్వ పథకాలు',
-        'nav_login': 'లాగిన్',
-        'hero_title': 'మెరుగైన రేపటి కోసం రైతుల సాధికారత',
-        'hero_desc': 'అగ్రో వరల్డ్ రియల్ టైమ్ వాతావరణం, పంట వ్యాధి మార్గదర్శకత్వం కోసం మీ ద్విభాషా డిజిటల్ అసిస్టెంట్.',
-        'cta_start': 'ప్రారంభించండి',
-        'cta_learn': 'ఫీచర్లను అన్వేషించండి',
-        'sec_features': 'ముఖ్య అంశాలు',
-        'nav_about': 'గురించి',
-        'f1_title': 'వాతావరణ మేధస్సు',
-        'f1_desc': 'వర్షం, తేమ మరియు మంచు హెచ్చరికలపై ఖచ్చితమైన అప్‌డేట్‌లతో 5-రోజుల స్థల-ఆధారిత సూచనలు.',
-        'f2_title': 'పంట నిర్వహణ',
-        'f2_desc': 'వ్యాధులను గుర్తించండి, సేంద్రీయ ఎరువుల గురించి తెలుసుకోండి మరియు 30+ పంటల కోసం విత్తనాల షెడ్యూల్స్ ఆప్టిమైజ్ చేయండి.',
-        'f3_title': 'పని నిర్వాహకుడు',
-        'f3_desc': 'నీటిపారుదల, ఎరువులు మరియు తెగుళ్ల నియంత్రణ కోసం రోజువారీ మరియు వారపు రిమైండర్‌లు.',
-        'f4_title': 'ప్రత్యక్ష లాజిస్టిక్స్',
-        'f4_desc': 'మధ్యవర్తులు లేకుండా విత్తన తయారీదారులు మరియు వాహన యజమానులతో నేరుగా కనెక్ట్ అవ్వండి.',
-        'sec_abstract': 'ప్రాజెక్ట్ సారాంశం',
-        'abstract_text': 'ఇది రైతులు వాతావరణ డేటా మరియు సూచన సమాచారాన్ని ట్రాక్ చేయడానికి, టోకు విత్తనాలను సరసమైన ధరకు కొనుగోలు చేయడానికి తయారీదారులు మరియు రవాణాదారులను కనుగొనడంలో సహాయపడే వ్యవసాయ అప్లికేషన్. ఈ అప్లికేషన్ ద్వారా రైతు వాహన యజమానితో సంభాషించవచ్చు. అదనంగా, ఈ అనువర్తనం పంటలు, పువ్వులు, పండ్లు, వ్యాధులు మరియు రైతులకు నైపుణ్యాలను ఎలా పెంచుకోవాలి అనే దాని గురించి సమాచారాన్ని కూడా అందిస్తుంది.',
-        'footer_desc': 'భారీ-స్థాయి సాంకేతికతతో చిన్న-కారు రైతుల సాధికారత.',
-        'footer_links': 'త్వరిత లింకులు',
-        'footer_weather': 'వాతావరణ అప్‌డేట్స్',
-        'footer_logistics': 'రవాణా మద్దతు',
-        'footer_tasks': 'పని నిర్వాహకుడు',
-        'footer_support': 'మద్దతు',
-        'footer_copy': '© 2026 అగ్రో వరల్డ్ | స్మార్ట్ ఫార్మింగ్ డెసిషన్ సపోర్ట్ సిస్టమ్',
-
-        'auth_login_title': 'అగ్రో వరల్డ్‌లోకి లాగిన్ అవ్వండి',
-        'auth_reg_title': 'రైతు ఖాతాను సృష్టించండి',
-        'auth_email': 'ఇమెయిల్ లేదా ఫోన్',
-        'auth_pass': 'పాస్‌వర్డ్',
-        'auth_role': 'మీ పాత్ర',
-        'role_farmer': 'రైతు',
-        'role_mfg': 'విత్తన తయారీదారు',
-        'role_trans': 'రవాణాదారు',
-        'auth_login_btn': 'లాగిన్',
-        'auth_reg_btn': 'కమ్యూనిటీలో చేరండి',
-        'auth_new_here': 'కొత్తవారా?',
-        'auth_create_acc': 'ఖాతాను సృష్టించండి',
-        'auth_have_acc': 'ఇప్పటికే ఖాతా ఉందా?',
-
-        'crop_page_title': 'పంట మరియు వ్యాధి నిర్వహణ',
-        'crop_common_dis': 'సాధారణ వ్యాధులు',
-        'crop_care_tips': 'సంరక్షణ చిట్కాలు',
-        'crop_btn_view': 'వివరణాత్మక నైపుణ్యాలను చూడండి',
-
-        'news_page_title': 'లైవ్ వ్యవసాయ వార్తలు',
-        'news_read_more': 'మరింత చదవండి',
-
-        'crop_ai_title': '<i class="fa-solid fa-microscope"></i> AI వ్యాధి గుర్తింపు',
-        'crop_ai_desc': 'వ్యాధి సోకిన ఆకు లేదా మట్టి యొక్క స్పష్టమైన ఫోటోను అప్‌లోడ్ చేయండి. మా AI మోడల్ వ్యాధిని గుర్తిస్తుంది, నేల పరిస్థితులను విశ్లేషిస్తుంది మరియు తక్షణ చికిత్సను సిఫార్సు చేస్తుంది.',
-        'crop_ai_upload': 'చిత్రాన్ని ఇక్కడ క్లిక్ చేయండి లేదా లాగండి',
-        'crop_ai_results': 'విశ్లేషణ ఫలితాలు:',
-
-        'weather_title': 'వాతావరణ సూచన',
-        'weather_humidity': 'తేమ',
-        'weather_wind': 'గాలి వేగం',
-        'weather_uv': 'యూవీ ఇండెక్స్',
-        'weather_forecast': '5 రోజుల సూచన',
-        'weather_alert_title': 'హైపర్‌లోకల్ వాతావరణ హెచ్చరికలు',
-        'weather_smart_rec': 'స్మార్ట్ సిఫార్సు',
-        'weather_btn_loc': 'నా స్థానాన్ని ఉపయోగించండి',
-        'weather_search_ph': 'నగరాన్ని శోధించండి...',
-
-        'task_title': 'స్మార్ట్ పని నిర్వాహకుడు',
-        'task_add_title': 'కొత్త పనిని జోడించండి',
-        'task_add_btn': 'పనిని జోడించండి',
-
-        'log_title': 'రవాణా మరియు మార్కెట్',
-        'tab_mfg': 'విత్తన తయారీదారులు',
-        'tab_trans': 'రవాణా వాహనాలు',
-        'btn_msg': 'సందేశం పంపండి',
-        'btn_contact': 'సంప్రదించండి',
-
-        'wheat_name': 'గోధుమ',
-        'wheat_d1': 'తుప్పు తెగులు',
-        'wheat_d2': 'కాటుక తెగులు',
-        'wheat_care': 'చల్లని వాతావరణం మరియు మితమైన నీరు అవసరం.',
-
-        'rice_name': 'వరి',
-        'rice_d1': 'అగ్గి తెగులు',
-        'rice_d2': 'బ్యాక్టీరియా ఎండు తెగులు',
-        'rice_care': 'నిల్వ ఉన్న నీరు మరియు అధిక తేమ అవసరం.',
-
-        'cotton_name': 'పత్తి',
-        'cotton_d1': 'కాయతొలుచు పురుగు',
-        'cotton_d2': 'ఆకు మచ్చ తెగులు',
-        'cotton_care': 'అధిక సూర్యరశ్మి మరియు బాగా ఎండిన నేల అవసరం.',
-
-        'soya_name': 'సోయాబీన్',
-        'soya_d1': 'తుప్పు తెగులు',
-        'soya_d2': 'మచ్చ తెగులు',
-        'soya_care': 'మితమైన వర్షపాతం మరియు మంచి పారుదల అవసరం.',
-
-        'corn_name': 'మొక్కజొన్న',
-        'corn_d1': 'మచ్చ తెగులు',
-        'corn_d2': 'తుప్పు తెగులు',
-        'corn_care': 'క్రమం తప్పకుండా నీరు మరియు సారవంతమైన నేల అవసరం.',
-
-        'cane_name': 'చెరకు',
-        'cane_d1': 'ఎర్ర కుళ్లు తెగులు',
-        'cane_d2': 'కాటుక తెగులు',
-        'cane_care': 'భారీ వర్షపాతం మరియు వేడి వాతావరణం అవసరం.',
-
-        'sun_name': 'పొద్దుతిరుగుడు',
-        'sun_d1': 'తుప్పు తెగులు',
-        'sun_d2': 'బూజు తెగులు',
-        'sun_care': 'పూర్తి సూర్యరశ్మి మరియు బాగా ఎండిన నేల అవసరం.'
+        'nav_weather': 'వాతావరణం', 'nav_news': 'వార్తలు', 'nav_tasks': 'పనులు', 'nav_crop': 'పంట సంరక్షణ', 'nav_logistics': 'రవాణా', 'nav_market': 'మార్కెట్ ధరలు', 'nav_schemes': 'ప్రభుత్వ పథకాలు', 'nav_login': 'లాగిన్',
+        'footer_desc': 'భారీ-స్థాయి సాంకేతికతతో చిన్న-కారు రైతుల సాధికారత.', 'footer_links': 'త్వరిత లింకులు', 'footer_weather': 'వాతావరణ అప్‌డేట్స్', 'footer_logistics': 'రవాణా మద్దతు', 'footer_tasks': 'పని నిర్వాహకుడు', 'footer_support': 'మద్దతు', 'footer_copy': '© 2026 అగ్రో వరల్డ్ | స్మార్ట్ ఫార్మింగ్ డెసిషన్ సపోర్ట్ సిస్టమ్'
       }
     };
 
-    const langLabels = {
-      'en': 'English',
-      'hi': 'हिन्दी',
-      'te': 'తెలుగు'
-    };
-
+    const langLabels = { 'en': 'English', 'hi': 'हिन्दी', 'te': 'తెలుగు' };
     let currentLang = localStorage.getItem('agroLang') || 'en';
 
     function applyTranslations() {
@@ -507,7 +308,7 @@
         }
       });
       const langBtn = document.getElementById('langBtn');
-      if (langBtn) langBtn.innerText = langLabels[currentLang];
+      if (langBtn) langBtn.querySelector('span').innerText = langLabels[currentLang];
     }
 
     function toggleLanguage() {
@@ -516,48 +317,16 @@
       currentLang = languages[(idx + 1) % languages.length];
       localStorage.setItem('agroLang', currentLang);
       applyTranslations();
-
-      const toastMsg = {
-        'en': 'Language changed to English',
-        'hi': 'भाषा बदलकर हिंदी कर दी गई',
-        'te': 'భాష తెలుగులోకి మార్చబడింది'
-      };
+      const toastMsg = { 'en': 'Language changed to English', 'hi': 'भाषा बदलकर हिंदी कर दी गई', 'te': 'భాష తెలుగులోకి మార్చబడింది' };
       showToast(toastMsg[currentLang], 'success');
     }
 
+    document.querySelectorAll('.nav-link').forEach(link => {
+      if (link.href === window.location.href) { link.classList.add('active'); }
+    });
+
     applyTranslations();
   </script>
-  <style>
-    @keyframes toastIn {
-      from {
-        bottom: -20px;
-        opacity: 0;
-      }
-
-      to {
-        bottom: 0;
-        opacity: 1;
-      }
-    }
-
-    @keyframes toastOut {
-      from {
-        bottom: 0;
-        opacity: 1;
-      }
-
-      to {
-        bottom: -20px;
-        opacity: 0;
-      }
-    }
-
-    .nav-links a i {
-      margin-right: 0.3rem;
-      font-size: 0.9rem;
-      opacity: 0.8;
-    }
-  </style>
   {% block scripts %}{% endblock %}
 </body>
 
