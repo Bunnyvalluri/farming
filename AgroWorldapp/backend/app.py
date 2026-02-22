@@ -168,13 +168,14 @@ def get_live_weather(lat=21.1458, lon=79.0882, custom_city=None):
         print(f"Weather Error: {e}")
         return None
 
-def get_live_news():
+def get_live_news(query="agriculture OR farming india"):
     try:
         import feedparser
-        import re
+        import urllib.parse
         from bs4 import BeautifulSoup
         
-        url = "https://news.google.com/rss/search?q=agriculture+OR+farming+india&hl=en-IN&gl=IN&ceid=IN:en"
+        safe_query = urllib.parse.quote(query)
+        url = f"https://news.google.com/rss/search?q={safe_query}&hl=en-IN&gl=IN&ceid=IN:en"
         feed = feedparser.parse(url)
         
         images = [
@@ -186,11 +187,12 @@ def get_live_news():
         ]
         
         news_items = []
-        for i, entry in enumerate(feed.entries[:5]): # Get top 5 live news
+        for i, entry in enumerate(feed.entries[:6]): # Get top 6 live news
             soup = BeautifulSoup(entry.summary, "html.parser")
             desc = soup.get_text()[:150] + "..." if soup.get_text() else "Read more about this agricultural update..."
             title_parts = entry.title.rsplit(" - ", 1)
             title = title_parts[0] if len(title_parts) > 0 else entry.title
+            publisher = title_parts[1] if len(title_parts) > 1 else "Google News"
             
             # Simple timezone parse mapping
             import email.utils
@@ -211,6 +213,7 @@ def get_live_news():
             news_items.append({
                 "title": title,
                 "desc": desc,
+                "publisher": publisher,
                 "category": "Live Updates",
                 "time": time_str,
                 "img": images[i % len(images)],
