@@ -7,12 +7,12 @@ Welcome to **Agro World**, a comprehensive digital assistant designed to empower
 ## 🚀 Features
 
 - **🌤️ Weather Intelligence:** Get 5-day location-based forecasts with precision updates on rain, humidity, and frost alerts. Keep track of hyperlocal weather conditions easily using Open-Meteo.
-- **📰 Live Farming News & Search:** Stay updated with the latest live agricultural news. Features a dynamic search engine allowing farmers to directly search for live updates on any specific crop, policy, or weather event (with real publisher sourcing).
+- **📰 Live Farming News:** Stay updated with the latest live agricultural news. Features a dynamic search bar to find real news based on specific keywords (e.g., 'Wheat', 'Subsidies') using live Google News RSS feeds.
 - **📈 Market Prices (Mandi):** View real-time Mandi market prices to track price trends of crops like Wheat, Rice, and Cotton across multiple states.
 - **💵 Government Schemes (Yojanas):** Discover and apply for financial assistance schemes, including PM-Kisan, PMFBY (Crop Insurance), KCC, and more.
-- **🍃 Premium Crop Management:** Explore highly detailed, crop-specific best practices for Wheat, Rice, Cotton, Soybean, Corn, Sugarcane, and Sunflower. Includes an AI Disease Detection simulation.
-- **📝 Glassmorphism Task Manager:** Keep your activities structured with a completely redesigned, dynamic daily/weekly planner featuring live progress tracking for irrigation, fertilization, and pest control.
-- **🚚 Smart Logistics Support:** Connect directly with seed manufacturers and vehicle owners. Includes a smart keyword-based Chatbot assistant to quickly resolve booking, capacity, and pricing queries.
+- **🍃 Crop Management & AI Disease Detection:** Identify diseases by uploading infected leaf photos, learn about organic fertilizers, and optimize sowing schedules with detailed, crop-specific interactive guides (Soybean, Corn, Sugarcane, Sunflower).
+- **📝 Smart Task Manager:** A premium UI with dynamic statistics counters to keep your activities structured with daily and weekly reminders for irrigation, fertilization, and pest control.
+- **🚚 Direct Logistics Marketplace:** Connect directly with seed manufacturers and vehicle owners without any middlemen. Features a smart, context-aware AI chatbot that provides automated responses for inquiries.
 - **🌍 Multi-Lingual Support:** Completely accessible in English, Hindi, and Telugu, empowering a wider range of farmers.
 
 ---
