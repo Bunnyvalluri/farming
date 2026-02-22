@@ -70,9 +70,15 @@ Visit `http://127.0.0.1:5000` in your web browser.
 
 ## ☁️ Deployment
 
-The project is structured to deploy smoothly to serverless platforms such as **Vercel** or **Render**.
-- **Read-Only Environments:** Handles `/tmp/` caching and database storage seamlessly for Vercel’s runtime. 
-- Includes all standard production `requirements.txt`.
+### Deploying to Vercel
+The project is pre-configured for **Vercel** with a `vercel.json` file. 
+
+1. **Connect your Repository**: Connect your GitHub repo to the Vercel Dashboard.
+2. **Environment Variables**: Add your `SECRET_KEY` in the Vercel project settings.
+3. **Database & Cache**: 
+   - The app automatically detects Vercel and uses `/tmp/` for the SQLite database and Open-Meteo cache.
+   - *Note*: Data stored in `/tmp/` is ephemeral and will reset periodically. For persistent storage, consider connecting an external database like **Supabase** or **Neon**.
+4. **Build Settings**: Vercel will automatically detect the configuration and use the `@vercel/python` builder.
 
 ---
 

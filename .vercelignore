@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.cache/
+instance/
+.env
+venv/
+.git/
+node_modules/
+*.sqlite
+tunnel.log
+test_redirect.py
