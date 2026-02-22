@@ -1,289 +1,207 @@
 {% extends "base.html" %}
 
-{% block head %}
-<style>
-  .logistics-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-
-  .tabs-header {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 3rem;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px);
-    padding: 0.5rem;
-    border-radius: 50px;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-  }
-
-  .tab-btn {
-    padding: 0.8rem 2rem;
-    border-radius: 40px;
-    border: none;
-    background: transparent;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: var(--text-muted);
-  }
-
-  .tab-btn.active {
-    background: var(--primary);
-    color: white;
-    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-  }
-
-  .logistics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 2rem;
-  }
-
-  .premium-card {
-    background: white;
-    border-radius: 24px;
-    padding: 2rem;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .premium-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-    border-color: var(--primary);
-  }
-
-  .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-  }
-
-  .badge-verified {
-    background: #ecfdf5;
-    color: #059669;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.4rem 0.8rem;
-    border-radius: 100px;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-
-  .card-title {
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: var(--bg-dark);
-    margin: 0.5rem 0;
-  }
-
-  .card-desc {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-  }
-
-  .card-info {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding-top: 1.5rem;
-    border-top: 1px dashed #eee;
-  }
-
-  .info-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    color: var(--text-muted);
-  }
-
-  .info-item i {
-    color: var(--primary);
-    width: 20px;
-  }
-
-  .action-btn {
-    margin-top: 2rem;
-    width: 100%;
-    padding: 1.2rem;
-    border-radius: 16px;
-    border: none;
-    background: linear-gradient(135deg, #10b981, #059669);
-    color: white;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.8rem;
-  }
-
-  .action-btn:hover {
-    opacity: 0.9;
-    transform: scale(1.02);
-  }
-
-  /* Chat UI Enhancements */
-  #chatModal {
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15) !important;
-    border: none !important;
-    animation: slideUp 0.4s ease;
-  }
-
-  @keyframes slideUp {
-    from {
-      transform: translateY(100px);
-      opacity: 0;
-    }
-
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
-  @keyframes pulse {
-
-    0%,
-    100% {
-      opacity: 1;
-    }
-
-    50% {
-      opacity: 0.5;
-    }
-  }
-</style>
-{% endblock %}
-
 {% block content %}
-<section class="section" style="background: #f8fafc;">
-  <div class="logistics-container">
-    <h2 class="section-title" data-key="log_title">Logistics & Marketplace</h2>
+<section class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
+  <div class="mb-16 text-center">
+    <h2 class="text-4xl font-outfit font-extrabold text-slate-900 mb-4" data-key="log_title">Logistics & Marketplace
+    </h2>
+    <p class="text-slate-500 font-medium max-w-2xl mx-auto">Skip the middlemen. Connect directly with verified suppliers
+      and reliable transporters.</p>
+  </div>
 
-    <div class="tabs-header">
-      <button class="tab-btn active" id="btnMfg" onclick="showTab('mfg')" data-key="tab_mfg">Seed Manufacturers</button>
-      <button class="tab-btn" id="btnTrans" onclick="showTab('trans')" data-key="tab_trans">Transporters</button>
-    </div>
-
-    <!-- Manufacturers Tab -->
-    <div id="tabMfg" class="logistics-grid">
-      <div class="premium-card">
-        <div class="card-header">
-          <div class="badge-verified"><i class="fa-solid fa-circle-check"></i> VERIFIED</div>
-          <i class="fa-solid fa-seedling" style="color: var(--primary); font-size: 1.5rem;"></i>
-        </div>
-        <h3 class="card-title">Krishi Seeds Ltd.</h3>
-        <p class="card-desc">Leading producers of climate-resilient hybrid wheat and premium millet seeds.</p>
-        <div class="card-info">
-          <div class="info-item"><i class="fa-solid fa-location-dot"></i> <span>Pune, Maharashtra</span></div>
-          <div class="info-item"><i class="fa-solid fa-tags"></i> <span>Starting from ₹450 / 50kg</span></div>
-        </div>
-        <button class="action-btn" onclick="openChat('Krishi Seeds')">
-          <i class="fa-solid fa-paper-plane"></i>
-          <span data-key="btn_msg">Message Manufacturer</span>
-        </button>
-      </div>
-
-      <div class="premium-card">
-        <div class="card-header">
-          <div class="badge-verified"><i class="fa-solid fa-circle-check"></i> VERIFIED</div>
-          <i class="fa-solid fa-flask-vial" style="color: var(--primary); font-size: 1.5rem;"></i>
-        </div>
-        <h3 class="card-title">GreenGrow Fertilizers</h3>
-        <p class="card-desc">Specializing in certified organic NPK and sustainable bio-fertilizers for modern farming.
-        </p>
-        <div class="card-info">
-          <div class="info-item"><i class="fa-solid fa-location-dot"></i> <span>Nashik, Maharashtra</span></div>
-          <div class="info-item"><i class="fa-solid fa-tags"></i> <span>Starting from ₹1,200 / unit</span></div>
-        </div>
-        <button class="action-btn" onclick="openChat('GreenGrow')">
-          <i class="fa-solid fa-paper-plane"></i>
-          <span data-key="btn_msg">Message Manufacturer</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Transporters Tab -->
-    <div id="tabTrans" class="logistics-grid" style="display: none;">
-      <div class="premium-card">
-        <div class="card-header">
-          <div class="badge-verified" style="background: #eff6ff; color: #3b82f6;"><i class="fa-solid fa-star"></i> TOP
-            RATED</div>
-          <i class="fa-solid fa-truck" style="color: var(--primary); font-size: 1.5rem;"></i>
-        </div>
-        <h3 class="card-title">Ramesh Transport</h3>
-        <p class="card-desc">Quick local delivery service using reliable mini trucks (Tata Ace, Mahindra Jeeto).</p>
-        <div class="card-info">
-          <div class="info-item"><i class="fa-solid fa-weight-hanging"></i> <span>Capacity: Up to 2 Tons</span></div>
-          <div class="info-item"><i class="fa-solid fa-route"></i> <span>Rate: ₹15 / km</span></div>
-        </div>
-        <button class="action-btn" onclick="openChat('Ramesh Transport')">
-          <i class="fa-solid fa-phone"></i>
-          <span data-key="btn_contact">Contact Transporter</span>
-        </button>
-      </div>
-
-      <div class="premium-card">
-        <div class="card-header">
-          <div class="badge-verified" style="background: #eff6ff; color: #3b82f6;"><i class="fa-solid fa-star"></i> TOP
-            RATED</div>
-          <i class="fa-solid fa-truck-moving" style="color: var(--primary); font-size: 1.5rem;"></i>
-        </div>
-        <h3 class="card-title">AgroPath Logistics</h3>
-        <p class="card-desc">Inter-state bulk transportation with large container trucks and GPS tracking.</p>
-        <div class="card-info">
-          <div class="info-item"><i class="fa-solid fa-weight-hanging"></i> <span>Capacity: Up to 12 Tons</span></div>
-          <div class="info-item"><i class="fa-solid fa-route"></i> <span>Rate: ₹45 / km</span></div>
-        </div>
-        <button class="action-btn" onclick="openChat('AgroPath Logistics')">
-          <i class="fa-solid fa-phone"></i>
-          <span data-key="btn_contact">Contact Transporter</span>
-        </button>
-      </div>
+  <!-- Tabbed Navigation -->
+  <div class="flex justify-center mb-16">
+    <div class="inline-flex p-1.5 bg-slate-200/50 backdrop-blur-md rounded-[2rem] border border-slate-200">
+      <button id="btnMfg" onclick="showTab('mfg')"
+        class="tab-btn active px-8 py-3 rounded-full font-bold transition-all duration-300 flex items-center gap-2 group"
+        data-key="tab_mfg">
+        <i class="fa-solid fa-seedling group-hover:rotate-12 transition-transform"></i>
+        Seed Manufacturers
+      </button>
+      <button id="btnTrans" onclick="showTab('trans')"
+        class="tab-btn px-8 py-3 rounded-full font-bold text-slate-500 hover:text-slate-700 transition-all duration-300 flex items-center gap-2 group"
+        data-key="tab_trans">
+        <i class="fa-solid fa-truck-fast group-hover:-translate-x-1 transition-transform"></i>
+        Transporters
+      </button>
     </div>
   </div>
 
-  <!-- Enhanced Chat Modal -->
-  <div id="chatModal"
-    style="display: none; position: fixed; bottom: 30px; right: 30px; width: 380px; background: white; border-radius: 24px; z-index: 2000; overflow: hidden;">
+  <!-- Manufacturers Tab -->
+  <div id="tabMfg" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- Card 1 -->
     <div
-      style="background: linear-gradient(135deg, var(--bg-dark), #1f2937); color: white; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
-      <div style="display: flex; align-items: center; gap: 1rem;">
-        <div style="width: 10px; height: 10px; background: #10b981; border-radius: 50%;"></div>
-        <span id="chatTitle" style="font-weight: 700; font-family: 'Outfit';">Chat Support</span>
+      class="group bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
+      <div class="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:scale-110 transition-transform duration-700">
+        <i class="fa-solid fa-leaf text-9xl"></i>
       </div>
-      <button onclick="document.getElementById('chatModal').style.display='none'"
-        style="background: transparent; border: none; color: white; cursor: pointer; font-size: 1.8rem;">&times;</button>
-    </div>
-    <div id="chatBox"
-      style="height: 350px; padding: 1.5rem; overflow-y: auto; background: #fff; display: flex; flex-direction: column; gap: 1rem;">
-      <div id="chatWelcome"
-        style="background: #f1f5f9; padding: 0.8rem 1.2rem; border-radius: 18px 18px 18px 4px; align-self: flex-start; max-width: 85%; font-size: 0.95rem; color: #334155;">
-        Namaste! How can we assist you with your order today?
+
+      <div class="flex justify-between items-start mb-8">
+        <div
+          class="px-4 py-1 bg-emerald-50 text-emerald-700 rounded-full text-[10px] font-black uppercase tracking-widest border border-emerald-100 flex items-center gap-1.5">
+          <i class="fa-solid fa-circle-check"></i> Verified
+        </div>
+        <div
+          class="w-12 h-12 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center text-xl shadow-lg shadow-primary-600/5">
+          <i class="fa-solid fa-wheat-awn"></i>
+        </div>
       </div>
-    </div>
-    <div style="padding: 1.2rem; background: #f8fafc; border-top: 1px solid #f1f5f9; display: flex; gap: 0.8rem;">
-      <input type="text" id="chatInput" placeholder="Write your message..."
-        style="flex: 1; padding: 0.8rem 1.2rem; border: 1.5px solid #e2e8f0; border-radius: 12px; outline: none; transition: border-color 0.3s;"
-        onfocus="this.style.borderColor='var(--primary)'" onkeydown="if(event.key === 'Enter') sendMessage()">
-      <button class="action-btn" style="margin: 0; width: auto; padding: 0.8rem 1.2rem;" onclick="sendMessage()">
-        <i class="fa-solid fa-paper-plane"></i>
+
+      <h3
+        class="text-2xl font-outfit font-extrabold text-slate-900 group-hover:text-primary-600 transition-colors mb-4">
+        Krishi Seeds Ltd.</h3>
+      <p class="text-slate-500 text-sm font-medium leading-relaxed mb-8">Leading producers of climate-resilient hybrid
+        wheat and premium millet seeds.</p>
+
+      <div class="space-y-4 pt-6 border-t border-slate-50 mb-8">
+        <div class="flex items-center gap-4 text-slate-500 group-hover:text-slate-700 transition-colors">
+          <i class="fa-solid fa-location-dot text-primary-600 w-5"></i>
+          <span class="text-xs font-bold uppercase tracking-wider">Pune, Maharashtra</span>
+        </div>
+        <div class="flex items-center gap-4 text-slate-500 group-hover:text-slate-700 transition-colors">
+          <i class="fa-solid fa-tags text-primary-600 w-5"></i>
+          <span class="text-xs font-bold uppercase tracking-wider">Starting ₹450 <span class="text-slate-400">/
+              50kg</span></span>
+        </div>
+      </div>
+
+      <button onclick="openChat('Krishi Seeds')"
+        class="w-full py-4 bg-primary-600 text-white rounded-2xl font-bold hover:bg-primary-700 shadow-lg shadow-primary-600/20 transition-all flex items-center justify-center gap-3">
+        <i class="fa-solid fa-comment-dots"></i>
+        <span data-key="btn_msg">Message Manufacturer</span>
       </button>
+    </div>
+
+    <!-- Card 2 -->
+    <div
+      class="group bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
+      <div class="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:scale-110 transition-transform duration-700">
+        <i class="fa-solid fa-flask-vial text-9xl"></i>
+      </div>
+
+      <div class="flex justify-between items-start mb-8">
+        <div
+          class="px-4 py-1 bg-emerald-50 text-emerald-700 rounded-full text-[10px] font-black uppercase tracking-widest border border-emerald-100 flex items-center gap-1.5">
+          <i class="fa-solid fa-circle-check"></i> Verified
+        </div>
+        <div
+          class="w-12 h-12 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center text-xl shadow-lg shadow-primary-600/5">
+          <i class="fa-solid fa-droplet"></i>
+        </div>
+      </div>
+
+      <h3
+        class="text-2xl font-outfit font-extrabold text-slate-900 group-hover:text-primary-600 transition-colors mb-4">
+        GreenGrow Fertilizers</h3>
+      <p class="text-slate-500 text-sm font-medium leading-relaxed mb-8">Specializing in certified organic NPK and
+        sustainable bio-fertilizers.</p>
+
+      <div class="space-y-4 pt-6 border-t border-slate-50 mb-8">
+        <div class="flex items-center gap-4 text-slate-500 group-hover:text-slate-700 transition-colors">
+          <i class="fa-solid fa-location-dot text-primary-600 w-5"></i>
+          <span class="text-xs font-bold uppercase tracking-wider">Nashik, Maharashtra</span>
+        </div>
+        <div class="flex items-center gap-4 text-slate-500 group-hover:text-slate-700 transition-colors">
+          <i class="fa-solid fa-tags text-primary-600 w-5"></i>
+          <span class="text-xs font-bold uppercase tracking-wider">Starting ₹1,200 <span class="text-slate-400">/
+              unit</span></span>
+        </div>
+      </div>
+
+      <button onclick="openChat('GreenGrow')"
+        class="w-full py-4 bg-primary-600 text-white rounded-2xl font-bold hover:bg-primary-700 shadow-lg shadow-primary-600/20 transition-all flex items-center justify-center gap-3">
+        <i class="fa-solid fa-comment-dots"></i>
+        <span data-key="btn_msg">Message Manufacturer</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Transporters Tab (Initially Hidden) -->
+  <div id="tabTrans" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- Card 1 -->
+    <div
+      class="group bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
+      <div class="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:scale-110 transition-transform duration-700">
+        <i class="fa-solid fa-truck text-9xl"></i>
+      </div>
+
+      <div class="flex justify-between items-start mb-8">
+        <div
+          class="px-4 py-1 bg-blue-50 text-blue-700 rounded-full text-[10px] font-black uppercase tracking-widest border border-blue-100 flex items-center gap-1.5">
+          <i class="fa-solid fa-star"></i> Top Rated
+        </div>
+        <div
+          class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-xl shadow-lg shadow-blue-600/5">
+          <i class="fa-solid fa-truck"></i>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-outfit font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors mb-4">
+        Ramesh Transport</h3>
+      <p class="text-slate-500 text-sm font-medium leading-relaxed mb-8">Quick local delivery service using reliable
+        mini trucks (Tata Ace, Mahindra Jeeto).</p>
+
+      <div class="space-y-4 pt-6 border-t border-slate-50 mb-8">
+        <div class="flex items-center gap-4 text-slate-500 group-hover:text-slate-700 transition-colors">
+          <i class="fa-solid fa-weight-hanging text-blue-600 w-5"></i>
+          <span class="text-xs font-bold uppercase tracking-wider">Capacity: 2 Tons</span>
+        </div>
+        <div class="flex items-center gap-4 text-slate-500 group-hover:text-slate-700 transition-colors">
+          <i class="fa-solid fa-route text-blue-600 w-5"></i>
+          <span class="text-xs font-bold uppercase tracking-wider">Rate: ₹15 <span class="text-slate-400">/
+              km</span></span>
+        </div>
+      </div>
+
+      <button onclick="openChat('Ramesh Transport')"
+        class="w-full py-4 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 shadow-lg shadow-blue-600/20 transition-all flex items-center justify-center gap-3">
+        <i class="fa-solid fa-phone"></i>
+        <span data-key="btn_contact">Contact Transporter</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Chat Modal Component -->
+  <div id="chatModal" class="fixed bottom-8 right-8 w-full max-w-sm hidden z-[100] animate-[toastIn_0.4s_ease-out]">
+    <div class="bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden flex flex-col h-[550px]">
+      <!-- Chat Header -->
+      <div class="bg-slate-900 text-white p-6 flex justify-between items-center shrink-0">
+        <div class="flex items-center gap-4">
+          <div class="relative">
+            <div class="w-10 h-10 bg-primary-600 rounded-2xl flex items-center justify-center font-bold text-lg">A</div>
+            <div class="absolute -top-1 -right-1 w-4 h-4 bg-emerald-500 border-4 border-slate-900 rounded-full"></div>
+          </div>
+          <div>
+            <h4 id="chatTitle" class="font-outfit font-black leading-tight">Support</h4>
+            <p class="text-[10px] text-emerald-400 font-bold uppercase tracking-widest">Active Now</p>
+          </div>
+        </div>
+        <button onclick="document.getElementById('chatModal').classList.add('hidden')"
+          class="w-8 h-8 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center">
+          <i class="fa-solid fa-times h-4"></i>
+        </button>
+      </div>
+
+      <!-- Messages Area -->
+      <div id="chatBox" class="grow bg-slate-50 p-6 overflow-y-auto flex flex-col gap-4 scroll-smooth">
+        <div id="chatWelcome"
+          class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-100 text-slate-600 text-sm font-medium max-w-[85%]">
+          Namaste! How can we assist you with your farming needs today?
+        </div>
+      </div>
+
+      <!-- Input Area -->
+      <div class="p-4 bg-white border-t border-slate-100 shrink-0">
+        <div class="flex gap-2">
+          <input type="text" id="chatInput" placeholder="Write your message..."
+            onkeydown="if(event.key === 'Enter') sendMessage()"
+            class="grow px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none text-sm font-medium">
+          <button onclick="sendMessage()"
+            class="w-12 h-12 bg-primary-600 text-white rounded-2xl flex items-center justify-center hover:bg-primary-700 transition-all shadow-lg shadow-primary-600/20">
+            <i class="fa-solid fa-paper-plane text-sm"></i>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -292,24 +210,35 @@
 {% block scripts %}
 <script>
   function showTab(type) {
-    document.getElementById('tabMfg').style.display = type === 'mfg' ? 'grid' : 'none';
-    document.getElementById('tabTrans').style.display = type === 'trans' ? 'grid' : 'none';
+    const isMfg = type === 'mfg';
+    document.getElementById('tabMfg').classList.toggle('hidden', !isMfg);
+    document.getElementById('tabTrans').classList.toggle('hidden', isMfg);
+    document.getElementById('tabTrans').classList.toggle('grid', !isMfg);
 
-    document.getElementById('btnMfg').classList.toggle('active', type === 'mfg');
-    document.getElementById('btnTrans').classList.toggle('active', type === 'trans');
+    const btnMfg = document.getElementById('btnMfg');
+    const btnTrans = document.getElementById('btnTrans');
+
+    if (isMfg) {
+      btnMfg.className = "px-8 py-3 rounded-full font-bold transition-all duration-300 flex items-center gap-2 group bg-primary-600 text-white shadow-lg shadow-primary-600/20";
+      btnTrans.className = "px-8 py-3 rounded-full font-bold text-slate-500 hover:text-slate-700 transition-all duration-300 flex items-center gap-2 group";
+    } else {
+      btnTrans.className = "px-8 py-3 rounded-full font-bold transition-all duration-300 flex items-center gap-2 group bg-blue-600 text-white shadow-lg shadow-blue-600/20";
+      btnMfg.className = "px-8 py-3 rounded-full font-bold text-slate-500 hover:text-slate-700 transition-all duration-300 flex items-center gap-2 group";
+    }
   }
 
   function openChat(name) {
-    document.getElementById('chatModal').style.display = 'block';
-    document.getElementById('chatTitle').innerText = name + ' Support';
+    const modal = document.getElementById('chatModal');
+    modal.classList.remove('hidden');
+    document.getElementById('chatTitle').innerText = name;
 
-    // Dynamic welcome message
     const welcomes = {
-      'en': 'Namaste! How can we assist you with your order today?',
-      'hi': 'नमस्ते! हम आज आपके ऑर्डर में आपकी कैसे मदद कर सकते हैं?',
-      'te': 'నమస్తే! ఈ రోజు మీ ఆర్డర్‌తో మేము ఎలా సహాయం చేయగలము?'
+      'en': 'Namaste! How can we assist you with your logistics need today?',
+      'hi': 'नमस्ते! ट्रांसपोर्ट या बीज के बारे में हम आज आपकी क्या मदद कर सकते हैं?',
+      'te': 'నమస్తే! ఈ రోజు లాజిస్టిక్స్ పనుల్లో మేము మీకు ఎలా సహాయం చేయగలం?'
     };
     document.getElementById('chatWelcome').innerText = welcomes[currentLang] || welcomes['en'];
+    document.getElementById('chatInput').focus();
   }
 
   function sendMessage() {
@@ -319,73 +248,29 @@
 
     const chatBox = document.getElementById('chatBox');
 
-    // User Message
-    const msgEl = document.createElement('div');
-    msgEl.style.cssText = "background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.8rem 1.2rem; border-radius: 18px 18px 4px 18px; align-self: flex-end; max-width: 85%; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2); margin-bottom: 0.5rem;";
-    msgEl.innerText = msg;
-    chatBox.appendChild(msgEl);
+    // User Msg
+    const userDiv = document.createElement('div');
+    userDiv.className = "bg-primary-600 text-white p-4 rounded-2xl rounded-tr-none shadow-md text-sm font-bold self-end max-w-[85%] animate-[toastIn_0.3s_ease-out]";
+    userDiv.innerText = msg;
+    chatBox.appendChild(userDiv);
 
     input.value = '';
     chatBox.scrollTop = chatBox.scrollHeight;
 
-    // Typing Indicator
-    const typingId = 'typing-' + Date.now();
-    const typingEl = document.createElement('div');
-    typingEl.id = typingId;
-    typingEl.style.cssText = "background: #f1f5f9; padding: 0.8rem 1.2rem; border-radius: 18px 18px 18px 4px; align-self: flex-start; max-width: 85%; font-size: 0.9rem; color: #64748b; font-style: italic; margin-bottom: 0.5rem; animation: pulse 1.5s infinite;";
-    typingEl.innerText = "Typing...";
-    chatBox.appendChild(typingEl);
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    // Smart Auto Reply
+    // Simulation of response
     setTimeout(() => {
-      // Remove typing indicator
-      const typingDiv = document.getElementById(typingId);
-      if (typingDiv) typingDiv.remove();
-
-      const titleEl = document.getElementById('chatTitle');
-      const companyName = titleEl ? titleEl.innerText.replace(' Support', '') : 'Our Company';
-      const isTransporter = companyName.toLowerCase().includes('transport') || companyName.toLowerCase().includes('logistics');
-
-      const lowerMsg = msg.toLowerCase();
-      let replyText = `Thank you for reaching out. A representative from ${companyName} will respond to you shortly.`;
-
-      // Keyword based simple logic
-      if (lowerMsg.includes('price') || lowerMsg.includes('cost') || lowerMsg.includes('rate') || lowerMsg.includes('how much')) {
-        replyText = isTransporter
-          ? `Our standard transportation rates start around ₹15 to ₹45 per km depending on the truck size. Can you specify your exact pickup and drop locations?`
-          : `Our seed/fertilizer prices vary based on quantity. We offer wholesale discounts for bulk orders over 100kg. What specific product are you looking for?`;
-      } else if (lowerMsg.includes('delivery') || lowerMsg.includes('time') || lowerMsg.includes('when') || lowerMsg.includes('truck')) {
-        replyText = isTransporter
-          ? `We can usually provide a truck within 24 hours of booking confirmation. How much load capacity (in tons) do you need?`
-          : `We provide direct farm delivery within 2-3 business days. Would you like to check delivery availability for your pincode?`;
-      } else if (lowerMsg.includes('hello') || lowerMsg.includes('hi ') || lowerMsg === 'hi' || lowerMsg.includes('hey')) {
-        replyText = `Hello! Welcome to ${companyName}. How can we help you with your agriculture or logistics needs today?`;
-      } else if (lowerMsg.includes('quality') || lowerMsg.includes('organic') || lowerMsg.includes('seed')) {
-        replyText = `All our products are government certified and we pride ourselves on high yield rates. Let us know exactly which crop you are planting next!`;
-      } else if (lowerMsg.includes('book') || lowerMsg.includes('order') || lowerMsg.includes('buy')) {
-        replyText = `Great! Please leave your contact number and exact requirements here, and our sales team will call you back within 15 minutes to confirm everything.`;
-      }
-
-      // Basic language support
-      if (currentLang === 'hi') {
-        if (replyText.includes('representative')) replyText = `संपर्क करने के लिए धन्यवाद। ${companyName} का एक प्रतिनिधि जल्द ही आपको जवाब देगा।`;
-        else if (lowerMsg.includes('hi') || lowerMsg.includes('hello')) replyText = `नमस्ते! हम आपकी कैसे मदद कर सकते हैं?`;
-        else if (lowerMsg.includes('price') || lowerMsg.includes('cost')) replyText = `कीमतें मात्रा पर निर्भर करती हैं। कृपया अपनी आवश्यकता बताएं ताकि हम सटीक दाम बता सकें।`;
-        else replyText = `धन्यवाद! हमारा एजेंट जल्द ही आपसे इस बारे में बात करेगा।`;
-      } else if (currentLang === 'te') {
-        if (replyText.includes('representative')) replyText = `సంప్రదించినందుకు ధన్యవాదాలు. ${companyName} నుండి ప్రతినిధి త్వరలో మీకు ప్రతిస్పందిస్తారు.`;
-        else if (lowerMsg.includes('hi') || lowerMsg.includes('hello')) replyText = `నమస్తే! మేము మీకు ఎలా సహాయం చేయగలం?`;
-        else if (lowerMsg.includes('price') || lowerMsg.includes('cost')) replyText = `ధరలు పరిమాణంపై ఆధారపడి ఉంటాయి. దయచేసి మీ అవసరాన్ని తెలపండి.`;
-        else replyText = `ధన్యవాదాలు! మా ఏజెంట్ త్వరలో మీతో మాట్లాడతారు.`;
-      }
-
-      const replyEl = document.createElement('div');
-      replyEl.style.cssText = "background: #f1f5f9; padding: 0.8rem 1.2rem; border-radius: 18px 18px 18px 4px; align-self: flex-start; max-width: 85%; font-size: 0.95rem; color: #334155; margin-bottom: 0.5rem; line-height: 1.5; box-shadow: 0 2px 5px rgba(0,0,0,0.02);";
-      replyEl.innerText = replyText;
-      chatBox.appendChild(replyEl);
+      const replyText = currentLang === 'hi' ? "धन्यवाद, हमारी टीम जल्द ही आपसे संपर्क करेगी।" : "Thank you for your message. Our representative will get back to you within 15 minutes.";
+      const replyDiv = document.createElement('div');
+      replyDiv.className = "bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-100 text-slate-600 text-sm font-medium max-w-[85%] animate-[toastIn_0.3s_ease-out]";
+      replyDiv.innerText = replyText;
+      chatBox.appendChild(replyDiv);
       chatBox.scrollTop = chatBox.scrollHeight;
-    }, 1000 + Math.random() * 1000); // Dynamic delay
+    }, 1200);
   }
 </script>
+<style>
+  .tab-btn.active {
+    pointer-events: none;
+  }
+</style>
 {% endblock %}

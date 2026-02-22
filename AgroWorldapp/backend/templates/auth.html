@@ -1,53 +1,98 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="section">
-  <div style="max-width: 450px; margin: 0 auto;">
-    <div class="feature-card">
-      <h2 style="text-align: center; margin-bottom: 2rem;">
-        <span data-key="{% if type == 'login' %}auth_login_title{% else %}auth_reg_title{% endif %}">
-          {% if type == 'login' %}Login to Agro World{% else %}Create Farmer Account{% endif %}
-        </span>
-      </h2>
+<section class="min-h-[80vh] flex items-center justify-center px-4 py-20 relative overflow-hidden">
+  <!-- Decorative Elements -->
+  <div
+    class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-100/50 blur-[120px] rounded-full -mr-64 -mt-64 animate-pulse">
+  </div>
+  <div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-accent/10 blur-[100px] rounded-full -ml-32 -mb-32"></div>
 
-      <form action="/login" method="POST" style="display: flex; flex-direction: column; gap: 1.5rem;">
-        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-          <label style="font-weight: 600;" data-key="auth_email">Email or Phone</label>
-          <input type="text" name="email" required placeholder="e.g., +91 98765 43210"
-            style="padding: 0.8rem 1rem; border-radius: 12px; border: 1px solid #ddd; outline: none;">
+  <div class="w-full max-w-md relative z-10">
+    <div class="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-2xl shadow-primary-900/10 border border-slate-100">
+
+      <!-- Brand Logo in Auth -->
+      <div class="flex flex-col items-center mb-10">
+        <div
+          class="w-16 h-16 bg-primary-600 rounded-[1.5rem] flex items-center justify-center text-white shadow-xl shadow-primary-600/30 mb-6 group hover:rotate-12 transition-transform duration-500">
+          <i class="fa-solid fa-leaf text-3xl"></i>
+        </div>
+        <h2 class="text-3xl font-outfit font-black text-slate-900 leading-tight text-center">
+          <span data-key="{% if type == 'login' %}auth_login_title{% else %}auth_reg_title{% endif %}">
+            {% if type == 'login' %}Login to Agro World{% else %}Create Farmer Account{% endif %}
+          </span>
+        </h2>
+      </div>
+
+      <form action="/login" method="POST" class="space-y-6">
+        <div class="space-y-2 group">
+          <label
+            class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1 group-focus-within:text-primary-600 transition-colors"
+            data-key="auth_email">Email or Phone</label>
+          <div class="relative">
+            <input type="text" name="email" required placeholder="e.g., +91 98765 43210"
+              class="w-full pl-6 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none font-medium h-14">
+            <i class="fa-solid fa-at absolute right-6 top-1/2 -translate-y-1/2 text-slate-300"></i>
+          </div>
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-          <label style="font-weight: 600;" data-key="auth_pass">Password</label>
-          <input type="password" name="password" required placeholder="••••••••"
-            style="padding: 0.8rem 1rem; border-radius: 12px; border: 1px solid #ddd; outline: none;">
+        <div class="space-y-2 group">
+          <label
+            class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1 group-focus-within:text-primary-600 transition-colors"
+            data-key="auth_pass">Password</label>
+          <div class="relative">
+            <input type="password" name="password" required placeholder="••••••••"
+              class="w-full pl-6 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none font-medium h-14">
+            <i class="fa-solid fa-lock absolute right-6 top-1/2 -translate-y-1/2 text-slate-300"></i>
+          </div>
         </div>
 
         {% if type == 'register' %}
-        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-          <label style="font-weight: 600;" data-key="auth_role">Your Role</label>
-          <select name="role" style="padding: 0.8rem; border-radius: 12px; border: 1px solid #ddd;">
-            <option value="farmer" data-key="role_farmer">Farmer</option>
-            <option value="manufacturer" data-key="role_mfg">Seed Manufacturer</option>
-            <option value="transporter" data-key="role_trans">Transporter</option>
-          </select>
+        <div class="space-y-2 group">
+          <label
+            class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1 group-focus-within:text-primary-600 transition-colors"
+            data-key="auth_role">Your Community Role</label>
+          <div class="relative">
+            <select name="role"
+              class="w-full pl-6 pr-10 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none font-bold text-slate-700 appearance-none h-14 cursor-pointer">
+              <option value="farmer" data-key="role_farmer">Farmer</option>
+              <option value="manufacturer" data-key="role_mfg">Seed Manufacturer</option>
+              <option value="transporter" data-key="role_trans">Transporter</option>
+            </select>
+            <i
+              class="fa-solid fa-chevron-down absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs"></i>
+          </div>
         </div>
         {% endif %}
 
-        <button type="submit" class="lang-toggle" style="width: 100%; padding: 1rem; margin-top: 1rem;"
-          data-key="{% if type == 'login' %}auth_login_btn{% else %}auth_reg_btn{% endif %}">
-          {% if type == 'login' %}Login{% else %}Join Community{% endif %}
-        </button>
+        <div class="pt-4">
+          <button type="submit" class="w-full btn-primary !py-4 text-base shadow-primary-600/30"
+            data-key="{% if type == 'login' %}auth_login_btn{% else %}auth_reg_btn{% endif %}">
+            {% if type == 'login' %}Sign In Account{% else %}Start Your Journey{% endif %}
+          </button>
+        </div>
       </form>
 
-      <p style="text-align: center; margin-top: 2rem; color: var(--text-muted);">
-        {% if type == 'login' %}
-        <span data-key="auth_new_here">New here?</span> <a href="/register"
-          style="color: var(--primary); font-weight: 600;" data-key="auth_create_acc">Create an account</a>
-        {% else %}
-        <span data-key="auth_have_acc">Already have an account?</span> <a href="/login"
-          style="color: var(--primary); font-weight: 600;" data-key="auth_login_btn">Login</a>
-        {% endif %}
+      <div class="mt-10 pt-8 border-t border-slate-100 text-center">
+        <p class="text-slate-500 font-medium">
+          {% if type == 'login' %}
+          <span data-key="auth_new_here">Don't have an account?</span> <a href="/register"
+            class="text-primary-600 font-black hover:underline underline-offset-4 ml-1 transition-all"
+            data-key="auth_create_acc">Join US</a>
+          {% else %}
+          <span data-key="auth_have_acc">Already part of us?</span> <a href="/login"
+            class="text-primary-600 font-black hover:underline underline-offset-4 ml-1 transition-all"
+            data-key="auth_login_btn">Sign In</a>
+          {% endif %}
+        </p>
+      </div>
+    </div>
+
+    <!-- Auth Footer Info -->
+    <div class="mt-8 text-center px-4">
+      <p class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] leading-relaxed">
+        Secured by Agro World Encryption <br>
+        Your Data is Private & Safe
       </p>
     </div>
   </div>

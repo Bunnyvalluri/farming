@@ -1,149 +1,131 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="section">
-  <!-- Top Header with Stats -->
-  <div style="max-width: 900px; margin: 0 auto; margin-bottom: 3rem; text-align: center;">
-    <h2 class="section-title" data-key="task_title" style="margin-bottom: 1rem;">Smart Task Manager</h2>
-    <p style="color: var(--text-muted); font-size: 1.1rem;">Organize your daily farming activities with precision and
-      ease.</p>
+<section class="py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+  <!-- Dashboard Stats Header -->
+  <div class="mb-12 text-center">
+    <h2 class="text-4xl font-outfit font-extrabold text-slate-900 mb-4" data-key="task_title">Smart Task Manager</h2>
+    <p class="text-slate-500 font-medium mb-12">Organize your farming operations with professional precision.</p>
 
     {% set total = tasks|length %}
     {% set completed = tasks | selectattr('is_completed', 'equalto', true) | list | length %}
     {% set pending = total - completed %}
 
-    <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
       <div
-        style="background: white; padding: 1.5rem 2.5rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-bottom: 4px solid var(--primary); min-width: 150px; transition: transform 0.3s; cursor: default;"
-        onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-        <h1 style="color: var(--text-main); font-size: 2.8rem; line-height: 1;">{{ total }}</h1>
-        <p
-          style="color: var(--text-muted); font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; margin-top: 5px;">
-          Total Tasks</p>
+        class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-lg transition-all border-b-4 border-b-primary-500 group">
+        <div class="text-4xl font-outfit font-black text-slate-900 mb-2 group-hover:scale-110 transition-transform">{{
+          total }}</div>
+        <p class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Total Tasks</p>
       </div>
       <div
-        style="background: white; padding: 1.5rem 2.5rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-bottom: 4px solid #f59e0b; min-width: 150px; transition: transform 0.3s; cursor: default;"
-        onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-        <h1 style="color: #f59e0b; font-size: 2.8rem; line-height: 1;">{{ pending }}</h1>
-        <p
-          style="color: var(--text-muted); font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; margin-top: 5px;">
-          In Progress</p>
+        class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-lg transition-all border-b-4 border-b-amber-500 group">
+        <div class="text-4xl font-outfit font-black text-amber-600 mb-2 group-hover:scale-110 transition-transform">{{
+          pending }}</div>
+        <p class="text-[10px] uppercase font-bold tracking-widest text-slate-400">In Progress</p>
       </div>
       <div
-        style="background: white; padding: 1.5rem 2.5rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-bottom: 4px solid #10b981; min-width: 150px; transition: transform 0.3s; cursor: default;"
-        onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-        <h1 style="color: #10b981; font-size: 2.8rem; line-height: 1;">{{ completed }}</h1>
-        <p
-          style="color: var(--text-muted); font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; margin-top: 5px;">
-          Completed</p>
+        class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-lg transition-all border-b-4 border-b-emerald-500 group">
+        <div class="text-4xl font-outfit font-black text-emerald-600 mb-2 group-hover:scale-110 transition-transform">{{
+          completed }}</div>
+        <p class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Completed</p>
       </div>
     </div>
   </div>
 
+  <!-- Add Task Component -->
   <div
-    style="max-width: 900px; margin: 0 auto; display: grid; gap: 2.5rem; grid-template-columns: 1fr; align-items: start;">
+    class="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/50 mb-12 relative overflow-hidden group">
+    <div class="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:rotate-12 transition-transform duration-1000">
+      <i class="fa-solid fa-calendar-check text-9xl"></i>
+    </div>
 
-    <!-- Add Task Form Glassmorphism -->
-    <div
-      style="background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.8); padding: 2rem 2.5rem; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.06);">
-      <h3
-        style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem; color: var(--bg-dark); font-size: 1.4rem;"
-        data-key="task_add_title">
-        <div
-          style="width: 40px; height: 40px; background: rgba(16,185,129,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-          <i class="fa-solid fa-calendar-plus" style="color: var(--primary);"></i>
-        </div>
-        Add New Task
-      </h3>
-      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+    <h3 class="flex items-center gap-3 text-xl font-outfit font-extrabold text-slate-900 mb-8"
+      data-key="task_add_title">
+      <div class="w-10 h-10 bg-primary-50 text-primary-600 rounded-xl flex items-center justify-center">
+        <i class="fa-solid fa-plus-circle"></i>
+      </div>
+      Add New Operation
+    </h3>
+
+    <div class="flex flex-col sm:flex-row gap-4 relative z-10">
+      <div class="grow relative">
         <input type="text" id="taskInput" placeholder="e.g., Water the wheat field before noon"
-          style="flex: 1; min-width: 250px; padding: 1.2rem 1.5rem; border-radius: 16px; border: 2px solid transparent; background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.03); outline: none; font-size: 1.05rem; transition: all 0.3s; color: var(--text-main);"
-          onfocus="this.style.borderColor='var(--primary)'; this.style.boxShadow='0 4px 20px rgba(16,185,129,0.15)'"
-          onblur="this.style.borderColor='transparent'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.03)'">
+          class="w-full pl-6 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none font-medium shadow-inner">
+      </div>
 
+      <div class="sm:w-48 relative">
         <select id="taskCat"
-          style="padding: 1.2rem 1.5rem; border-radius: 16px; border: none; background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.03); outline: none; font-weight: 600; font-size: 1.05rem; color: var(--text-main); cursor: pointer; min-width: 160px; appearance: none; transition: transform 0.2s;">
+          class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none font-bold text-slate-700 appearance-none">
           <option value="Irrigation">💧 Irrigation</option>
           <option value="Fertilizer">🧪 Fertilizer</option>
           <option value="Pests">🐛 Pest Control</option>
           <option value="Harvest">🌾 Harvest</option>
           <option value="General">📌 General</option>
         </select>
-
-        <button onclick="addTask()"
-          style="background: linear-gradient(135deg, var(--primary) 0%, var(--bg-dark) 100%); color: white; padding: 1.2rem 2.5rem; border-radius: 16px; border: none; font-weight: 700; font-size: 1.1rem; cursor: pointer; box-shadow: 0 10px 20px rgba(16,185,129,0.3); transition: all 0.3s; display: flex; align-items: center; gap: 0.5rem;"
-          onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 15px 25px rgba(16,185,129,0.4)'"
-          onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 20px rgba(16,185,129,0.3)'">
-          <i class="fa-solid fa-plus"></i> <span data-key="task_add_btn">Add Task</span>
-        </button>
+        <i
+          class="fa-solid fa-chevron-down absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs"></i>
       </div>
-    </div>
 
-    <!-- Task List -->
-    <div id="taskList" style="display: grid; gap: 1.2rem;">
-      {% if tasks %}
-      {% for task in tasks %}
-      <div class="task-card"
-        style="background: white; padding: 1.5rem 2rem; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; justify-content: space-between; transition: all 0.3s ease; border-left: 6px solid {% if task.category == 'Irrigation' %}#3b82f6{% elif task.category == 'Fertilizer' %}#8b5cf6{% elif task.category == 'Pests' %}#ef4444{% elif task.category == 'Harvest' %}#f59e0b{% else %}#10b981{% endif %}; {% if task.is_completed %}opacity: 0.6; filter: grayscale(50%);{% endif %}">
-        <div style="display: flex; align-items: center; gap: 1.5rem; flex: 1;">
-
-          <div onclick="toggleTask({{ task.id }})"
-            style="min-width: 35px; height: 35px; border-radius: 10px; border: 2.5px solid {% if task.is_completed %}var(--primary){% else %}#cbd5e1{% endif %}; display: flex; align-items: center; justify-content: center; cursor: pointer; background: {% if task.is_completed %}var(--primary){% else %}transparent{% endif %}; transition: all 0.2s;"
-            onmouseover="this.style.borderColor='var(--primary)'"
-            onmouseout="{% if not task.is_completed %}this.style.borderColor='#cbd5e1'{% endif %}"
-            title="Toggle Completion">
-            {% if task.is_completed %}<i class="fa-solid fa-check" style="color: white; font-size: 1rem;"></i>{% endif
-            %}
-          </div>
-
-          <div>
-            <h4
-              style="font-size: 1.25rem; color: var(--text-main); margin-bottom: 0.3rem; transition: color 0.3s; {% if task.is_completed %}text-decoration: line-through; color: var(--text-muted);{% endif %}">
-              {{ task.title }}</h4>
-            <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.85rem;">
-              <span
-                style="background: #f1f5f9; color: var(--text-muted); padding: 0.3rem 1rem; border-radius: 50px; font-weight: 700;">
-                {% if task.category == 'Irrigation' %}💧 {% elif task.category == 'Fertilizer' %}🧪 {% elif
-                task.category == 'Pests' %}🐛 {% elif task.category == 'Harvest' %}🌾 {% else %}📌 {% endif %}
-                {{ task.category }}
-              </span>
-              <span style="color: #94a3b8; font-weight: 500;"><i class="fa-regular fa-clock"
-                  style="margin-right: 0.4rem;"></i>{{ task.created_at.strftime('%d %b, %H:%M') }}</span>
-            </div>
-          </div>
-        </div>
-
-        <button onclick="deleteTask({{ task.id }})"
-          style="background: #fef2f2; border: 1px solid #fee2e2; color: #ef4444; width: 48px; height: 48px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; margin-left: 1rem;"
-          onmouseover="this.style.background='#ef4444'; this.style.color='white'"
-          onmouseout="this.style.background='#fef2f2'; this.style.color='#ef4444'" title="Delete Task">
-          <i class="fa-solid fa-trash-can" style="font-size: 1.2rem;"></i>
-        </button>
-      </div>
-      {% endfor %}
-      {% else %}
-      <div
-        style="text-align: center; padding: 6rem 0; color: var(--text-muted); background: white; border-radius: 20px; border: 2px dashed #e2e8f0;">
-        <div
-          style="width: 120px; height: 120px; background: rgba(16,185,129,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem auto;">
-          <i class="fa-solid fa-clipboard-check" style="font-size: 4rem; color: var(--primary); opacity: 0.8;"></i>
-        </div>
-        <h3 style="font-size: 1.5rem; color: var(--text-main); margin-bottom: 0.5rem;">No tasks pending</h3>
-        <p style="font-size: 1.1rem;">You're all caught up! Add a new task above to get started.</p>
-      </div>
-      {% endif %}
+      <button onclick="addTask()" class="btn-primary grow sm:grow-0 !py-4 whitespace-nowrap shadow-primary-600/30">
+        <span data-key="task_add_btn">Add Task</span>
+      </button>
     </div>
   </div>
-</section>
 
-<style>
-  .task-card:hover {
-    transform: translateX(8px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07) !important;
-    border-color: var(--primary);
-    /* subtle highlight */
-  }
-</style>
+  <!-- Task List -->
+  <div id="taskList" class="space-y-4">
+    {% if tasks %}
+    {% for task in tasks %}
+    {% set cat_color = 'blue' if task.category == 'Irrigation' else 'purple' if task.category == 'Fertilizer' else
+    'rose' if task.category == 'Pests' else 'amber' if task.category == 'Harvest' else 'emerald' %}
+
+    <div
+      class="group flex items-center justify-between p-6 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:translate-x-2 transition-all duration-300 {% if task.is_completed %}opacity-60 grayscale-[0.5]{% endif %}">
+      <div class="flex items-center gap-6 grow">
+        <!-- Custom Checkbox -->
+        <button onclick="toggleTask({{ task.id }})"
+          class="w-10 h-10 rounded-2xl border-2 transition-all flex items-center justify-center group/check
+            {% if task.is_completed %} bg-primary-600 border-primary-600 {% else %} border-slate-200 bg-slate-50 hover:border-primary-400 {% endif %}">
+          <i
+            class="fa-solid fa-check text-white transition-opacity {% if task.is_completed %} opacity-100 {% else %} opacity-0 group-hover/check:opacity-30 {% endif %}"></i>
+        </button>
+
+        <div>
+          <h4
+            class="text-lg font-bold text-slate-900 mb-2 transition-all {% if task.is_completed %} line-through text-slate-400 {% endif %}">
+            {{ task.title }}
+          </h4>
+          <div class="flex items-center gap-4">
+            <span
+              class="px-3 py-1 bg-{{ cat_color }}-50 text-{{ cat_color }}-600 text-[10px] font-black uppercase tracking-widest rounded-full">
+              {{ task.category }}
+            </span>
+            <span class="text-[10px] font-bold text-slate-400 flex items-center gap-1.5 uppercase tracking-tighter">
+              <i class="fa-regular fa-clock"></i> {{ task.created_at.strftime('%d %b, %H:%M') }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="deleteTask({{ task.id }})"
+        class="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-rose-50 hover:text-rose-600 transition-all opacity-0 group-hover:opacity-100">
+        <i class="fa-solid fa-trash-can"></i>
+      </button>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="text-center py-24 bg-white rounded-[3rem] border-2 border-dashed border-slate-100 group">
+      <div
+        class="w-24 h-24 bg-slate-50 text-slate-200 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform duration-500">
+        <i class="fa-solid fa-clipboard-check text-5xl"></i>
+      </div>
+      <h3 class="text-2xl font-outfit font-extrabold text-slate-900 mb-2">No tasks pending</h3>
+      <p class="text-slate-500 font-medium">You're all caught up! Add a new task above to get started.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
 {% endblock %}
 
 {% block scripts %}
@@ -157,42 +139,45 @@
     }
 
     try {
-      await fetch('/api/tasks', {
+      const res = await fetch('/api/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title, category })
       });
-      showToast("Task added successfully!", "success");
-      setTimeout(() => location.reload(), 400);
+      if (res.ok) {
+        showToast("Operation scheduled successfully!", "success");
+        setTimeout(() => location.reload(), 400);
+      }
     } catch (err) {
-      showToast("Failed to add task.", "error");
+      showToast("Failed to schedule operation.", "error");
     }
   }
 
   async function toggleTask(id) {
     try {
-      await fetch(`/api/tasks/${id}/toggle`, { method: 'POST' });
-      location.reload();
+      const res = await fetch(`/api/tasks/${id}/toggle`, { method: 'POST' });
+      if (res.ok) {
+        location.reload();
+      }
     } catch (err) {
-      showToast("Failed to update task status.", "error");
+      showToast("Failed to update status.", "error");
     }
   }
 
   async function deleteTask(id) {
-    if (!confirm("Are you sure you want to delete this task?")) return;
+    if (!confirm("Remove this operation?")) return;
 
     try {
       const res = await fetch(`/api/tasks/${id}`, { method: 'DELETE' });
       if (res.ok) {
-        showToast("Task deleted!", "success");
+        showToast("Operation removed.", "success");
         setTimeout(() => location.reload(), 400);
       }
     } catch (err) {
-      showToast("Failed to delete task.", "error");
+      showToast("Failed to remove operation.", "error");
     }
   }
 
-  // Allow pressing Enter to submit
   document.getElementById("taskInput").addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();

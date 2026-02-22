@@ -1,67 +1,166 @@
 {% extends "base.html" %}
+
 {% block content %}
-<div class="container" style="padding-top: 100px;">
-  <h2 style="text-align: center; margin-bottom: 2rem;"><i class="fa-solid fa-hand-holding-dollar"></i> Government
-    Schemes (Yojanas)</h2>
+<section class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
+  <!-- Page Header -->
+  <div class="mb-16 text-center">
+    <div
+      class="inline-flex items-center gap-2 px-4 py-1.5 bg-primary-100 text-primary-700 rounded-full text-[10px] font-black uppercase tracking-widest mb-6 border border-primary-200">
+      <i class="fa-solid fa-landmark"></i> Government of India
+    </div>
+    <h2 class="text-4xl font-outfit font-extrabold text-slate-900 mb-4" data-key="nav_schemes">Government Schemes
+      (Yojanas)</h2>
+    <p class="text-slate-500 font-medium max-w-2xl mx-auto">Explore financial aid, insurance, and development programs
+      designed to support the Indian farming community.</p>
+  </div>
 
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-12">
     <!-- PM-Kisan -->
     <div
-      style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid var(--primary);">
-      <h3>PM-Kisan Samman Nidhi</h3>
-      <p style="color: #666; margin-top: 0.5rem; font-size: 0.95rem;">Financial benefit of Rs 6000/- per year is
-        provided to all landholding farmers' families.</p>
-      <ul style="margin-top: 1rem; color: #444; font-size: 0.9rem; padding-left: 1rem;">
-        <li>Who is eligible: All farmer families</li>
-        <li>Benefit: Rs 6,000 / year in 3 installments</li>
-      </ul>
-      <a href="https://pmkisan.gov.in/" target="_blank" class="btn"
-        style="margin-top: 1rem; display: inline-block; padding: 0.5rem 1rem;">Apply Now</a>
+      class="group bg-white rounded-[2.5rem] p-8 md:p-10 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden border-t-8 border-t-primary-600">
+      <div class="flex flex-col md:flex-row justify-between md:items-start gap-6 mb-8">
+        <div class="flex-1">
+          <h3
+            class="text-2xl font-outfit font-extrabold text-slate-900 group-hover:text-primary-600 transition-colors mb-4">
+            PM-Kisan Samman Nidhi</h3>
+          <p class="text-slate-500 font-medium leading-relaxed">Financial benefit of ₹6000/- per year is provided
+            directly to all landholding farmers' families through 3 installments.</p>
+        </div>
+        <div
+          class="w-16 h-16 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center text-3xl shadow-lg shadow-primary-600/5 shrink-0">
+          <i class="fa-solid fa-hand-holding-dollar"></i>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Eligibility</span>
+          <p class="text-slate-800 font-bold text-sm">All Farmer Families</p>
+        </div>
+        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Benefit Amount</span>
+          <p class="text-primary-600 font-black text-lg">₹6,000 <span class="text-xs text-slate-400">/ Year</span></p>
+        </div>
+      </div>
+
+      <a href="https://pmkisan.gov.in/" target="_blank"
+        class="w-full inline-flex items-center justify-center py-4 bg-primary-600 text-white rounded-2xl font-bold hover:bg-primary-700 shadow-lg shadow-primary-600/20 transition-all gap-2 group/btn">
+        <span>Apply on PM-Kisan Portal</span>
+        <i
+          class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover/btn:translate-x-1 transition-transform"></i>
+      </a>
     </div>
 
     <!-- PMFBY -->
     <div
-      style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid #f59e0b;">
-      <h3>Pradhan Mantri Fasal Bima Yojana (PMFBY)</h3>
-      <p style="color: #666; margin-top: 0.5rem; font-size: 0.95rem;">Crop insurance scheme offering financial support
-        to farmers suffering crop loss/damage.</p>
-      <ul style="margin-top: 1rem; color: #444; font-size: 0.9rem; padding-left: 1rem;">
-        <li>Coverage: Natural calamities, pests, diseases</li>
-        <li>Premium: Very low for farmers (1.5% - 2%)</li>
-      </ul>
-      <a href="https://pmfby.gov.in/" target="_blank" class="btn"
-        style="margin-top: 1rem; display: inline-block; padding: 0.5rem 1rem;">Apply Now</a>
+      class="group bg-white rounded-[2.5rem] p-8 md:p-10 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden border-t-8 border-t-amber-500">
+      <div class="flex flex-col md:flex-row justify-between md:items-start gap-6 mb-8">
+        <div class="flex-1">
+          <h3
+            class="text-2xl font-outfit font-extrabold text-slate-900 group-hover:text-amber-600 transition-colors mb-4">
+            Pradhan Mantri Fasal Bima Yojana</h3>
+          <p class="text-slate-500 font-medium leading-relaxed">Safety net for your hard work. Comprehensive insurance
+            against crop loss due to natural calamities, pests or diseases.</p>
+        </div>
+        <div
+          class="w-16 h-16 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center text-3xl shadow-lg shadow-amber-600/5 shrink-0">
+          <i class="fa-solid fa-shield-heart"></i>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Coverage</span>
+          <p class="text-slate-800 font-bold text-sm">Pests & Calamities</p>
+        </div>
+        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Premium Rate</span>
+          <p class="text-amber-600 font-black text-lg text-center">1.5% - 2% <span
+              class="text-xs text-slate-400">Fixed</span></p>
+        </div>
+      </div>
+
+      <a href="https://pmfby.gov.in/" target="_blank"
+        class="w-full inline-flex items-center justify-center py-4 bg-amber-500 text-white rounded-2xl font-bold hover:bg-amber-600 shadow-lg shadow-amber-600/20 transition-all gap-2 group/btn">
+        <span>Register Crop Insurance</span>
+        <i
+          class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover/btn:translate-x-1 transition-transform"></i>
+      </a>
     </div>
 
     <!-- Kisan Credit Card -->
     <div
-      style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid #3b82f6;">
-      <h3>Kisan Credit Card (KCC)</h3>
-      <p style="color: #666; margin-top: 0.5rem; font-size: 0.95rem;">Provides timely credit support from banking system
-        for agriculture and allied activities.</p>
-      <ul style="margin-top: 1rem; color: #444; font-size: 0.9rem; padding-left: 1rem;">
-        <li>Loan limit: Flexible based on crop type</li>
-        <li>Interest rate: Subsidized (often 4%)</li>
-      </ul>
+      class="group bg-white rounded-[2.5rem] p-8 md:p-10 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden border-t-8 border-t-blue-600">
+      <div class="flex flex-col md:flex-row justify-between md:items-start gap-6 mb-8">
+        <div class="flex-1">
+          <h3
+            class="text-2xl font-outfit font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors mb-4">
+            Kisan Credit Card (KCC)</h3>
+          <p class="text-slate-500 font-medium leading-relaxed">Unlock easy access to institutional credit. Supports
+            purchase of seeds, fertilizers, and general farm maintenance.</p>
+        </div>
+        <div
+          class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-3xl shadow-lg shadow-blue-600/5 shrink-0">
+          <i class="fa-solid fa-credit-card"></i>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Loan Limit</span>
+          <p class="text-slate-800 font-bold text-sm">High Flexibility</p>
+        </div>
+        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Interest Rate</span>
+          <p class="text-blue-600 font-black text-lg">Subsidized <span class="text-xs text-slate-400 leading-none">
+              (starts 4%)</span></p>
+        </div>
+      </div>
+
       <a href="https://sbi.co.in/web/agri-rural/agriculture-banking/crop-loan/kisan-credit-card" target="_blank"
-        class="btn" style="margin-top: 1rem; display: inline-block; padding: 0.5rem 1rem;">View Details</a>
+        class="w-full inline-flex items-center justify-center py-4 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 shadow-lg shadow-blue-600/20 transition-all gap-2 group/btn">
+        <span>View Bank Details</span>
+        <i
+          class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover/btn:translate-x-1 transition-transform"></i>
+      </a>
     </div>
 
     <!-- PKVY -->
     <div
-      style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid #10b981;">
-      <h3>Paramparagat Krishi Vikas Yojana</h3>
-      <p style="color: #666; margin-top: 0.5rem; font-size: 0.95rem;">Promotion of commercial organic farming through
-        cluster approach.</p>
-      <ul style="margin-top: 1rem; color: #444; font-size: 0.9rem; padding-left: 1rem;">
-        <li>Govt aid: Rs 50,000 per hectare for 3 years</li>
-        <li>Goal: Improve soil health & organic production</li>
-      </ul>
-      <a href="https://dpg.gov.in/" target="_blank" class="btn"
-        style="margin-top: 1rem; display: inline-block; padding: 0.5rem 1rem;">Apply Now</a>
+      class="group bg-white rounded-[2.5rem] p-8 md:p-10 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden border-t-8 border-t-emerald-600">
+      <div class="flex flex-col md:flex-row justify-between md:items-start gap-6 mb-8">
+        <div class="flex-1">
+          <h3
+            class="text-2xl font-outfit font-extrabold text-slate-900 group-hover:text-emerald-600 transition-colors mb-4">
+            Paramparagat Krishi Vikas</h3>
+          <p class="text-slate-500 font-medium leading-relaxed">Dedicated push for commercial organic farming. Improve
+            soil health and harvest premium chemical-free produce.</p>
+        </div>
+        <div
+          class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center text-3xl shadow-lg shadow-emerald-600/5 shrink-0">
+          <i class="fa-solid fa-seedling"></i>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Govt Aid</span>
+          <p class="text-slate-800 font-bold text-sm">₹50,000 / Hectare</p>
+        </div>
+        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Duration</span>
+          <p class="text-emerald-600 font-black text-lg">3 Successive Years</p>
+        </div>
+      </div>
+
+      <a href="https://dpg.gov.in/" target="_blank"
+        class="w-full inline-flex items-center justify-center py-4 bg-emerald-600 text-white rounded-2xl font-bold hover:bg-emerald-700 shadow-lg shadow-emerald-600/20 transition-all gap-2 group/btn">
+        <span>Apply for Aid</span>
+        <i
+          class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover/btn:translate-x-1 transition-transform"></i>
+      </a>
     </div>
 
   </div>
-</div>
+</section>
 {% endblock %}

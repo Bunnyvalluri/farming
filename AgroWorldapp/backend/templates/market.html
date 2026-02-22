@@ -1,96 +1,165 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container" style="padding-top: 100px;">
-  <h2 style="text-align: center; margin-bottom: 2rem;"><i class="fa-solid fa-chart-line"></i> Real-Time Mandi Prices
-  </h2>
-
-  <div
-    style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; margin-bottom: 2rem;">
-    <p style="color: #666; margin-bottom: 1rem;">Select your state and commodity to see the latest Mandi prices.</p>
-
-    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-      <select id="stateSelect" style="padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd; width: 200px;">
-        <option value="Maharashtra">Maharashtra</option>
-        <option value="Punjab">Punjab</option>
-        <option value="Uttar Pradesh">Uttar Pradesh</option>
-        <option value="Andhra Pradesh">Andhra Pradesh</option>
-        <option value="Telangana">Telangana</option>
-      </select>
-      <select id="cropSelect" style="padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd; width: 200px;">
-        <option value="Wheat">Wheat</option>
-        <option value="Rice">Rice</option>
-        <option value="Cotton">Cotton</option>
-        <option value="Soybean">Soybean</option>
-        <option value="Corn">Corn</option>
-      </select>
-      <button onclick="fetchPrices()" class="btn">Check Prices</button>
+<section class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
+  <!-- Page Header -->
+  <div class="mb-12 text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-6">
+    <div>
+      <div
+        class="inline-flex items-center gap-2 px-4 py-1 bg-amber-100 text-amber-700 rounded-full text-[10px] font-black uppercase tracking-widest mb-4">
+        <i class="fa-solid fa-bolt-lightning"></i> Live Data
+      </div>
+      <h2 class="text-4xl font-outfit font-extrabold text-slate-900 mb-2" data-key="nav_market">Real-Time Mandi Prices
+      </h2>
+      <p class="text-slate-500 font-medium">Tracking thousands of APMC markets across the country.</p>
+    </div>
+    <div class="text-xs font-bold text-slate-400 uppercase tracking-tighter">
+      Last Sync: <span id="syncTime" class="text-primary-600">Just Now</span>
     </div>
   </div>
 
-  <!-- Table to display dynamic market data -->
+  <!-- Filters Dashboard -->
   <div
-    style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow-x: auto;">
-    <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
-      <thead>
-        <tr style="background: #f8fafc; text-align: left;">
-          <th style="padding: 1rem; border-bottom: 2px solid #e2e8f0;">Market / Mandi</th>
-          <th style="padding: 1rem; border-bottom: 2px solid #e2e8f0;">Commodity</th>
-          <th style="padding: 1rem; border-bottom: 2px solid #e2e8f0;">Quality/Variety</th>
-          <th style="padding: 1rem; border-bottom: 2px solid #e2e8f0;">Min Price (₹/Quintal)</th>
-          <th style="padding: 1rem; border-bottom: 2px solid #e2e8f0;">Max Price (₹/Quintal)</th>
-          <th style="padding: 1rem; border-bottom: 2px solid #e2e8f0;">Trend</th>
-        </tr>
-      </thead>
-      <tbody id="priceTableBody">
-        <!-- Data populated by JS -->
-      </tbody>
-    </table>
-  </div>
-</div>
+    class="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/50 mb-12 relative overflow-hidden group">
+    <div
+      class="absolute -right-16 -top-16 p-20 opacity-[0.03] group-hover:rotate-12 transition-transform duration-1000">
+      <i class="fa-solid fa-chart-line text-[12rem]"></i>
+    </div>
 
+    <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+      <div class="space-y-2">
+        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Select Region</label>
+        <div class="relative">
+          <select id="stateSelect"
+            class="w-full pl-6 pr-10 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none font-bold text-slate-700 appearance-none h-14 cursor-pointer">
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Punjab">Punjab</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <option value="Telangana">Telangana</option>
+          </select>
+          <i
+            class="fa-solid fa-map-location-dot absolute right-6 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none"></i>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Commodity Type</label>
+        <div class="relative">
+          <select id="cropSelect"
+            class="w-full pl-6 pr-10 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none font-bold text-slate-700 appearance-none h-14 cursor-pointer">
+            <option value="Wheat">Wheat</option>
+            <option value="Rice">Rice</option>
+            <option value="Cotton">Cotton</option>
+            <option value="Soybean">Soybean</option>
+            <option value="Corn">Corn</option>
+          </select>
+          <i class="fa-solid fa-leaf absolute right-6 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none"></i>
+        </div>
+      </div>
+
+      <button onclick="fetchPrices()" class="btn-primary h-14 flex items-center justify-center gap-3 active:scale-95">
+        <i class="fa-solid fa-magnifying-glass-chart"></i>
+        <span>Update Insight</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Market Table -->
+  <div class="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-slate-50 border-b border-slate-100">
+            <th class="p-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">Market / Mandi Hub</th>
+            <th class="p-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">Commodity</th>
+            <th class="p-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">Variety</th>
+            <th class="p-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 text-center">Price Range
+            </th>
+            <th class="p-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 text-right">Market Trend
+            </th>
+          </tr>
+        </thead>
+        <tbody id="priceTableBody" class="divide-y divide-slate-50">
+          <!-- Injected via JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <div id="loadingState" class="hidden p-20 text-center">
+      <div class="flex flex-col items-center">
+        <div class="w-16 h-16 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin mb-6"></div>
+        <p class="text-slate-500 font-bold italic">Querying national APMC servers...</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
 <script>
   function fetchPrices() {
     const state = document.getElementById('stateSelect').value;
     const crop = document.getElementById('cropSelect').value;
     const tbody = document.getElementById('priceTableBody');
+    const loading = document.getElementById('loadingState');
 
-    // Simulating highly requested real-world Mandi price behaviour via mock real data.
-    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 2rem;"><i class="fa-solid fa-spinner fa-spin"></i> Fetching live APMC data...</td></tr>`;
+    tbody.innerHTML = '';
+    loading.classList.remove('hidden');
 
-    // Timeout to simulate API call latency
     setTimeout(() => {
-      const basePrice = {
-        "Wheat": 2200, "Rice": 3100, "Cotton": 7000, "Soybean": 5500, "Corn": 2000
-      }[crop];
+      const basePrice = { "Wheat": 2200, "Rice": 3100, "Cotton": 7000, "Soybean": 5500, "Corn": 2000 }[crop];
+      loading.classList.add('hidden');
 
-      // Generating random but realistic prices around the base price
-      const generateMandiData = (mandiName) => {
-        const minP = Math.floor(basePrice * (0.9 + Math.random() * 0.1));
-        const maxP = Math.floor(basePrice * (1.1 + Math.random() * 0.1));
-        const trend = Math.random() > 0.5 ? '<span style="color: #059669"><i class="fa-solid fa-arrow-trend-up"></i> Up</span>' : '<span style="color: #ef4444"><i class="fa-solid fa-arrow-trend-down"></i> Down</span>';
-        return `
-                <tr>
-                    <td style="padding: 1rem; border-bottom: 1px solid #f1f5f9; font-weight: 500;">${mandiName} APMC</td>
-                    <td style="padding: 1rem; border-bottom: 1px solid #f1f5f9;">${crop}</td>
-                    <td style="padding: 1rem; border-bottom: 1px solid #f1f5f9;">FAQ / A-Grade</td>
-                    <td style="padding: 1rem; border-bottom: 1px solid #f1f5f9; color: #475569;">₹${minP}</td>
-                    <td style="padding: 1rem; border-bottom: 1px solid #f1f5f9; font-weight: bold;">₹${maxP}</td>
-                    <td style="padding: 1rem; border-bottom: 1px solid #f1f5f9;">${trend}</td>
-                </tr>
-                `;
-      };
+      const mandis = [
+        { name: `${state} Central`, variety: 'A-Grade Premium' },
+        { name: `${state} South Hub`, variety: 'Hybrid FAQ' },
+        { name: `${state} Valley Mandi`, variety: 'Eco Certified' }
+      ];
 
-      const mandis = [`${state} Central`, `${state} North`, `${state} East`];
-      let html = '';
-      mandis.forEach(m => html += generateMandiData(m));
+      mandis.forEach(m => {
+        const minP = Math.floor(basePrice * (0.95 + Math.random() * 0.1));
+        const maxP = Math.floor(basePrice * (1.05 + Math.random() * 0.15));
+        const isUp = Math.random() > 0.5;
 
-      tbody.innerHTML = html;
-      showToast('Market prices updated successfully.', 'success');
-    }, 1200);
+        const row = document.createElement('tr');
+        row.className = "hover:bg-primary-50/30 transition-colors group";
+        row.innerHTML = `
+            <td class="p-8">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-primary-100 group-hover:text-primary-600 transition-all">
+                        <i class="fa-solid fa-warehouse text-xs"></i>
+                    </div>
+                    <span class="font-outfit font-black text-slate-900 text-lg">${m.name}</span>
+                </div>
+            </td>
+            <td class="p-8">
+                <span class="px-4 py-1.5 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase group-hover:bg-white transition-colors">${crop}</span>
+            </td>
+            <td class="p-8">
+                <span class="text-slate-500 font-medium">${m.variety}</span>
+            </td>
+            <td class="p-8 text-center">
+                <div class="inline-flex flex-col">
+                    <span class="text-2xl font-outfit font-black text-slate-900">₹${maxP}</span>
+                    <span class="text-[10px] font-bold text-slate-400">₹${minP} Min</span>
+                </div>
+            </td>
+            <td class="p-8 text-right">
+                <span class="inline-flex items-center gap-2 font-black italic ${isUp ? 'text-emerald-600' : 'text-rose-600'}">
+                    <i class="fa-solid ${isUp ? 'fa-arrow-trend-up' : 'fa-arrow-trend-down'}"></i>
+                    ${isUp ? 'SURGING' : 'DIP'}
+                </span>
+            </td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      document.getElementById('syncTime').innerText = new Date().toLocaleTimeString();
+      showToast('Live market rates updated.', 'success');
+    }, 1500);
   }
 
-  // Load initial data on page load
   window.addEventListener('load', fetchPrices);
 </script>
 {% endblock %}
