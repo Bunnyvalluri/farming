@@ -1,23 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="py-20 md:py-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-screen">
+<section class="py-10 md:py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto min-h-screen">
   <!-- Dashboard Stats Header -->
-  <div
-    class="mb-24 text-center lg:text-left flex flex-col lg:flex-row justify-between items-center lg:items-end gap-12">
+  <div class="mb-10 text-center lg:text-left flex flex-col lg:flex-row justify-between items-center lg:items-end gap-6">
     <div>
       <div
-        class="inline-flex items-center gap-3 px-5 py-2 bg-slate-100 text-slate-500 rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-slate-200/50">
+        class="inline-flex items-center gap-2 px-4 py-1.5 bg-slate-100 text-slate-500 rounded-xl text-[10px] font-black uppercase tracking-[0.3em] mb-4 border border-slate-200/50">
         <i class="fa-solid fa-list-check text-primary-500"></i> Operations Core
       </div>
-      <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 mb-8 tracking-tighter leading-[0.9]"
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 mb-3 tracking-tighter leading-tight"
         data-key="task_title">
         Strategic <br>
         <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-emerald-600">
           Operations
         </span>
       </h1>
-      <p class="text-lg md:text-2xl text-slate-500 font-medium leading-relaxed opacity-80 max-w-2xl"
+      <p class="text-base md:text-lg text-slate-500 font-medium leading-relaxed opacity-80 max-w-xl"
         data-key="task_desc">
         High-precision organizational infrastructure for your agrarian lifecycle management.
       </p>
@@ -27,39 +26,39 @@
     {% set completed = tasks | selectattr('is_completed', 'equalto', true) | list | length %}
     {% set pending = total - completed %}
 
-    <div class="grid grid-cols-3 gap-4 md:gap-8 w-full lg:w-auto">
+    <div class="grid grid-cols-3 gap-3 md:gap-4 w-full lg:w-auto">
       <div
-        class="bg-white/70 backdrop-blur-2xl p-6 md:p-10 rounded-[3rem] border border-slate-100 shadow-sm transition-all group overflow-hidden relative">
+        class="bg-white/70 backdrop-blur-2xl p-4 md:p-6 rounded-2xl border border-slate-100 shadow-sm transition-all group overflow-hidden relative">
         <div
-          class="absolute -right-6 -bottom-6 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700">
-          <i class="fa-solid fa-layer-group text-8xl"></i>
+          class="absolute -right-4 -bottom-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700">
+          <i class="fa-solid fa-layer-group text-6xl"></i>
         </div>
         <div
-          class="text-4xl md:text-5xl font-black text-slate-900 mb-2 group-hover:scale-110 transition-transform origin-left tracking-tighter italic">
+          class="text-2xl md:text-3xl font-black text-slate-900 mb-1 group-hover:scale-110 transition-transform origin-left tracking-tighter italic">
           {{ total }}</div>
         <p class="text-[9px] uppercase font-black tracking-widest text-slate-400" data-key="task_stat_total">Inventory
         </p>
       </div>
       <div
-        class="bg-white/70 backdrop-blur-2xl p-6 md:p-10 rounded-[3rem] border border-slate-100 shadow-sm transition-all group overflow-hidden relative">
+        class="bg-white/70 backdrop-blur-2xl p-4 md:p-6 rounded-2xl border border-slate-100 shadow-sm transition-all group overflow-hidden relative">
         <div
-          class="absolute -right-6 -bottom-6 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700">
-          <i class="fa-solid fa-spinner text-8xl"></i>
+          class="absolute -right-4 -bottom-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700">
+          <i class="fa-solid fa-spinner text-6xl"></i>
         </div>
         <div
-          class="text-4xl md:text-5xl font-black text-amber-500 mb-2 group-hover:scale-110 transition-transform origin-left tracking-tighter italic">
+          class="text-2xl md:text-3xl font-black text-amber-500 mb-1 group-hover:scale-110 transition-transform origin-left tracking-tighter italic">
           {{ pending }}</div>
         <p class="text-[9px] uppercase font-black tracking-widest text-slate-400" data-key="task_stat_pending">Pending
         </p>
       </div>
       <div
-        class="bg-white/70 backdrop-blur-2xl p-6 md:p-10 rounded-[3rem] border border-slate-100 shadow-sm transition-all group overflow-hidden relative">
+        class="bg-white/70 backdrop-blur-2xl p-4 md:p-6 rounded-2xl border border-slate-100 shadow-sm transition-all group overflow-hidden relative">
         <div
-          class="absolute -right-6 -bottom-6 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700">
-          <i class="fa-solid fa-circle-check text-8xl"></i>
+          class="absolute -right-4 -bottom-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700">
+          <i class="fa-solid fa-circle-check text-6xl"></i>
         </div>
         <div
-          class="text-4xl md:text-5xl font-black text-emerald-500 mb-2 group-hover:scale-110 transition-transform origin-left tracking-tighter italic">
+          class="text-2xl md:text-3xl font-black text-emerald-500 mb-1 group-hover:scale-110 transition-transform origin-left tracking-tighter italic">
           {{ completed }}</div>
         <p class="text-[9px] uppercase font-black tracking-widest text-slate-400" data-key="task_stat_done">Archived</p>
       </div>
@@ -68,30 +67,29 @@
 
   <!-- Add Task Terminal -->
   <div
-    class="bg-white p-10 md:p-16 rounded-[4.5rem] border border-slate-100 shadow-[0_64px_160px_-16px_rgba(0,0,0,0.08)] mb-24 relative overflow-hidden group">
+    class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 shadow-[0_32px_80px_-16px_rgba(0,0,0,0.07)] mb-10 relative overflow-hidden group">
 
     <div class="absolute inset-0 opacity-[0.03] pointer-events-none"
-      style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 32px 32px;">
+      style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 28px 28px;">
     </div>
 
-    <h3 class="flex items-center gap-5 text-3xl font-black text-slate-900 mb-12 relative z-10"
-      data-key="task_add_title">
+    <h3 class="flex items-center gap-3 text-xl font-black text-slate-900 mb-6 relative z-10" data-key="task_add_title">
       <div
-        class="w-16 h-16 bg-slate-900 text-white rounded-[1.75rem] flex items-center justify-center shadow-2xl shadow-slate-900/40 group-hover:rotate-12 transition-all duration-700">
-        <i class="fa-solid fa-code-commit text-2xl text-primary-400"></i>
+        class="w-10 h-10 bg-slate-900 text-white rounded-xl flex items-center justify-center shadow-lg shadow-slate-900/30 group-hover:rotate-12 transition-all duration-700">
+        <i class="fa-solid fa-code-commit text-sm text-primary-400"></i>
       </div>
       Schedule Protocol
     </h3>
 
-    <div class="flex flex-col lg:flex-row gap-8 relative z-10">
+    <div class="flex flex-col lg:flex-row gap-4 relative z-10">
       <div class="grow relative">
         <input type="text" id="taskInput" placeholder="Describe the critical operation..." data-key="task_input_ph"
-          class="w-full pl-8 pr-4 py-6 bg-slate-100 border-none rounded-[1.5rem] focus:ring-4 focus:ring-primary-100 transition-all outline-none font-bold text-slate-900 shadow-inner h-20">
+          class="w-full pl-5 pr-4 py-3 bg-slate-100 border-none rounded-xl focus:ring-4 focus:ring-primary-100 transition-all outline-none font-bold text-slate-900 shadow-inner h-12">
       </div>
 
-      <div class="lg:w-80 relative">
+      <div class="lg:w-56 relative">
         <select id="taskCat"
-          class="w-full pl-8 pr-12 py-6 bg-slate-100 border-none rounded-[1.5rem] focus:ring-4 focus:ring-primary-100 transition-all outline-none font-black text-slate-900 appearance-none h-20 cursor-pointer shadow-inner">
+          class="w-full pl-5 pr-10 py-3 bg-slate-100 border-none rounded-xl focus:ring-4 focus:ring-primary-100 transition-all outline-none font-black text-slate-900 appearance-none h-12 cursor-pointer shadow-inner">
           <option value="Irrigation" data-key="cat_irr">💧 Irrigation</option>
           <option value="Fertilizer" data-key="cat_fert">🧪 Fertilizer</option>
           <option value="Pests" data-key="cat_pest">🐛 Pest Control</option>
@@ -99,11 +97,11 @@
           <option value="General" data-key="cat_gen">📌 General</option>
         </select>
         <i
-          class="fa-solid fa-chevron-down absolute right-8 top-1/2 -translate-y-1/2 text-slate-400 text-[10px] pointer-events-none"></i>
+          class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-[10px] pointer-events-none"></i>
       </div>
 
       <button onclick="addTask()"
-        class="lg:w-56 py-6 bg-slate-900 hover:bg-slate-800 text-white rounded-[1.5rem] font-black text-[12px] uppercase tracking-[0.2em] shadow-2xl transition-all active:scale-95 flex items-center justify-center gap-4">
+        class="lg:w-40 py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-black text-[11px] uppercase tracking-[0.2em] shadow-xl transition-all active:scale-95 flex items-center justify-center gap-3">
         <span data-key="task_add_btn">Initialize</span>
         <i class="fa-solid fa-terminal text-[10px] opacity-40"></i>
       </button>
@@ -111,61 +109,61 @@
   </div>
 
   <!-- Operational Log -->
-  <div id="taskList" class="grid grid-cols-1 gap-8">
+  <div id="taskList" class="grid grid-cols-1 gap-4">
     {% if tasks %}
     {% for task in tasks %}
     {% set cat_color = 'blue' if task.category == 'Irrigation' else 'purple' if task.category == 'Fertilizer' else
     'rose' if task.category == 'Pests' else 'amber' if task.category == 'Harvest' else 'emerald' %}
 
     <div
-      class="group flex flex-col sm:flex-row items-start sm:items-center justify-between p-10 bg-white rounded-[3.5rem] border border-slate-100 shadow-sm hover:shadow-[0_48px_120px_-24px_rgba(0,0,0,0.06)] transition-all duration-700 relative overflow-hidden {% if task.is_completed %}opacity-60 grayscale-[0.5]{% endif %}">
+      class="group flex flex-col sm:flex-row items-start sm:items-center justify-between p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.06)] transition-all duration-700 relative overflow-hidden {% if task.is_completed %}opacity-60 grayscale-[0.5]{% endif %}">
 
-      <div class="flex items-center gap-10 grow w-full">
+      <div class="flex items-center gap-5 grow w-full">
         <!-- Status Toggle -->
         <button onclick="toggleTask('{{ task.id }}')"
-          class="w-16 h-16 rounded-[1.75rem] border-[3px] transition-all duration-700 shrink-0 flex items-center justify-center group/check
-            {% if task.is_completed %} bg-emerald-500 border-emerald-500 shadow-2xl shadow-emerald-500/40 {% else %} border-slate-100 bg-slate-50 hover:border-primary-400 hover:bg-white {% endif %}">
+          class="w-10 h-10 rounded-xl border-2 transition-all duration-700 shrink-0 flex items-center justify-center group/check
+            {% if task.is_completed %} bg-emerald-500 border-emerald-500 shadow-lg shadow-emerald-500/30 {% else %} border-slate-200 bg-slate-50 hover:border-primary-400 hover:bg-white {% endif %}">
           <i
-            class="fa-solid fa-check text-white text-2xl transition-all duration-700 {% if task.is_completed %} scale-110 opacity-100 {% else %} scale-50 opacity-0 group-hover/check:opacity-30 {% endif %}"></i>
+            class="fa-solid fa-check text-white text-sm transition-all duration-700 {% if task.is_completed %} scale-110 opacity-100 {% else %} scale-50 opacity-0 group-hover/check:opacity-30 {% endif %}"></i>
         </button>
 
         <div class="grow min-w-0">
           <h4
-            class="text-2xl font-black text-slate-900 mb-4 truncate transition-all tracking-tight {% if task.is_completed %} line-through text-slate-400 {% endif %}">
+            class="text-base font-black text-slate-900 mb-1.5 truncate transition-all tracking-tight {% if task.is_completed %} line-through text-slate-400 {% endif %}">
             {{ task.title }}
           </h4>
-          <div class="flex flex-wrap items-center gap-6">
+          <div class="flex flex-wrap items-center gap-3">
             <span
-              class="px-6 py-2 bg-{{ cat_color }}-50 text-{{ cat_color }}-600 text-[9px] font-black uppercase tracking-[0.3em] rounded-xl border border-{{ cat_color }}-100/50"
+              class="px-3 py-1 bg-{{ cat_color }}-50 text-{{ cat_color }}-600 text-[9px] font-black uppercase tracking-[0.3em] rounded-lg border border-{{ cat_color }}-100/50"
               data-key="{{ task.category }}">
               {{ task.category }}
             </span>
-            <span class="text-[10px] font-black text-slate-300 flex items-center gap-3 uppercase tracking-widest">
+            <span class="text-[10px] font-black text-slate-300 flex items-center gap-2 uppercase tracking-widest">
               <i class="fa-solid fa-clock-rotate-left opacity-60"></i> {{ task.created_at.strftime('%d %b • %H:%M') }}
             </span>
           </div>
         </div>
       </div>
 
-      <div class="flex items-center gap-6 mt-8 sm:mt-0 ml-auto sm:ml-8 shrink-0">
+      <div class="flex items-center gap-3 mt-4 sm:mt-0 ml-auto sm:ml-4 shrink-0">
         <button onclick="deleteTask('{{ task.id }}')"
-          class="w-14 h-14 rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-rose-50 hover:text-rose-600 transition-all sm:opacity-0 group-hover:opacity-100 border border-transparent hover:border-rose-100">
-          <i class="fa-solid fa-trash-can text-base"></i>
+          class="w-9 h-9 rounded-xl bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-rose-50 hover:text-rose-600 transition-all sm:opacity-0 group-hover:opacity-100 border border-transparent hover:border-rose-100">
+          <i class="fa-solid fa-trash-can text-sm"></i>
         </button>
       </div>
     </div>
     {% endfor %}
     {% else %}
     <div
-      class="text-center py-40 bg-slate-50/50 rounded-[4.5rem] border-4 border-dashed border-slate-200/50 group transition-all duration-1000 hover:bg-white hover:border-primary-100">
+      class="text-center py-20 bg-slate-50/50 rounded-3xl border-4 border-dashed border-slate-200/50 group transition-all duration-1000 hover:bg-white hover:border-primary-100">
       <div
-        class="w-32 h-32 bg-white border border-slate-100 text-slate-200 rounded-[3rem] flex items-center justify-center mx-auto mb-12 shadow-sm group-hover:scale-110 group-hover:rotate-6 transition-all duration-700">
+        class="w-20 h-20 bg-white border border-slate-100 text-slate-200 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 group-hover:rotate-6 transition-all duration-700">
         <i
-          class="fa-solid fa-microchip text-[4.5rem] opacity-30 group-hover:text-primary-600 group-hover:opacity-100 transition-all"></i>
+          class="fa-solid fa-microchip text-3xl opacity-30 group-hover:text-primary-600 group-hover:opacity-100 transition-all"></i>
       </div>
-      <h3 class="text-4xl font-black text-slate-900 mb-6 tracking-tighter" data-key="task_empty_title">Neural Standby
+      <h3 class="text-2xl font-black text-slate-900 mb-3 tracking-tighter" data-key="task_empty_title">Neural Standby
       </h3>
-      <p class="text-slate-500 font-medium text-xl leading-relaxed max-w-sm mx-auto opacity-70"
+      <p class="text-slate-500 font-medium text-base leading-relaxed max-w-sm mx-auto opacity-70"
         data-key="task_empty_desc">All operational protocols have been finalized. Waiting for new schedule input.</p>
     </div>
     {% endif %}
