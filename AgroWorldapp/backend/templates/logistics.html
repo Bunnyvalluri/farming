@@ -1,209 +1,245 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
-  <div class="mb-16 text-center">
-    <h2 class="text-4xl font-outfit font-extrabold text-slate-900 mb-4 flex items-center justify-center gap-4"
+<section class="py-20 md:py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
+  <div class="mb-24 text-center max-w-3xl mx-auto">
+    <div
+      class="inline-flex items-center gap-3 px-5 py-2 bg-slate-100 text-slate-500 rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-slate-200/50">
+      <i class="fa-solid fa-network-wired text-primary-500"></i> Direct Exchange Node
+    </div>
+    <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 mb-8 tracking-tighter leading-[0.9]"
       data-key="log_title">
-      <i class="fa-solid fa-gear text-primary-600/20 animate-spin-slow"></i>
-      Logistics & Marketplace
-      <i class="fa-solid fa-gear text-primary-600/20 animate-spin-reverse-slow"></i>
-    </h2>
-    <p class="text-slate-500 font-medium max-w-2xl mx-auto" data-key="log_desc">Skip the middlemen. Connect directly
-      with verified suppliers
-      and reliable transporters.</p>
+      Supply Chain <br>
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-emerald-600">
+        Marketplace
+      </span>
+    </h1>
+    <p class="text-lg md:text-2xl text-slate-500 font-medium leading-relaxed opacity-80" data-key="log_desc">
+      Eliminate intermediaries. Connect directly with verified industrial suppliers and high-efficiency transport
+      networks.
+    </p>
   </div>
 
   <!-- Tabbed Navigation -->
-  <div class="flex justify-center mb-16">
-    <div class="inline-flex p-1.5 bg-slate-200/50 backdrop-blur-md rounded-[2rem] border border-slate-200">
+  <div class="flex justify-center mb-24">
+    <div
+      class="inline-flex p-2 bg-slate-100/80 backdrop-blur-xl rounded-[2.5rem] border border-slate-200/50 shadow-inner">
       <button id="btnMfg" onclick="showTab('mfg')"
-        class="tab-btn active px-8 py-3 rounded-full font-bold transition-all duration-300 flex items-center gap-2 group"
+        class="tab-btn active px-10 py-4 rounded-[2rem] font-black text-xs uppercase tracking-widest transition-all duration-500 flex items-center gap-3 group"
         data-key="tab_mfg">
-        <i class="fa-solid fa-seedling group-hover:rotate-[360deg] transition-transform duration-700"></i>
-        Seed Manufacturers
+        <i class="fa-solid fa-seedling text-base group-hover:rotate-[360deg] transition-transform duration-700"></i>
+        Industrial Suppliers
       </button>
       <button id="btnTrans" onclick="showTab('trans')"
-        class="tab-btn px-8 py-3 rounded-full font-bold text-slate-500 hover:text-slate-700 transition-all duration-300 flex items-center gap-2 group"
+        class="tab-btn px-10 py-4 rounded-[2rem] font-black text-xs uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-all duration-500 flex items-center gap-3 group"
         data-key="tab_trans">
-        <i class="fa-solid fa-truck-fast group-hover:rotate-[360deg] transition-transform duration-700"></i>
-        Transporters
+        <i class="fa-solid fa-truck-fast text-base group-hover:rotate-[360deg] transition-transform duration-700"></i>
+        Transport Logistics
       </button>
     </div>
   </div>
 
   <!-- Manufacturers Tab -->
-  <div id="tabMfg" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  <div id="tabMfg" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-14">
     <!-- Card 1 -->
     <div
-      class="group bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
-      <div class="absolute top-0 right-0 p-8 opacity-[0.03] animate-spin-slow">
-        <i class="fa-solid fa-leaf text-9xl"></i>
+      class="group bg-white rounded-[4rem] p-10 md:p-12 border border-slate-100 shadow-sm hover:shadow-[0_64px_160px_-24px_rgba(0,0,0,0.1)] transition-all duration-700 relative overflow-hidden flex flex-col">
+
+      <div
+        class="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-700 pointer-events-none"
+        style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 32px 32px;">
       </div>
 
-      <div class="flex justify-between items-start mb-8">
+      <div class="flex justify-between items-start mb-12 relative z-10">
         <div
-          class="px-4 py-1 bg-emerald-50 text-emerald-700 rounded-full text-[10px] font-black uppercase tracking-widest border border-emerald-100 flex items-center gap-1.5">
-          <i class="fa-solid fa-circle-check"></i> Verified
+          class="px-5 py-2 bg-emerald-50 text-emerald-600 rounded-xl text-[10px] font-black uppercase tracking-widest border border-emerald-100/50 flex items-center gap-2">
+          <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+          Verified Asset
         </div>
         <div
-          class="w-12 h-12 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center text-xl shadow-lg shadow-primary-600/5">
-          <i class="fa-solid fa-wheat-awn"></i>
+          class="w-16 h-16 bg-slate-50 text-primary-600 rounded-2xl flex items-center justify-center text-2xl shadow-inner group-hover:scale-110 group-hover:bg-primary-50 transition-all duration-700">
+          <i class="fa-solid fa-dna"></i>
         </div>
       </div>
 
-      <h3
-        class="text-2xl font-outfit font-extrabold text-slate-900 group-hover:text-primary-600 transition-colors mb-4">
-        Krishi Seeds Ltd.</h3>
-      <p class="text-slate-500 text-sm font-medium leading-relaxed mb-8">Leading producers of climate-resilient hybrid
-        wheat and premium millet seeds.</p>
+      <h3 class="text-3xl font-black text-slate-900 tracking-tight mb-4 group-hover:text-primary-600 transition-colors">
+        Krishi Bio-Tech</h3>
+      <p class="text-slate-500 text-base font-medium leading-relaxed mb-10 opacity-90">
+        Pioneering climate-resilient genomic structures for high-yield cereal production.
+      </p>
 
-      <div class="space-y-4 pt-6 border-t border-slate-50 mb-8">
-        <div class="flex items-center gap-4 text-slate-500 group-hover:text-slate-700 transition-colors">
-          <i class="fa-solid fa-location-dot text-primary-600 w-5"></i>
-          <span class="text-xs font-bold uppercase tracking-wider">Pune, Maharashtra</span>
+      <div class="space-y-6 py-10 border-t border-slate-50 mb-10 mt-auto">
+        <div class="flex items-center gap-5 text-slate-400 group-hover:text-slate-600 transition-colors">
+          <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
+            <i class="fa-solid fa-location-dot text-primary-500 text-sm"></i>
+          </div>
+          <span class="text-[11px] font-black uppercase tracking-widest">Pune, MH (SEC04)</span>
         </div>
-        <div class="flex items-center gap-4 text-slate-500 group-hover:text-slate-700 transition-colors">
-          <i class="fa-solid fa-tags text-primary-600 w-5"></i>
-          <span class="text-xs font-bold uppercase tracking-wider">Starting ₹450 <span class="text-slate-400">/
-              50kg</span></span>
+        <div class="flex items-center gap-5 text-slate-400 group-hover:text-slate-600 transition-colors">
+          <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
+            <i class="fa-solid fa-tag text-primary-500 text-sm"></i>
+          </div>
+          <span class="text-[11px] font-black uppercase tracking-widest">Starts ₹1,450 <span class="opacity-40">/
+              MQ</span></span>
         </div>
       </div>
 
-      <button onclick="openChat('Krishi Seeds')"
-        class="w-full py-4 bg-primary-600 text-white rounded-2xl font-bold hover:bg-primary-700 shadow-lg shadow-primary-600/20 transition-all flex items-center justify-center gap-3">
-        <i class="fa-solid fa-comment-dots"></i>
-        <span data-key="btn_msg">Message Manufacturer</span>
+      <button onclick="openChat('Krishi Bio-Tech')"
+        class="w-full py-5 bg-slate-900 text-white rounded-[1.5rem] font-black text-[12px] uppercase tracking-widest hover:bg-slate-800 shadow-2xl transition-all active:scale-95 flex items-center justify-center gap-3">
+        <i class="fa-solid fa-message text-[10px] opacity-50"></i>
+        <span data-key="btn_msg">Secure Connection</span>
       </button>
     </div>
 
     <!-- Card 2 -->
     <div
-      class="group bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
-      <div class="absolute top-0 right-0 p-8 opacity-[0.03] animate-spin-reverse-slow">
-        <i class="fa-solid fa-flask-vial text-9xl"></i>
+      class="group bg-white rounded-[4rem] p-10 md:p-12 border border-slate-100 shadow-sm hover:shadow-[0_64px_160px_-24px_rgba(0,0,0,0.1)] transition-all duration-700 relative overflow-hidden flex flex-col">
+
+      <div
+        class="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-700 pointer-events-none"
+        style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 32px 32px;">
       </div>
 
-      <div class="flex justify-between items-start mb-8">
+      <div class="flex justify-between items-start mb-12 relative z-10">
         <div
-          class="px-4 py-1 bg-emerald-50 text-emerald-700 rounded-full text-[10px] font-black uppercase tracking-widest border border-emerald-100 flex items-center gap-1.5">
-          <i class="fa-solid fa-circle-check"></i> Verified
+          class="px-5 py-2 bg-emerald-50 text-emerald-600 rounded-xl text-[10px] font-black uppercase tracking-widest border border-emerald-100/50 flex items-center gap-2">
+          <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+          Verified Asset
         </div>
         <div
-          class="w-12 h-12 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center text-xl shadow-lg shadow-primary-600/5">
-          <i class="fa-solid fa-droplet"></i>
+          class="w-16 h-16 bg-slate-50 text-primary-600 rounded-2xl flex items-center justify-center text-2xl shadow-inner group-hover:scale-110 group-hover:bg-primary-50 transition-all duration-700">
+          <i class="fa-solid fa-flask-vial"></i>
         </div>
       </div>
 
-      <h3
-        class="text-2xl font-outfit font-extrabold text-slate-900 group-hover:text-primary-600 transition-colors mb-4">
-        GreenGrow Fertilizers</h3>
-      <p class="text-slate-500 text-sm font-medium leading-relaxed mb-8">Specializing in certified organic NPK and
-        sustainable bio-fertilizers.</p>
+      <h3 class="text-3xl font-black text-slate-900 tracking-tight mb-4 group-hover:text-primary-600 transition-colors">
+        Nexus Organics</h3>
+      <p class="text-slate-500 text-base font-medium leading-relaxed mb-10 opacity-90">
+        Advanced molecular nutrition for commercial-scale sustainable cultivation.
+      </p>
 
-      <div class="space-y-4 pt-6 border-t border-slate-50 mb-8">
-        <div class="flex items-center gap-4 text-slate-500 group-hover:text-slate-700 transition-colors">
-          <i class="fa-solid fa-location-dot text-primary-600 w-5"></i>
-          <span class="text-xs font-bold uppercase tracking-wider">Nashik, Maharashtra</span>
+      <div class="space-y-6 py-10 border-t border-slate-50 mb-10 mt-auto">
+        <div class="flex items-center gap-5 text-slate-400 group-hover:text-slate-600 transition-colors">
+          <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
+            <i class="fa-solid fa-location-dot text-primary-500 text-sm"></i>
+          </div>
+          <span class="text-[11px] font-black uppercase tracking-widest">Nashik, MH (IND09)</span>
         </div>
-        <div class="flex items-center gap-4 text-slate-500 group-hover:text-slate-700 transition-colors">
-          <i class="fa-solid fa-tags text-primary-600 w-5"></i>
-          <span class="text-xs font-bold uppercase tracking-wider">Starting ₹1,200 <span class="text-slate-400">/
+        <div class="flex items-center gap-5 text-slate-400 group-hover:text-slate-600 transition-colors">
+          <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
+            <i class="fa-solid fa-tag text-primary-500 text-sm"></i>
+          </div>
+          <span class="text-[11px] font-black uppercase tracking-widest">Starts ₹1,200 <span class="opacity-40">/
               unit</span></span>
         </div>
       </div>
 
-      <button onclick="openChat('GreenGrow')"
-        class="w-full py-4 bg-primary-600 text-white rounded-2xl font-bold hover:bg-primary-700 shadow-lg shadow-primary-600/20 transition-all flex items-center justify-center gap-3">
-        <i class="fa-solid fa-comment-dots"></i>
-        <span data-key="btn_msg">Message Manufacturer</span>
+      <button onclick="openChat('Nexus Organics')"
+        class="w-full py-5 bg-slate-900 text-white rounded-[1.5rem] font-black text-[12px] uppercase tracking-widest hover:bg-slate-800 shadow-2xl transition-all active:scale-95 flex items-center justify-center gap-3">
+        <i class="fa-solid fa-message text-[10px] opacity-50"></i>
+        <span data-key="btn_msg">Secure Connection</span>
       </button>
     </div>
   </div>
 
   <!-- Transporters Tab (Initially Hidden) -->
-  <div id="tabTrans" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  <div id="tabTrans" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-14">
     <!-- Card 1 -->
     <div
-      class="group bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
-      <div class="absolute top-0 right-0 p-8 opacity-[0.03] animate-spin-slow">
-        <i class="fa-solid fa-truck text-9xl"></i>
+      class="group bg-white rounded-[4rem] p-10 md:p-12 border border-slate-100 shadow-sm hover:shadow-[0_64px_160px_-24px_rgba(0,0,0,0.1)] transition-all duration-700 relative overflow-hidden flex flex-col">
+
+      <div
+        class="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-700 pointer-events-none"
+        style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 32px 32px;">
       </div>
 
-      <div class="flex justify-between items-start mb-8">
+      <div class="flex justify-between items-start mb-12 relative z-10">
         <div
-          class="px-4 py-1 bg-blue-50 text-blue-700 rounded-full text-[10px] font-black uppercase tracking-widest border border-blue-100 flex items-center gap-1.5">
-          <i class="fa-solid fa-star"></i> Top Rated
+          class="px-5 py-2 bg-blue-50 text-blue-600 rounded-xl text-[10px] font-black uppercase tracking-widest border border-blue-100/50 flex items-center gap-2">
+          <i class="fa-solid fa-bolt text-[8px]"></i> Priority Fleet
         </div>
         <div
-          class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-xl shadow-lg shadow-blue-600/5">
+          class="w-16 h-16 bg-slate-50 text-blue-600 rounded-2xl flex items-center justify-center text-2xl shadow-inner group-hover:scale-110 group-hover:bg-blue-50 transition-all duration-700">
           <i class="fa-solid fa-truck"></i>
         </div>
       </div>
 
-      <h3 class="text-2xl font-outfit font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors mb-4">
-        Ramesh Transport</h3>
-      <p class="text-slate-500 text-sm font-medium leading-relaxed mb-8">Quick local delivery service using reliable
-        mini trucks (Tata Ace, Mahindra Jeeto).</p>
+      <h3 class="text-3xl font-black text-slate-900 tracking-tight mb-4 group-hover:text-blue-600 transition-colors">
+        Ramesh Cargo</h3>
+      <p class="text-slate-500 text-base font-medium leading-relaxed mb-10 opacity-90">
+        Agile regional logistics specializing in temperature-controlled perishables.
+      </p>
 
-      <div class="space-y-4 pt-6 border-t border-slate-50 mb-8">
-        <div class="flex items-center gap-4 text-slate-500 group-hover:text-slate-700 transition-colors">
-          <i class="fa-solid fa-weight-hanging text-blue-600 w-5"></i>
-          <span class="text-xs font-bold uppercase tracking-wider">Capacity: 2 Tons</span>
+      <div class="space-y-6 py-10 border-t border-slate-50 mb-10 mt-auto">
+        <div class="flex items-center gap-5 text-slate-400 group-hover:text-slate-600 transition-colors">
+          <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
+            <i class="fa-solid fa-weight-hanging text-blue-500 text-sm"></i>
+          </div>
+          <span class="text-[11px] font-black uppercase tracking-widest">Capacity: 2.5 Tons</span>
         </div>
-        <div class="flex items-center gap-4 text-slate-500 group-hover:text-slate-700 transition-colors">
-          <i class="fa-solid fa-route text-blue-600 w-5"></i>
-          <span class="text-xs font-bold uppercase tracking-wider">Rate: ₹15 <span class="text-slate-400">/
+        <div class="flex items-center gap-5 text-slate-400 group-hover:text-slate-600 transition-colors">
+          <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
+            <i class="fa-solid fa-route text-blue-500 text-sm"></i>
+          </div>
+          <span class="text-[11px] font-black uppercase tracking-widest">Rate: ₹15 <span class="opacity-40">/
               km</span></span>
         </div>
       </div>
 
-      <button onclick="openChat('Ramesh Transport')"
-        class="w-full py-4 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 shadow-lg shadow-blue-600/20 transition-all flex items-center justify-center gap-3">
-        <i class="fa-solid fa-phone"></i>
-        <span data-key="btn_contact">Contact Transporter</span>
+      <button onclick="openChat('Ramesh Cargo')"
+        class="w-full py-5 bg-blue-600 text-white rounded-[1.5rem] font-black text-[12px] uppercase tracking-widest hover:bg-blue-700 shadow-2xl transition-all active:scale-95 flex items-center justify-center gap-3">
+        <i class="fa-solid fa-headset text-[10px] opacity-50"></i>
+        <span data-key="btn_contact">Establish Protocol</span>
       </button>
     </div>
   </div>
 
   <!-- Chat Modal Component -->
-  <div id="chatModal" class="fixed bottom-8 right-8 w-full max-w-sm hidden z-[100] animate-[toastIn_0.4s_ease-out]">
-    <div class="bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden flex flex-col h-[550px]">
+  <div id="chatModal" class="fixed bottom-10 right-10 w-full max-w-[420px] hidden z-[100] transition-all duration-500">
+    <div
+      class="bg-white/80 backdrop-blur-3xl rounded-[3.5rem] shadow-[0_64px_160px_-32px_rgba(0,0,0,0.3)] border border-white/20 overflow-hidden flex flex-col h-[650px]">
       <!-- Chat Header -->
-      <div class="bg-slate-900 text-white p-6 flex justify-between items-center shrink-0">
-        <div class="flex items-center gap-4">
+      <div class="bg-slate-950 text-white p-10 flex justify-between items-center shrink-0">
+        <div class="flex items-center gap-6">
           <div class="relative">
-            <div class="w-10 h-10 bg-primary-600 rounded-2xl flex items-center justify-center font-bold text-lg">A</div>
-            <div class="absolute -top-1 -right-1 w-4 h-4 bg-emerald-500 border-4 border-slate-900 rounded-full"></div>
+            <div
+              class="w-16 h-16 bg-primary-600 rounded-[1.5rem] flex items-center justify-center font-black text-2xl shadow-xl shadow-primary-900/40">
+              A</div>
+            <div
+              class="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 border-4 border-slate-950 rounded-full shadow-lg">
+            </div>
           </div>
           <div>
-            <h4 id="chatTitle" class="font-outfit font-black leading-tight">Support</h4>
-            <p class="text-[10px] text-emerald-400 font-bold uppercase tracking-widest">Active Now</p>
+            <h4 id="chatTitle" class="text-xl font-black tracking-tight leading-tight">System Node</h4>
+            <div class="flex items-center gap-2 mt-1">
+              <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+              <p class="text-[10px] text-emerald-500 font-black uppercase tracking-[0.2em]">Active Link</p>
+            </div>
           </div>
         </div>
         <button onclick="document.getElementById('chatModal').classList.add('hidden')"
-          class="w-8 h-8 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center">
-          <i class="fa-solid fa-times h-4"></i>
+          class="w-12 h-12 rounded-2xl bg-white/5 hover:bg-white/10 transition-all flex items-center justify-center border border-white/10">
+          <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </div>
 
       <!-- Messages Area -->
-      <div id="chatBox" class="grow bg-slate-50 p-6 overflow-y-auto flex flex-col gap-4 scroll-smooth">
+      <div id="chatBox" class="grow p-8 overflow-y-auto flex flex-col gap-6 scroll-smooth">
         <div id="chatWelcome"
-          class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-100 text-slate-600 text-sm font-medium max-w-[85%]">
-          Namaste! How can we assist you with your farming needs today?
+          class="bg-white p-6 rounded-[2rem] rounded-tl-none shadow-sm border border-slate-100 text-slate-600 text-sm font-medium max-w-[85%] leading-relaxed">
+          Establishing secure link... Authentication verified. How can we facilitate your industrial requirements?
         </div>
       </div>
 
       <!-- Input Area -->
-      <div class="p-4 bg-white border-t border-slate-100 shrink-0">
-        <div class="flex gap-2">
-          <input type="text" id="chatInput" placeholder="Write your message..."
+      <div class="p-8 bg-white border-t border-slate-50 shrink-0">
+        <div class="flex gap-4 items-center">
+          <input type="text" id="chatInput" placeholder="Enter transmission..."
             onkeydown="if(event.key === 'Enter') sendMessage()"
-            class="grow px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none text-sm font-medium">
+            class="grow px-8 py-5 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-primary-100 transition-all outline-none text-sm font-bold shadow-inner h-16">
           <button onclick="sendMessage()"
-            class="w-12 h-12 bg-primary-600 text-white rounded-2xl flex items-center justify-center hover:bg-primary-700 transition-all shadow-lg shadow-primary-600/20">
-            <i class="fa-solid fa-paper-plane text-sm"></i>
+            class="w-16 h-16 bg-slate-900 text-white rounded-2xl flex items-center justify-center hover:bg-slate-800 transition-all shadow-xl active:scale-90">
+            <i class="fa-solid fa-paper-plane text-base"></i>
           </button>
         </div>
       </div>

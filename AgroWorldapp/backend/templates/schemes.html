@@ -1,184 +1,185 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
+<section class="py-12 md:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
   <!-- Page Header -->
-  <div class="mb-16 text-center">
+  <div class="mb-20 text-center max-w-3xl mx-auto">
     <div
-      class="inline-flex items-center gap-2 px-4 py-1.5 bg-primary-100 text-primary-700 rounded-full text-[10px] font-black uppercase tracking-widest mb-6 border border-primary-200">
-      <i class="fa-solid fa-landmark"></i> <span data-key="gov_india">Government of India</span>
+      class="inline-flex items-center gap-2 px-4 py-1.5 bg-primary-50 text-primary-700 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-6 border border-primary-100">
+      <i class="fa-solid fa-landmark"></i> <span data-key="gov_india">Ministry of Agriculture</span>
     </div>
-    <h2 class="text-4xl font-outfit font-extrabold text-slate-900 mb-4" data-key="nav_schemes">Government Schemes
-      (Yojanas)</h2>
-    <p class="text-slate-500 font-medium max-w-2xl mx-auto" data-key="schemes_desc">Explore financial aid, insurance,
-      and development programs
-      designed to support the Indian farming community.</p>
+    <h2 class="text-4xl md:text-5xl lg:text-7xl font-outfit font-black text-slate-900 mb-6 tracking-tighter"
+      data-key="nav_schemes">Strategic Welfare</h2>
+    <p class="text-slate-500 font-medium text-lg md:text-xl leading-relaxed" data-key="schemes_desc">Direct financial
+      assistance and security frameworks designed for the modernization of the Indian farming community.</p>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-12">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14">
     <!-- PM-Kisan -->
     <div
-      class="group bg-white rounded-[2.5rem] p-8 md:p-10 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden border-t-8 border-t-primary-600">
-      <div class="flex flex-col md:flex-row justify-between md:items-start gap-6 mb-8">
+      class="group bg-white rounded-[3.5rem] p-10 md:p-14 border border-slate-100 shadow-sm hover:shadow-[0_48px_120px_-16px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-700 relative overflow-hidden flex flex-col">
+      <div
+        class="absolute top-0 right-0 w-32 h-32 bg-primary-600/5 rounded-bl-[4rem] group-hover:w-40 group-hover:h-40 transition-all duration-700">
+      </div>
+
+      <div class="flex flex-col md:flex-row justify-between items-start gap-8 mb-12 relative z-10">
         <div class="flex-1">
-          <h3
-            class="text-2xl font-outfit font-extrabold text-slate-900 group-hover:text-primary-600 transition-colors mb-4"
-            data-key="scheme1_title">
-            PM-Kisan Samman Nidhi</h3>
-          <p class="text-slate-500 font-medium leading-relaxed" data-key="scheme1_desc">Financial benefit of ₹6000/- per
-            year is provided
-            directly to all landholding farmers' families through 3 installments.</p>
+          <div class="text-[10px] font-black text-primary-600 uppercase tracking-widest mb-4">Welfare Fund • ACTIVE
+          </div>
+          <h3 class="text-3xl font-outfit font-black text-slate-900 mb-6 tracking-tight" data-key="scheme1_title">
+            PM-Kisan Samman</h3>
+          <p class="text-slate-500 font-medium text-lg leading-relaxed" data-key="scheme1_desc">Direct benefit transfer
+            of ₹6000/- per annum into the validated bank accounts of land-holding families.</p>
         </div>
         <div
-          class="w-16 h-16 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center text-3xl shadow-lg shadow-primary-600/5 shrink-0">
+          class="w-20 h-20 bg-primary-50 text-primary-600 rounded-[1.75rem] flex items-center justify-center text-4xl shadow-2xl shadow-primary-600/10 shrink-0 group-hover:scale-110 transition-transform">
           <i class="fa-solid fa-hand-holding-dollar"></i>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2"
-            data-key="eligibility">Eligibility</span>
-          <p class="text-slate-800 font-bold text-sm">All Farmer Families</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12 mt-auto relative z-10">
+        <div class="p-6 bg-slate-50 rounded-[2rem] border border-slate-100/50">
+          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-3"
+            data-key="eligibility">Geo-Eligibility</span>
+          <p class="text-slate-900 font-black text-base">Validated Land Owners</p>
         </div>
-        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2"
-            data-key="benefit_amount">Benefit Amount</span>
-          <p class="text-primary-600 font-black text-lg">₹6,000 <span class="text-xs text-slate-400"
-              data-key="per_year">/ Year</span></p>
+        <div class="p-6 bg-slate-50 rounded-[2rem] border border-slate-100/50">
+          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-3"
+            data-key="benefit_amount">Annual Grant</span>
+          <p class="text-primary-600 font-black text-2xl font-outfit">₹6,000 <span
+              class="text-xs text-slate-400 font-bold" data-key="per_year">/ FY</span></p>
         </div>
       </div>
 
       <a href="https://pmkisan.gov.in/" target="_blank"
-        class="w-full inline-flex items-center justify-center py-4 bg-primary-600 text-white rounded-2xl font-bold hover:bg-primary-700 shadow-lg shadow-primary-600/20 transition-all gap-2 group/btn">
-        <span data-key="btn_scheme1">Apply on PM-Kisan Portal</span>
-        <i
-          class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover/btn:translate-x-1 transition-transform"></i>
+        class="w-full inline-flex items-center justify-center py-5 bg-slate-900 text-white rounded-[1.5rem] font-black text-sm uppercase tracking-widest hover:bg-slate-800 shadow-xl transition-all gap-4 group/btn relative z-10">
+        <span data-key="btn_scheme1">Initiate Application</span>
+        <i class="fa-solid fa-arrow-right-long group-hover/btn:translate-x-2 transition-transform"></i>
       </a>
     </div>
 
     <!-- PMFBY -->
     <div
-      class="group bg-white rounded-[2.5rem] p-8 md:p-10 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden border-t-8 border-t-amber-500">
-      <div class="flex flex-col md:flex-row justify-between md:items-start gap-6 mb-8">
+      class="group bg-white rounded-[3.5rem] p-10 md:p-14 border border-slate-100 shadow-sm hover:shadow-[0_48px_120px_-16px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-700 relative overflow-hidden flex flex-col">
+      <div
+        class="absolute top-0 right-0 w-32 h-32 bg-amber-600/5 rounded-bl-[4rem] group-hover:w-40 group-hover:h-40 transition-all duration-700">
+      </div>
+
+      <div class="flex flex-col md:flex-row justify-between items-start gap-8 mb-12 relative z-10">
         <div class="flex-1">
-          <h3
-            class="text-2xl font-outfit font-extrabold text-slate-900 group-hover:text-amber-600 transition-colors mb-4"
-            data-key="scheme2_title">
-            Pradhan Mantri Fasal Bima Yojana</h3>
-          <p class="text-slate-500 font-medium leading-relaxed" data-key="scheme2_desc">Safety net for your hard work.
-            Comprehensive insurance
-            against crop loss due to natural calamities, pests or diseases.</p>
+          <div class="text-[10px] font-black text-amber-600 uppercase tracking-widest mb-4">Risk Shield • ACTIVE</div>
+          <h3 class="text-3xl font-outfit font-black text-slate-900 mb-6 tracking-tight" data-key="scheme2_title">
+            Fasal Bima Yojana</h3>
+          <p class="text-slate-500 font-medium text-lg leading-relaxed" data-key="scheme2_desc">Comprehensive multi-risk
+            insurance mechanism covering output loss from climatic deviations.</p>
         </div>
         <div
-          class="w-16 h-16 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center text-3xl shadow-lg shadow-amber-600/5 shrink-0">
+          class="w-20 h-20 bg-amber-50 text-amber-600 rounded-[1.75rem] flex items-center justify-center text-4xl shadow-2xl shadow-amber-600/10 shrink-0 group-hover:scale-110 transition-transform">
           <i class="fa-solid fa-shield-heart"></i>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2"
-            data-key="coverage">Coverage</span>
-          <p class="text-slate-800 font-bold text-sm">Pests & Calamities</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12 mt-auto relative z-10">
+        <div class="p-6 bg-slate-50 rounded-[2rem] border border-slate-100/50">
+          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-3"
+            data-key="coverage">Hazard Coverage</span>
+          <p class="text-slate-900 font-black text-base">Climate & Pestilence</p>
         </div>
-        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2"
-            data-key="premium_rate">Premium Rate</span>
-          <p class="text-amber-600 font-black text-lg text-center">1.5% - 2% <span class="text-xs text-slate-400"
-              data-key="fixed">Fixed</span></p>
+        <div class="p-6 bg-slate-50 rounded-[2rem] border border-slate-100/50">
+          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-3"
+            data-key="premium_rate">Service Premium</span>
+          <p class="text-amber-600 font-black text-2xl font-outfit">1.5% - 2.0%</p>
         </div>
       </div>
 
       <a href="https://pmfby.gov.in/" target="_blank"
-        class="w-full inline-flex items-center justify-center py-4 bg-amber-500 text-white rounded-2xl font-bold hover:bg-amber-600 shadow-lg shadow-amber-600/20 transition-all gap-2 group/btn">
-        <span data-key="btn_scheme2">Register Crop Insurance</span>
-        <i
-          class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover/btn:translate-x-1 transition-transform"></i>
+        class="w-full inline-flex items-center justify-center py-5 bg-amber-600 text-white rounded-[1.5rem] font-black text-sm uppercase tracking-widest hover:bg-amber-500 shadow-xl transition-all gap-4 group/btn relative z-10">
+        <span data-key="btn_scheme2">Secure My Harvest</span>
+        <i class="fa-solid fa-arrow-right-long group-hover/btn:translate-x-2 transition-transform"></i>
       </a>
     </div>
 
     <!-- Kisan Credit Card -->
     <div
-      class="group bg-white rounded-[2.5rem] p-8 md:p-10 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden border-t-8 border-t-blue-600">
-      <div class="flex flex-col md:flex-row justify-between md:items-start gap-6 mb-8">
+      class="group bg-white rounded-[3.5rem] p-10 md:p-14 border border-slate-100 shadow-sm hover:shadow-[0_48px_120px_-16px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-700 relative overflow-hidden flex flex-col">
+      <div
+        class="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 rounded-bl-[4rem] group-hover:w-40 group-hover:h-40 transition-all duration-700">
+      </div>
+
+      <div class="flex flex-col md:flex-row justify-between items-start gap-8 mb-12 relative z-10">
         <div class="flex-1">
-          <h3
-            class="text-2xl font-outfit font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors mb-4"
-            data-key="scheme3_title">
-            Kisan Credit Card (KCC)</h3>
-          <p class="text-slate-500 font-medium leading-relaxed" data-key="scheme3_desc">Unlock easy access to
-            institutional credit. Supports
-            purchase of seeds, fertilizers, and general farm maintenance.</p>
+          <div class="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-4">Capital Access • ACTIVE</div>
+          <h3 class="text-3xl font-outfit font-black text-slate-900 mb-6 tracking-tight" data-key="scheme3_title">
+            Kisan Credit Card</h3>
+          <p class="text-slate-500 font-medium text-lg leading-relaxed" data-key="scheme3_desc">Low-interest
+            institutional credit bridge for input procurement and operational liquidity.</p>
         </div>
         <div
-          class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-3xl shadow-lg shadow-blue-600/5 shrink-0">
+          class="w-20 h-20 bg-blue-50 text-blue-600 rounded-[1.75rem] flex items-center justify-center text-4xl shadow-2xl shadow-blue-600/10 shrink-0 group-hover:scale-110 transition-transform">
           <i class="fa-solid fa-credit-card"></i>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2"
-            data-key="loan_limit">Loan Limit</span>
-          <p class="text-slate-800 font-bold text-sm">High Flexibility</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12 mt-auto relative z-10">
+        <div class="p-6 bg-slate-50 rounded-[2rem] border border-slate-100/50">
+          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-3"
+            data-key="loan_limit">Capital Limit</span>
+          <p class="text-slate-900 font-black text-base">Dynamic Flexi-Scale</p>
         </div>
-        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2"
-            data-key="interest_rate">Interest Rate</span>
-          <p class="text-blue-600 font-black text-lg">Subsidized <span class="text-xs text-slate-400 leading-none">
-              (starts 4%)</span></p>
+        <div class="p-6 bg-slate-50 rounded-[2rem] border border-slate-100/50">
+          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-3"
+            data-key="interest_rate">Capital Cost</span>
+          <p class="text-blue-600 font-black text-2xl font-outfit">Starts at 4%</p>
         </div>
       </div>
 
       <a href="https://sbi.co.in/web/agri-rural/agriculture-banking/crop-loan/kisan-credit-card" target="_blank"
-        class="w-full inline-flex items-center justify-center py-4 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 shadow-lg shadow-blue-600/20 transition-all gap-2 group/btn">
-        <span data-key="btn_scheme3">View Bank Details</span>
-        <i
-          class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover/btn:translate-x-1 transition-transform"></i>
+        class="w-full inline-flex items-center justify-center py-5 bg-blue-600 text-white rounded-[1.5rem] font-black text-sm uppercase tracking-widest hover:bg-blue-500 shadow-xl transition-all gap-4 group/btn relative z-10">
+        <span data-key="btn_scheme3">Procure Credit Info</span>
+        <i class="fa-solid fa-arrow-right-long group-hover/btn:translate-x-2 transition-transform"></i>
       </a>
     </div>
 
     <!-- PKVY -->
     <div
-      class="group bg-white rounded-[2.5rem] p-8 md:p-10 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden border-t-8 border-t-emerald-600">
-      <div class="flex flex-col md:flex-row justify-between md:items-start gap-6 mb-8">
+      class="group bg-white rounded-[3.5rem] p-10 md:p-14 border border-slate-100 shadow-sm hover:shadow-[0_48px_120px_-16px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-700 relative overflow-hidden flex flex-col">
+      <div
+        class="absolute top-0 right-0 w-32 h-32 bg-emerald-600/5 rounded-bl-[4rem] group-hover:w-40 group-hover:h-40 transition-all duration-700">
+      </div>
+
+      <div class="flex flex-col md:flex-row justify-between items-start gap-8 mb-12 relative z-10">
         <div class="flex-1">
-          <h3
-            class="text-2xl font-outfit font-extrabold text-slate-900 group-hover:text-emerald-600 transition-colors mb-4"
-            data-key="scheme4_title">
-            Paramparagat Krishi Vikas</h3>
-          <p class="text-slate-500 font-medium leading-relaxed" data-key="scheme4_desc">Dedicated push for commercial
-            organic farming. Improve
-            soil health and harvest premium chemical-free produce.</p>
+          <div class="text-[10px] font-black text-emerald-600 uppercase tracking-widest mb-4">Organic Growth • ACTIVE
+          </div>
+          <h3 class="text-3xl font-outfit font-black text-slate-900 mb-6 tracking-tight" data-key="scheme4_title">
+            Paramparagat Krishi</h3>
+          <p class="text-slate-500 font-medium text-lg leading-relaxed" data-key="scheme4_desc">Incentivizing the
+            transition to certified organic agriculture through cluster-based ecological support.</p>
         </div>
         <div
-          class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center text-3xl shadow-lg shadow-emerald-600/5 shrink-0">
+          class="w-20 h-20 bg-emerald-50 text-emerald-600 rounded-[1.75rem] flex items-center justify-center text-4xl shadow-2xl shadow-emerald-600/10 shrink-0 group-hover:scale-110 transition-transform">
           <i class="fa-solid fa-seedling"></i>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2"
-            data-key="gov_aid">Govt Aid</span>
-          <p class="text-slate-800 font-bold text-sm">₹50,000 / Hectare</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12 mt-auto relative z-10">
+        <div class="p-6 bg-slate-50 rounded-[2rem] border border-slate-100/50">
+          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-3"
+            data-key="gov_aid">Support Grant</span>
+          <p class="text-slate-900 font-black text-base">₹50,000 / Hectare</p>
         </div>
-        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2"
-            data-key="duration_lbl">Duration</span>
-          <p class="text-emerald-600 font-black text-lg">3 Successive Years</p>
+        <div class="p-6 bg-slate-50 rounded-[2rem] border border-slate-100/50">
+          <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-3"
+            data-key="duration_lbl">Duration Term</span>
+          <p class="text-emerald-600 font-black text-2xl font-outfit">36 Month Lifecycle</p>
         </div>
       </div>
 
-      <a href="https://dpg.gov.in/" target="_blank"
-        class="w-full inline-flex items-center justify-center py-4 bg-emerald-600 text-white rounded-2xl font-bold hover:bg-emerald-700 shadow-lg shadow-emerald-600/20 transition-all gap-2 group/btn">
-        <span data-key="btn_scheme4">Apply for Aid</span>
-        <i
-          class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover/btn:translate-x-1 transition-transform"></i>
-      </a>
+      <button disabled
+        class="w-full inline-flex items-center justify-center py-5 bg-emerald-600/20 text-emerald-700 rounded-[1.5rem] font-black text-sm uppercase tracking-widest cursor-not-allowed opacity-50 gap-4 mt-auto">
+        <span data-key="btn_scheme4">Cluster Registration Paused</span>
+      </button>
     </div>
-
   </div>
 </section>
 {% endblock %}

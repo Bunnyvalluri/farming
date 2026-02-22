@@ -1,98 +1,104 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="min-h-[80vh] flex items-center justify-center px-4 py-20 relative overflow-hidden">
-  <!-- Decorative Elements -->
+<section class="min-h-screen flex items-center justify-center px-4 py-32 relative overflow-hidden bg-slate-50/50">
+  <!-- Dynamic Background Orbs -->
   <div
-    class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-100/50 blur-[120px] rounded-full -mr-64 -mt-64 animate-pulse">
+    class="absolute top-0 right-0 w-[600px] h-[600px] bg-primary-100/30 blur-[140px] rounded-full -mr-64 -mt-64 animate-pulse">
   </div>
-  <div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-accent/10 blur-[100px] rounded-full -ml-32 -mb-32"></div>
+  <div
+    class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-100/20 blur-[120px] rounded-full -ml-32 -mb-32 animate-pulse-slow">
+  </div>
 
-  <div class="w-full max-w-md relative z-10">
-    <div class="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-2xl shadow-primary-900/10 border border-slate-100">
+  <div class="w-full max-w-[480px] relative z-10 px-4">
+    <div
+      class="bg-white/70 backdrop-blur-2xl rounded-[4rem] p-12 md:p-16 shadow-[0_64px_160px_-32px_rgba(0,0,0,0.08)] border border-white/20">
 
-      <!-- Brand Logo in Auth -->
-      <div class="flex flex-col items-center mb-10">
+      <!-- Brand Identity -->
+      <div class="flex flex-col items-center mb-16">
         <div
-          class="w-16 h-16 bg-primary-600 rounded-[1.5rem] flex items-center justify-center text-white shadow-xl shadow-primary-600/30 mb-6 group hover:rotate-12 transition-transform duration-500">
-          <i class="fa-solid fa-leaf text-3xl"></i>
+          class="w-20 h-20 bg-slate-900 rounded-[1.75rem] flex items-center justify-center text-white shadow-2xl shadow-slate-900/40 mb-10 group hover:rotate-12 transition-all duration-700">
+          <i class="fa-solid fa-leaf text-3xl text-primary-400"></i>
         </div>
-        <h2 class="text-3xl font-outfit font-black text-slate-900 leading-tight text-center">
+        <h2 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tighter leading-none text-center">
           <span data-key="{% if type == 'login' %}auth_login_title{% else %}auth_reg_title{% endif %}">
-            {% if type == 'login' %}Login to Agro World{% else %}Create Farmer Account{% endif %}
+            {% if type == 'login' %}System Access{% else %}Protocol Reset{% endif %}
           </span>
         </h2>
+        <p class="mt-4 text-slate-400 text-xs font-black uppercase tracking-[0.3em] text-center">Authentication Terminal
+        </p>
       </div>
 
-      <form action="/login" method="POST" class="space-y-6">
-        <div class="space-y-2 group">
+      <form action="/login" method="POST" class="space-y-8">
+        <div class="space-y-3 group">
           <label
-            class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1 group-focus-within:text-primary-600 transition-colors"
-            data-key="auth_email">Email or Phone</label>
+            class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] ml-2 group-focus-within:text-primary-600 transition-colors"
+            data-key="auth_email">Identity Key</label>
           <div class="relative">
-            <input type="text" name="email" required placeholder="e.g., +91 98765 43210"
-              class="w-full pl-6 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none font-medium h-14">
-            <i class="fa-solid fa-at absolute right-6 top-1/2 -translate-y-1/2 text-slate-300"></i>
+            <input type="text" name="email" required placeholder="Email or Phone Number"
+              class="w-full pl-8 pr-16 py-6 bg-slate-100 border-none rounded-[1.5rem] focus:ring-4 focus:ring-primary-100 transition-all outline-none font-bold text-slate-900 shadow-inner h-18">
+            <i class="fa-solid fa-fingerprint absolute right-8 top-1/2 -translate-y-1/2 text-slate-300 text-lg"></i>
           </div>
         </div>
 
-        <div class="space-y-2 group">
+        <div class="space-y-3 group">
           <label
-            class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1 group-focus-within:text-primary-600 transition-colors"
-            data-key="auth_pass">Password</label>
+            class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] ml-2 group-focus-within:text-primary-600 transition-colors"
+            data-key="auth_pass">Secret Phrase</label>
           <div class="relative">
             <input type="password" name="password" required placeholder="••••••••"
-              class="w-full pl-6 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none font-medium h-14">
-            <i class="fa-solid fa-lock absolute right-6 top-1/2 -translate-y-1/2 text-slate-300"></i>
+              class="w-full pl-8 pr-16 py-6 bg-slate-100 border-none rounded-[1.5rem] focus:ring-4 focus:ring-primary-100 transition-all outline-none font-bold text-slate-900 shadow-inner h-18">
+            <i class="fa-solid fa-shield-halved absolute right-8 top-1/2 -translate-y-1/2 text-slate-300 text-lg"></i>
           </div>
         </div>
 
         {% if type == 'register' %}
-        <div class="space-y-2 group">
+        <div class="space-y-3 group">
           <label
-            class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1 group-focus-within:text-primary-600 transition-colors"
-            data-key="auth_role">Your Community Role</label>
+            class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] ml-2 group-focus-within:text-primary-600 transition-colors"
+            data-key="auth_role">Operational Domain</label>
           <div class="relative">
             <select name="role"
-              class="w-full pl-6 pr-10 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none font-bold text-slate-700 appearance-none h-14 cursor-pointer">
-              <option value="farmer" data-key="role_farmer">Farmer</option>
-              <option value="manufacturer" data-key="role_mfg">Seed Manufacturer</option>
-              <option value="transporter" data-key="role_trans">Transporter</option>
+              class="w-full pl-8 pr-12 py-6 bg-slate-100 border-none rounded-[1.5rem] focus:ring-4 focus:ring-primary-100 transition-all outline-none font-black text-slate-900 appearance-none h-18 cursor-pointer shadow-inner">
+              <option value="farmer" data-key="role_farmer">Agrarian (Farmer)</option>
+              <option value="manufacturer" data-key="role_mfg">Industrialist (Mfg)</option>
+              <option value="transporter" data-key="role_trans">Logistics Hub</option>
             </select>
             <i
-              class="fa-solid fa-chevron-down absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs"></i>
+              class="fa-solid fa-chevron-down absolute right-8 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-[10px]"></i>
           </div>
         </div>
         {% endif %}
 
-        <div class="pt-4">
-          <button type="submit" class="w-full btn-primary !py-4 text-base shadow-primary-600/30"
+        <div class="pt-8">
+          <button type="submit"
+            class="w-full py-6 bg-slate-900 text-white rounded-[1.5rem] font-black text-[12px] uppercase tracking-[0.2em] shadow-2xl transition-all hover:bg-slate-800 active:scale-95"
             data-key="{% if type == 'login' %}auth_login_btn{% else %}auth_reg_btn{% endif %}">
-            {% if type == 'login' %}Sign In Account{% else %}Start Your Journey{% endif %}
+            {% if type == 'login' %}Authorize Session{% else %}Initialize Link{% endif %}
           </button>
         </div>
       </form>
 
-      <div class="mt-10 pt-8 border-t border-slate-100 text-center">
-        <p class="text-slate-500 font-medium">
+      <div class="mt-12 pt-10 border-t border-slate-100 text-center">
+        <p class="text-slate-500 text-sm font-bold">
           {% if type == 'login' %}
-          <span data-key="auth_new_here">Don't have an account?</span> <a href="/register"
-            class="text-primary-600 font-black hover:underline underline-offset-4 ml-1 transition-all"
-            data-key="auth_create_acc">Join US</a>
+          <span data-key="auth_new_here">New Node?</span> <a href="/register"
+            class="text-primary-600 font-black hover:underline underline-offset-8 ml-2 transition-all"
+            data-key="auth_create_acc">Register Asset</a>
           {% else %}
-          <span data-key="auth_have_acc">Already part of us?</span> <a href="/login"
-            class="text-primary-600 font-black hover:underline underline-offset-4 ml-1 transition-all"
-            data-key="auth_login_btn">Sign In</a>
+          <span data-key="auth_have_acc">Existing Node?</span> <a href="/login"
+            class="text-primary-600 font-black hover:underline underline-offset-8 ml-2 transition-all"
+            data-key="auth_login_btn">Authorize</a>
           {% endif %}
         </p>
       </div>
     </div>
 
-    <!-- Auth Footer Info -->
-    <div class="mt-8 text-center px-4">
-      <p class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] leading-relaxed">
-        Secured by Agro World Encryption <br>
-        Your Data is Private & Safe
+    <!-- Security Information -->
+    <div class="mt-12 text-center">
+      <p class="text-[9px] text-slate-400 font-black uppercase tracking-[0.4em] leading-relaxed opacity-60">
+        Secured by AES-256 Quantum Encryption <br>
+        Agro World Security Infrastructure
       </p>
     </div>
   </div>

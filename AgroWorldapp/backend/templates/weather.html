@@ -1,169 +1,228 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+<section class="py-20 md:py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
+  <!-- Dynamic Background Decoration -->
+  <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-100/20 rounded-full blur-[120px] -z-10 animate-pulse">
+  </div>
+
   <!-- Header & Actions -->
-  <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
-    <div>
-      <h2 class="text-3xl md:text-4xl font-outfit font-extrabold text-slate-900 mb-2 flex items-center gap-4"
+  <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12 mb-24">
+    <div class="max-w-2xl">
+      <div
+        class="inline-flex items-center gap-3 px-5 py-2 bg-blue-50 text-blue-600 rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-blue-100/50">
+        <i class="fa-solid fa-satellite animate-pulse"></i> High-Resolution Feed
+      </div>
+      <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 mb-8 tracking-tighter leading-[0.9]"
         data-key="weather_title">
-        <i class="fa-solid fa-arrows-spin text-primary-600/20 animate-spin-slow"></i>
-        Climate & Weather Forecast
-      </h2>
-      <p class="text-slate-500 font-medium" data-key="weather_desc">Real-time agricultural weather insights for your
-        crops.</p>
+        Climate <br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+          Intelligence
+        </span>
+      </h1>
+      <p class="text-lg md:text-2xl text-slate-500 font-medium leading-relaxed opacity-80" data-key="weather_desc">
+        Agricultural-grade meteorological insights powered by localized predictive neural casting.
+      </p>
     </div>
 
-    <!-- Decorative Icons -->
-    <div class="hidden lg:block absolute top-40 right-20 opacity-10 animate-spin-slow -z-10">
-      <i class="fa-solid fa-sun text-[10rem] text-amber-200"></i>
-    </div>
-    <div class="hidden lg:block absolute bottom-20 left-20 opacity-10 animate-float -z-10">
-      <i class="fa-solid fa-cloud text-[8rem] text-primary-200"></i>
-    </div>
-
-    <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-      <form action="/weather" method="GET" class="relative group grow">
-        <input type="text" name="city" placeholder="Search City..." data-key="weather_search_ph" required
-          class="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none font-medium">
+    <div class="flex flex-col sm:flex-row gap-5 w-full lg:w-auto">
+      <form action="/weather" method="GET" class="relative group grow sm:min-w-[320px]">
+        <input type="text" name="city" placeholder="Search Geo-Node..." data-key="weather_search_ph" required
+          class="w-full pl-14 pr-4 py-6 bg-white border border-slate-200 rounded-[1.5rem] focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all outline-none font-bold text-slate-900 shadow-sm h-18">
         <i
-          class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary-600 transition-colors"></i>
+          class="fa-solid fa-magnifying-glass absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-600 transition-colors text-lg"></i>
         <button type="submit" class="hidden">Search</button>
       </form>
 
       <button onclick="getRealLocation()"
-        class="flex items-center justify-center gap-3 px-6 py-3 bg-primary-600 text-white rounded-2xl font-bold hover:bg-primary-700 shadow-lg shadow-primary-600/20 transition-all hover:-translate-y-0.5 whitespace-nowrap">
-        <i class="fa-solid fa-location-crosshairs"></i>
-        <span data-key="weather_btn_loc">Use My Location</span>
+        class="flex items-center justify-center gap-4 px-10 py-6 bg-slate-900 text-white rounded-[1.5rem] font-black text-[12px] uppercase tracking-widest hover:bg-slate-800 shadow-2xl transition-all active:scale-95 group h-18">
+        <i
+          class="fa-solid fa-location-crosshairs group-hover:rotate-90 transition-transform duration-700 opacity-50"></i>
+        <span data-key="weather_btn_loc">Auto-Detect</span>
       </button>
     </div>
   </div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-10 lg:gap-14">
     <!-- Current Weather Card -->
-    <div class="lg:col-span-2 relative group">
+    <div class="lg:col-span-3 relative overflow-hidden group">
       <div
-        class="absolute inset-0 bg-gradient-to-br from-primary-600 to-primary-800 rounded-[2.5rem] shadow-2xl shadow-primary-600/20">
-      </div>
-      <div class="absolute top-0 right-0 p-12 opacity-20 animate-spin-slow">
-        <i class="fa-solid fa-cloud-sun-rain text-9xl text-white"></i>
+        class="absolute inset-0 bg-gradient-to-br from-blue-600 to-blue-900 rounded-[4rem] shadow-[0_64px_160px_-32px_rgba(37,99,235,0.3)]">
       </div>
 
-      <div class="relative p-10 md:p-12 text-white flex flex-col h-full">
-        <div class="flex justify-between items-start mb-12">
-          <div>
-            <h3 class="text-xl font-bold opacity-80 mb-1 flex items-center gap-2">
-              <i class="fa-solid fa-location-dot"></i>
+      <!-- Pattern Overlay -->
+      <div class="absolute inset-0 opacity-[0.05] pointer-events-none"
+        style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 32px 32px;">
+      </div>
+
+      <div class="relative p-10 md:p-20 text-white flex flex-col h-full min-h-[500px] md:min-h-[650px]">
+        <div class="flex flex-col md:flex-row justify-between items-start gap-10 mb-20">
+          <div class="space-y-4">
+            <h3 class="text-3xl md:text-4xl font-black tracking-tighter flex items-center gap-4">
+              <i class="fa-solid fa-location-dot text-blue-300 opacity-50"></i>
               {{ weather.current.location }}
             </h3>
-            <p class="text-xs uppercase tracking-widest font-bold opacity-60">Today's Overview</p>
+            <div
+              class="inline-flex items-center gap-3 px-5 py-2 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 text-[10px] font-black uppercase tracking-[0.3em]">
+              <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse shadow-[0_0_8px_#34d399]"></span>
+              Telemetry Live
+            </div>
           </div>
-          <div class="px-4 py-2 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 text-sm font-bold"
+          <div
+            class="px-8 py-4 bg-white/10 backdrop-blur-3xl rounded-[1.5rem] border border-white/20 text-xl font-black tracking-tight flex items-center gap-3"
             data-key="{{ weather.current.condition }}">
+            <i class="fa-solid fa-temperature-full text-blue-300"></i>
             {{ weather.current.condition }}
           </div>
         </div>
 
-        <div class="mt-auto flex flex-col md:flex-row md:items-end justify-between gap-8">
-          <div>
-            <div class="text-7xl md:text-8xl font-outfit font-black leading-none mb-4 italic">{{ weather.current.temp
-              }}°</div>
-            <p class="text-lg opacity-80 max-w-xs leading-relaxed">Perfect conditions for spraying fertilizers today.
+        <div class="mt-auto flex flex-col md:flex-row md:items-end justify-between gap-16">
+          <div class="space-y-6">
+            <div class="text-9xl md:text-[12rem] font-black leading-none tracking-tighter flex items-start">
+              {{ weather.current.temp }}<span class="text-4xl md:text-6xl mt-4 opacity-40 italic">°C</span>
+            </div>
+            <p class="text-xl md:text-3xl font-medium text-blue-100 max-w-lg leading-relaxed opacity-90">
+              Agrarian environment is <span
+                class="text-white font-black italic underline underline-offset-8 decoration-emerald-400/50">optimal</span>
+              for precision soil conditioning.
             </p>
           </div>
 
           <div
-            class="grid grid-cols-3 gap-6 md:gap-12 bg-white/10 backdrop-blur-lg p-6 rounded-3xl border border-white/20">
+            class="grid grid-cols-3 gap-10 md:gap-20 bg-black/20 backdrop-blur-3xl p-10 md:p-14 rounded-[3.5rem] border border-white/10 shadow-3xl">
             <div class="text-center">
-              <p class="text-[10px] uppercase font-bold opacity-60 mb-2" data-key="weather_humidity">Humidity</p>
-              <p class="text-xl font-bold">{{ weather.current.humidity }}%</p>
+              <p class="text-[10px] uppercase font-black text-blue-200 mb-6 tracking-[0.3em]"
+                data-key="weather_humidity">Humidity</p>
+              <p class="text-4xl font-black tracking-tighter">{{ weather.current.humidity }}%</p>
             </div>
-            <div class="text-center border-x border-white/10 px-6 md:px-12">
-              <p class="text-[10px] uppercase font-bold opacity-60 mb-2" data-key="weather_wind">Wind</p>
-              <p class="text-xl font-bold">{{ weather.current.wind }}<span class="text-xs ml-1">km/h</span></p>
+            <div class="text-center border-x border-white/10 px-10 md:px-20">
+              <p class="text-[10px] uppercase font-black text-blue-200 mb-6 tracking-[0.3em]" data-key="weather_wind">
+                Force</p>
+              <p class="text-4xl font-black tracking-tighter">{{ weather.current.wind }}<span
+                  class="text-[10px] ml-1 opacity-40 font-bold">KM/H</span></p>
             </div>
             <div class="text-center">
-              <p class="text-[10px] uppercase font-bold opacity-60 mb-2" data-key="weather_uv">UV Index</p>
-              <p class="text-xl font-bold italic">Med</p>
+              <p class="text-[10px] uppercase font-black text-blue-200 mb-6 tracking-[0.3em]" data-key="weather_uv">
+                Solar Index</p>
+              <p class="text-4xl font-black tracking-tighter">MOD</p>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Right Column: Alerts & Tips -->
-    <div class="space-y-6">
+    <!-- Right Column: Safety & AI Insights -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-10 lg:gap-14">
       <!-- Weather Alerts -->
       {% if weather.alerts %}
-      <div class="bg-rose-50 border border-rose-100 rounded-[2rem] p-8 shadow-sm">
-        <h3 class="flex items-center gap-3 text-rose-700 font-outfit font-extrabold text-xl mb-6">
-          <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
-          <span data-key="weather_alert_title">Weather Alerts</span>
+      <div class="bg-rose-50 border border-rose-100 rounded-[3.5rem] p-10 md:p-12 shadow-sm flex flex-col h-full group">
+        <h3 class="flex items-center gap-4 text-rose-700 font-black text-2xl mb-10">
+          <i class="fa-solid fa-triangle-exclamation animate-bounce"></i>
+          <span data-key="weather_alert_title">Risk Feed</span>
         </h3>
-        <div class="space-y-4">
+        <div class="space-y-6">
           {% for alert in weather.alerts %}
-          <div class="flex items-start gap-3 p-4 bg-white/60 rounded-2xl border border-rose-100">
-            <div
-              class="w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex-shrink-0 flex items-center justify-center text-xs">
-              <i class="fa-solid fa-bell"></i>
+          <div
+            class="group/alert p-6 bg-white rounded-2xl border border-rose-100/50 hover:shadow-xl transition-all duration-500">
+            <div class="flex items-start gap-5">
+              <div
+                class="w-12 h-12 rounded-xl bg-rose-50 text-rose-600 shrink-0 flex items-center justify-center border border-rose-100 group-hover/alert:scale-110 transition-transform">
+                <i class="fa-solid fa-bolt-lightning text-lg"></i>
+              </div>
+              <p class="text-rose-900 font-bold text-base leading-relaxed">
+                {{ alert.text }}
+              </p>
             </div>
-            <p class="text-rose-900 font-semibold text-sm">{{ alert.text }}</p>
           </div>
           {% endfor %}
         </div>
       </div>
       {% else %}
-      <div class="bg-primary-50 border border-primary-100 rounded-[2rem] p-8 shadow-sm">
-        <h3 class="flex items-center gap-3 text-primary-700 font-outfit font-extrabold text-xl mb-4">
-          <i class="fa-solid fa-shield-check"></i>
-          <span>Weather Safety</span>
+      <div
+        class="bg-slate-50 border border-slate-100 rounded-[3.5rem] p-10 md:p-12 shadow-sm flex flex-col h-full overflow-hidden relative group">
+        <div
+          class="absolute -bottom-10 -right-10 opacity-[0.03] group-hover:rotate-12 transition-transform duration-1000">
+          <i class="fa-solid fa-shield-halved text-[15rem]"></i>
+        </div>
+        <h3 class="flex items-center gap-4 text-slate-900 font-black text-2xl mb-8 relative z-10">
+          <i class="fa-solid fa-shield-check text-emerald-500"></i>
+          <span>Operations Safety</span>
         </h3>
-        <p class="text-primary-800/70 text-sm font-medium leading-relaxed">No extreme weather conditions detected for
-          your current location. Safe to proceed with field activities.</p>
+        <p class="text-slate-500 text-lg font-medium leading-relaxed relative z-10 opacity-80">
+          Parameters verified. Stable climatic corridor detected for high-intensity agrarian cycles.
+        </p>
+        <div class="mt-auto pt-10 relative z-10">
+          <div class="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
+            <div class="h-full bg-emerald-500 w-full animate-[pulse_4s_infinite]"></div>
+          </div>
+        </div>
       </div>
       {% endif %}
 
-      <!-- Smart Recommendation -->
+      <!-- AI Strategy Tip -->
       {% if weather.smart_tip %}
-      <div class="bg-amber-50 border border-amber-100 rounded-[2rem] p-8 shadow-sm">
+      <div
+        class="bg-slate-900 border border-white/5 rounded-[3.5rem] p-10 md:p-12 shadow-3xl flex flex-col h-full group relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-transparent"></div>
         <div
-          class="w-12 h-12 bg-amber-500 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/20 mb-6">
-          <i class="fa-solid fa-lightbulb text-xl"></i>
+          class="w-16 h-16 bg-gradient-to-br from-amber-400 to-amber-600 text-white rounded-2xl flex items-center justify-center shadow-2xl shadow-amber-500/30 mb-10 group-hover:scale-110 transition-transform relative z-10">
+          <i class="fa-solid fa-atom text-2xl"></i>
         </div>
-        <h4 class="text-amber-800 font-outfit font-extrabold text-xl mb-3" data-key="weather_smart_rec">Smart Tip</h4>
-        <p class="text-amber-900/80 font-bold leading-relaxed italic">"{{ weather.smart_tip }}"</p>
+        <h4 class="text-slate-500 font-black text-[10px] uppercase tracking-[0.3em] mb-6 relative z-10"
+          data-key="weather_smart_rec">Neural Strategy</h4>
+        <p class="text-white text-2xl md:text-3xl font-medium leading-tight tracking-tight italic relative z-10">"{{
+          weather.smart_tip
+          }}"</p>
+        <div class="mt-auto pt-10 relative z-10">
+          <button
+            class="text-amber-500 text-xs font-black uppercase tracking-[0.4em] hover:text-amber-400 transition-colors">Extrapolate
+            Tips →</button>
+        </div>
       </div>
       {% endif %}
     </div>
   </div>
 
-  <!-- 5-Day Forecast -->
-  <div class="mt-16">
-    <div class="flex items-center justify-between mb-8">
-      <h3 class="text-2xl font-outfit font-extrabold text-slate-900" data-key="weather_forecast">5-Day Forecast</h3>
-      <div class="h-1 grow ml-8 bg-slate-100 rounded-full"></div>
+  <!-- Extended Projections -->
+  <div class="mt-40">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16">
+      <div class="max-w-xl">
+        <h3 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tighter" data-key="weather_forecast">Extended
+          Vectoring</h3>
+        <p class="text-slate-500 text-lg font-medium mt-4 opacity-80">Precision climate modeling for the 120-hour
+          operational window.</p>
+      </div>
+      <div class="h-px bg-slate-200 grow max-w-lg hidden md:block mb-6"></div>
     </div>
 
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-10">
       {% for day in weather.forecast %}
       <div
-        class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-primary-100 transition-all group">
-        <p class="text-sm font-bold text-slate-400 group-hover:text-primary-600 mb-6 transition-colors">{{ day.day }}
+        class="group bg-white p-10 md:p-12 rounded-[3.5rem] border border-slate-100 shadow-sm hover:shadow-[0_48px_120px_-24px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-700 relative overflow-hidden">
+        <div
+          class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-40 transition-opacity pointer-events-none">
+        </div>
+        <p
+          class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] group-hover:text-blue-600 mb-12 transition-colors relative z-10">
+          {{ day.day }}
         </p>
         <div
-          class="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-600 mb-6 group-hover:bg-primary-50 group-hover:text-primary-600 transition-all duration-700 group-hover:rotate-[360deg]">
+          class="w-20 h-20 rounded-[2rem] bg-slate-50 flex items-center justify-center mb-12 group-hover:bg-white group-hover:shadow-2xl group-hover:scale-110 transition-all duration-700 relative z-10 border border-slate-50 group-hover:border-white">
           <i
-            class="fa-solid {% if day.cond == 'Sunny' %}fa-sun text-amber-500{% elif day.cond == 'Rainy' %}fa-cloud-showers-heavy text-blue-500{% else %}fa-cloud-sun text-primary-500{% endif %} text-2xl"></i>
+            class="fa-solid {% if day.cond == 'Sunny' %}fa-sun text-amber-500{% elif day.cond == 'Rainy' %}fa-cloud-showers-heavy text-blue-500{% else %}fa-cloud-sun text-slate-400{% endif %} text-4xl"></i>
         </div>
-        <p class="text-3xl font-outfit font-black text-slate-900 mb-2 italic">{{ day.temp }}°</p>
-        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider" data-key="{{ day.cond }}">{{ day.cond }}
-        </p>
+        <div class="relative z-10">
+          <p class="text-5xl md:text-6xl font-black text-slate-900 mb-3 tracking-tighter italic">
+            {{ day.temp }}<span class="text-2xl mt-1 opacity-20">°</span>
+          </p>
+          <p class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]" data-key="{{ day.cond }}">{{
+            day.cond }}</p>
+        </div>
       </div>
       {% endfor %}
     </div>
   </div>
 </section>
-
 {% endblock %}
 
 {% block scripts %}

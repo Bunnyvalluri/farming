@@ -1,87 +1,114 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="py-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-  <div class="mb-12 text-center md:text-left">
-    <h2 class="text-4xl font-outfit font-extrabold text-slate-900 mb-2" data-key="news_page_title">Live Farming News
-    </h2>
-    <p class="text-slate-500 font-medium" data-key="news_page_desc">Get the latest updates from the world of agriculture
-      and policy.</p>
+<section class="py-20 md:py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
+  <div class="mb-24 text-center max-w-3xl mx-auto">
+    <div
+      class="inline-flex items-center gap-3 px-5 py-2 bg-slate-100 text-slate-500 rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-slate-200/50">
+      <i class="fa-solid fa-broadcast-tower text-primary-500 animate-pulse"></i> Global Dispatch Feed
+    </div>
+    <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 mb-8 tracking-tighter leading-[0.9]"
+      data-key="news_page_title">
+      Agricultural <br>
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-emerald-600">
+        Intelligence
+      </span>
+    </h1>
+    <p class="text-lg md:text-2xl text-slate-500 font-medium leading-relaxed opacity-80" data-key="news_page_desc">
+      Curated ecosystem intelligence analyzed for localized agrarian impact.
+    </p>
   </div>
 
-  <!-- Search Header -->
-  <div class="relative mb-12 group">
-    <div class="absolute inset-0 bg-primary-600/5 blur-3xl -z-10 rounded-full"></div>
-    <form action="/news" method="GET" class="flex flex-col sm:flex-row gap-3">
+  <!-- Search Terminal -->
+  <div class="relative mb-32 group">
+    <div
+      class="absolute inset-0 bg-primary-600/5 blur-[140px] -z-10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
+    </div>
+    <form action="/news" method="GET" class="flex flex-col md:flex-row gap-6 max-w-5xl mx-auto">
       <div class="relative grow">
-        <input type="text" name="q" placeholder="Explore real news... (e.g. Wheat, Subsidies, Monsoons)"
+        <input type="text" name="q" placeholder="Explore agrarian vectors..."
           value="{% if query != 'agriculture OR farming india' %}{{ query }}{% endif %}"
-          class="w-full pl-12 pr-4 py-4 bg-white border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none font-medium shadow-sm">
+          class="w-full pl-16 pr-6 py-7 bg-white/80 backdrop-blur-2xl border border-slate-200 rounded-[2rem] focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none font-black text-slate-900 shadow-xl h-20">
         <i
-          class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary-600 transition-colors"></i>
+          class="fa-solid fa-bolt-lightning absolute left-7 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-primary-600 transition-colors text-xl"></i>
       </div>
       <button type="submit" id="newsSubmitBtn"
         onclick="this.form.submit(); this.disabled=true; this.querySelector('.btn-label').classList.add('hidden'); this.querySelector('.loading-spinner').classList.remove('hidden');"
-        class="px-8 py-4 bg-primary-600 text-white rounded-2xl font-bold hover:bg-primary-700 shadow-lg shadow-primary-600/20 transition-all hover:-translate-y-0.5 whitespace-nowrap min-w-[160px] flex items-center justify-center gap-3 active:scale-95"
+        class="px-12 py-7 bg-slate-900 text-white rounded-[2rem] font-black text-[12px] uppercase tracking-[0.2em] hover:bg-slate-800 shadow-2xl transition-all active:scale-95 flex items-center justify-center gap-4 h-20"
         data-key="news_search_btn">
-        <span class="btn-label" data-key="news_search_btn">Find Updates</span>
+        <span class="btn-label" data-key="news_search_btn">Query Database</span>
         <div class="loading-spinner hidden w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin">
         </div>
+        <i class="fa-solid fa-terminal text-[10px] opacity-40"></i>
       </button>
     </form>
   </div>
 
-  <!-- News List -->
-  <div class="space-y-8">
+  <!-- Intelligence Feed -->
+  <div class="grid grid-cols-1 gap-14 lg:gap-20">
     {% for item in news %}
     <article
-      class="flex flex-col lg:flex-row gap-8 bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 group">
+      class="group flex flex-col lg:flex-row gap-12 bg-white rounded-[4.5rem] p-10 md:p-14 border border-slate-100 shadow-sm hover:shadow-[0_80px_160px_-40px_rgba(0,0,0,0.1)] transition-all duration-1000 overflow-hidden relative">
+
+      <!-- Hover Background -->
+      <div
+        class="absolute inset-0 opacity-0 group-hover:opacity-[0.02] transition-opacity duration-1000 pointer-events-none"
+        style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 32px 32px;">
+      </div>
+
       <!-- Image Column -->
-      <div class="lg:w-1/3 h-64 lg:h-auto overflow-hidden rounded-[2rem] relative">
+      <div class="lg:w-[45%] h-[350px] lg:h-auto overflow-hidden rounded-[3rem] relative shadow-2xl">
         <img src="{{ item.img }}" alt="{{ item.title }}"
-          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-        <div class="absolute top-4 left-4">
+          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+        <div class="absolute bottom-8 left-8">
           <span
-            class="px-4 py-1.5 backdrop-blur-md bg-white/20 border border-white/30 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">
+            class="px-6 py-2 backdrop-blur-2xl bg-white/20 border border-white/30 text-white text-[10px] font-black uppercase tracking-[0.3em] rounded-xl shadow-2xl">
             {{ item.category }}
           </span>
         </div>
       </div>
 
       <!-- Content Column -->
-      <div class="flex-1 flex flex-col justify-between py-2">
+      <div class="flex-1 flex flex-col justify-between py-4">
         <div>
-          <div class="flex items-center gap-4 text-xs font-bold text-slate-400 mb-4 uppercase tracking-tighter">
-            <span class="text-primary-600 flex items-center gap-1.5"><i class="fa-solid fa-newspaper text-[10px]"></i>
-              {{ item.publisher }}</span>
-            <span class="w-1 h-1 bg-slate-200 rounded-full"></span>
-            <span class="flex items-center gap-1.5"><i class="fa-regular fa-clock text-[10px]"></i> {{ item.time
-              }}</span>
+          <div class="flex items-center gap-6 text-[10px] font-black text-slate-400 mb-10 uppercase tracking-[0.3em]">
+            <span class="text-primary-600 flex items-center gap-3">
+              <span class="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></span>
+              {{ item.publisher }}
+            </span>
+            <span class="opacity-30">/</span>
+            <span class="italic font-bold tracking-normal text-slate-500">{{ item.time }}</span>
           </div>
           <h3
-            class="text-2xl md:text-3xl font-outfit font-extrabold text-slate-900 group-hover:text-primary-600 transition-colors mb-4 leading-snug">
+            class="text-4xl md:text-5xl font-black text-slate-900 group-hover:text-primary-600 transition-colors mb-8 leading-[1.1] tracking-tighter">
             {{ item.title }}</h3>
-          <p class="text-slate-500 font-medium leading-relaxed mb-6">{{ item.desc }}</p>
+          <p class="text-slate-500 font-medium text-lg md:text-xl leading-relaxed mb-12 opacity-80 line-clamp-3">{{
+            item.desc }}</p>
         </div>
 
-        <div class="flex items-center justify-between pt-6 border-t border-slate-50">
-          <div class="flex -space-x-2">
-            <div
-              class="w-8 h-8 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center overflow-hidden">
-              <img src="https://i.pravatar.cc/100?u=1" alt="">
+        <div class="flex items-center justify-between pt-12 border-t border-slate-50">
+          <div class="flex items-center gap-6">
+            <div class="flex -space-x-4">
+              <div
+                class="w-12 h-12 rounded-2xl border-[3px] border-white bg-slate-100 flex items-center justify-center overflow-hidden shadow-lg">
+                <img src="https://i.pravatar.cc/100?u=1" alt="">
+              </div>
+              <div
+                class="w-12 h-12 rounded-2xl border-[3px] border-white bg-slate-200 flex items-center justify-center overflow-hidden shadow-lg">
+                <img src="https://i.pravatar.cc/100?u=2" alt="">
+              </div>
+              <div
+                class="w-12 h-12 rounded-2xl border-[3px] border-white bg-slate-900 flex items-center justify-center text-[11px] text-white font-black italic shadow-lg">
+                +14</div>
             </div>
-            <div
-              class="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden">
-              <img src="https://i.pravatar.cc/100?u=2" alt="">
-            </div>
-            <div
-              class="w-8 h-8 rounded-full border-2 border-white bg-slate-900 flex items-center justify-center text-[10px] text-white font-bold italic">
-              +24</div>
+            <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] hidden sm:block">Sync
+              Verified</span>
           </div>
           <a href="{{ item.link }}" target="_blank"
-            class="flex items-center gap-2 text-primary-600 font-bold hover:gap-4 transition-all group/link">
-            <span data-key="news_read_more">Read Detailed Story</span>
-            <i class="fa-solid fa-arrow-right-long transition-transform"></i>
+            class="group/link inline-flex items-center gap-5 px-8 py-5 bg-slate-900 text-white rounded-2xl font-black text-[12px] uppercase tracking-widest transition-all hover:bg-primary-600 active:scale-95 shadow-xl">
+            <span data-key="news_read_more">Analyze Full Feed</span>
+            <i class="fa-solid fa-arrow-right group-hover/link:translate-x-2 transition-transform"></i>
           </a>
         </div>
       </div>
@@ -89,12 +116,12 @@
     {% endfor %}
   </div>
 
-  <!-- Load More Simulation -->
-  <div class="mt-16 text-center">
+  <!-- Historical Fetch -->
+  <div class="mt-32 text-center">
     <button
-      class="px-8 py-3 bg-slate-100 text-slate-600 rounded-xl font-bold hover:bg-slate-200 transition-all border border-slate-200"
+      class="px-14 py-6 bg-white text-slate-900 rounded-[2rem] font-black text-[11px] uppercase tracking-[0.4em] hover:bg-slate-50 transition-all border-2 border-slate-100 hover:border-primary-200 shadow-xl active:scale-95"
       data-key="news_load_more">
-      Load More Articles
+      Fetch Historical Archives
     </button>
   </div>
 </section>

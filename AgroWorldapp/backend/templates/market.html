@@ -1,41 +1,44 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
+<section class="py-12 md:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
   <!-- Page Header -->
-  <div class="mb-12 text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-6">
-    <div>
+  <div class="mb-16 text-center lg:text-left flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8">
+    <div class="max-w-2xl">
       <div
-        class="inline-flex items-center gap-2 px-4 py-1 bg-amber-100 text-amber-700 rounded-full text-[10px] font-black uppercase tracking-widest mb-4">
-        <i class="fa-solid fa-bolt-lightning"></i> <span data-key="market_live">Live Data</span>
+        class="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-50 text-amber-600 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-6 border border-amber-100/50">
+        <i class="fa-solid fa-bolt-lightning animate-pulse"></i> <span data-key="market_live">Precision Engine
+          Active</span>
       </div>
-      <h2 class="text-4xl font-outfit font-extrabold text-slate-900 mb-2 flex items-center gap-3"
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-outfit font-black text-slate-900 mb-4 tracking-tighter"
         data-key="market_title">
-        Real-Time Mandi Prices
-        <i class="fa-solid fa-arrows-rotate text-primary-600/20 text-2xl animate-spin-slow"></i>
+        Mandi Price Index
       </h2>
-      <p class="text-slate-500 font-medium" data-key="market_desc">Tracking thousands of APMC markets across the
-        country.</p>
+      <p class="text-slate-500 font-medium text-lg md:text-xl leading-relaxed" data-key="market_desc">Tracking thousands
+        of APMC terminals across the sub-continent in real-time.</p>
     </div>
-    <div class="text-xs font-bold text-slate-400 uppercase tracking-tighter">
-      <span data-key="market_last_sync">Last Sync:</span> <span id="syncTime" class="text-primary-600">Just Now</span>
+    <div
+      class="flex items-center gap-3 px-6 py-3 bg-slate-50 rounded-2xl border border-slate-100 text-xs font-black text-slate-400 uppercase tracking-widest">
+      <span data-key="market_last_sync">Last Decryption:</span> <span id="syncTime"
+        class="text-primary-600 font-black">Scanning...</span>
     </div>
   </div>
 
   <!-- Filters Dashboard -->
   <div
-    class="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/50 mb-12 relative overflow-hidden group">
-    <div class="absolute -right-16 -top-16 p-20 opacity-[0.03] animate-spin-slow">
-      <i class="fa-solid fa-chart-line text-[12rem]"></i>
+    class="bg-white/70 backdrop-blur-xl p-8 md:p-12 rounded-[3.5rem] border border-white/20 shadow-[0_32px_120px_-16px_rgba(0,0,0,0.08)] mb-16 relative overflow-hidden group">
+    <div
+      class="absolute -right-24 -top-24 p-32 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity duration-1000 rotate-12">
+      <i class="fa-solid fa-chart-line text-[20rem]"></i>
     </div>
 
-    <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
-      <div class="space-y-2">
-        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1"
-          data-key="market_label_region">Select Region</label>
-        <div class="relative">
+    <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-end">
+      <div class="space-y-4">
+        <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2"
+          data-key="market_label_region">Select Geo-Region</label>
+        <div class="relative group/field">
           <select id="stateSelect"
-            class="w-full pl-6 pr-10 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none font-bold text-slate-700 appearance-none h-14 cursor-pointer">
+            class="w-full pl-8 pr-12 py-5 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-primary-100 transition-all outline-none font-black text-slate-900 appearance-none h-16 cursor-pointer shadow-inner">
             <option value="Maharashtra" data-key="state_mh">Maharashtra</option>
             <option value="Punjab" data-key="state_pb">Punjab</option>
             <option value="Uttar Pradesh" data-key="state_up">Uttar Pradesh</option>
@@ -43,77 +46,87 @@
             <option value="Telangana" data-key="state_ts">Telangana</option>
           </select>
           <i
-            class="fa-solid fa-map-location-dot absolute right-6 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none"></i>
+            class="fa-solid fa-chevron-down absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none group-hover/field:translate-y-[-40%] transition-transform"></i>
         </div>
       </div>
 
-      <div class="space-y-2">
-        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1"
-          data-key="market_label_comm">Commodity Type</label>
-        <div class="relative">
+      <div class="space-y-4">
+        <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2"
+          data-key="market_label_comm">Commodity Group</label>
+        <div class="relative group/field">
           <select id="cropSelect"
-            class="w-full pl-6 pr-10 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none font-bold text-slate-700 appearance-none h-14 cursor-pointer">
+            class="w-full pl-8 pr-12 py-5 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-primary-100 transition-all outline-none font-black text-slate-900 appearance-none h-16 cursor-pointer shadow-inner">
             <option value="Wheat" data-key="wheat_name">Wheat</option>
             <option value="Rice" data-key="rice_name">Rice</option>
             <option value="Cotton" data-key="cotton_name">Cotton</option>
             <option value="Soybean" data-key="soya_name">Soybean</option>
             <option value="Corn" data-key="corn_name">Corn</option>
           </select>
-          <i class="fa-solid fa-leaf absolute right-6 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none"></i>
+          <i
+            class="fa-solid fa-chevron-down absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none group-hover/field:translate-y-[-40%] transition-transform"></i>
         </div>
       </div>
 
-      <button onclick="fetchPrices()" class="btn-primary h-14 flex items-center justify-center gap-3 active:scale-95">
-        <i class="fa-solid fa-magnifying-glass-chart"></i>
-        <span data-key="market_btn_update">Update Insight</span>
+      <button onclick="fetchPrices()"
+        class="w-full h-16 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl font-black text-sm uppercase tracking-[0.1em] flex items-center justify-center gap-4 transition-all hover:-translate-y-1 shadow-2xl active:scale-95 group">
+        <i class="fa-solid fa-magnifying-glass-chart text-lg group-hover:rotate-12 transition-transform"></i>
+        <span data-key="market_btn_update">Refresh Insights</span>
       </button>
     </div>
   </div>
 
   <!-- Market Table -->
-  <div class="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl overflow-hidden">
+  <div
+    class="bg-white/50 backdrop-blur-md rounded-[3.5rem] border border-white/20 shadow-[0_32px_120px_-16px_rgba(0,0,0,0.05)] overflow-hidden">
     <div class="overflow-x-auto">
-      <table class="w-full text-left border-collapse">
+      <table class="w-full text-left border-collapse min-w-[800px]">
         <thead>
-          <tr class="bg-slate-50 border-b border-slate-100">
-            <th class="p-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400" data-key="market_th_mandi">
-              Market / Mandi Hub</th>
-            <th class="p-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400" data-key="market_th_comm">
+          <tr class="bg-slate-50/50 border-b border-slate-100">
+            <th class="p-10 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400"
+              data-key="market_th_mandi">
+              Market Operations Hub</th>
+            <th class="p-10 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400" data-key="market_th_comm">
               Commodity</th>
-            <th class="p-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400" data-key="market_th_var">
-              Variety</th>
-            <th class="p-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 text-center"
-              data-key="market_th_price">Price Range
+            <th class="p-10 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400" data-key="market_th_var">
+              Strain / Variety</th>
+            <th class="p-10 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 text-center"
+              data-key="market_th_price">Price Orbit
             </th>
-            <th class="p-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 text-right"
-              data-key="market_th_trend">Market Trend
+            <th class="p-10 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 text-right"
+              data-key="market_th_trend">Vector Analysis
             </th>
           </tr>
         </thead>
-        <tbody id="priceTableBody" class="divide-y divide-slate-50">
+        <tbody id="priceTableBody" class="divide-y divide-slate-100/50">
           <!-- Injected via JS -->
         </tbody>
       </table>
     </div>
 
-    <div id="loadingState" class="hidden p-20 text-center">
-      <div class="flex flex-col items-center max-w-sm mx-auto">
+    <div id="loadingState" class="hidden p-32 text-center">
+      <div class="flex flex-col items-center max-w-md mx-auto">
         <!-- Premium Multi-ring Spinner -->
-        <div class="relative w-20 h-20 mb-8">
-          <div class="absolute inset-0 border-4 border-primary-600/10 rounded-full"></div>
-          <div class="absolute inset-0 border-4 border-t-primary-600 rounded-full animate-spin"></div>
-          <div class="absolute inset-4 border-4 border-b-primary-400 rounded-full animate-spin-reverse-slow"></div>
-          <i
-            class="fa-solid fa-server absolute inset-0 flex items-center justify-center text-primary-600/30 text-xl"></i>
-        </div>
-        <div class="space-y-4 w-full">
-          <p id="loadingStatusText" class="text-slate-900 font-black text-xs uppercase tracking-[0.2em] animate-pulse"
-            data-key="market_loading">Querying APMC Servers...</p>
-          <div class="h-1 w-full bg-slate-100 rounded-full overflow-hidden">
-            <div id="loadingProgressBar" class="h-full bg-primary-600 w-0 transition-all duration-500 ease-out"></div>
+        <div class="relative w-24 h-24 mb-12">
+          <div class="absolute inset-0 border-[6px] border-primary-600/5 rounded-full"></div>
+          <div class="absolute inset-0 border-[6px] border-t-primary-600 rounded-full animate-spin"></div>
+          <div
+            class="absolute inset-5 border-[4px] border-b-primary-400 rounded-full animate-spin-reverse-slow opacity-50">
           </div>
-          <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Network Latency: <span
-              class="text-emerald-500">24ms</span></p>
+          <i
+            class="fa-solid fa-tower-broadcast absolute inset-0 flex items-center justify-center text-primary-600/20 text-2xl animate-pulse"></i>
+        </div>
+        <div class="space-y-6 w-full">
+          <p id="loadingStatusText" class="text-slate-900 font-black text-xs uppercase tracking-[0.3em]"
+            data-key="market_loading">Synchronizing with APMC Node Architecture...</p>
+          <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+            <div id="loadingProgressBar"
+              class="h-full bg-gradient-to-r from-primary-500 to-primary-700 w-0 transition-all duration-700 ease-out">
+            </div>
+          </div>
+          <div class="flex justify-between items-center text-[9px] text-slate-400 font-black uppercase tracking-widest">
+            <span>Data Stream Integrity: 100%</span>
+            <span>Latency: 18ms</span>
+          </div>
         </div>
       </div>
     </div>

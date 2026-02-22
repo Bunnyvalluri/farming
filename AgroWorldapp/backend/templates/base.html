@@ -77,10 +77,13 @@
         @apply px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg shadow-primary-600/20 hover:shadow-primary-600/40 hover:-translate-y-0.5 active:translate-y-0 text-center;
       }
       .nav-link {
-        @apply flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-primary-600 font-medium transition-colors rounded-lg hover:bg-primary-50;
+        @apply flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-primary-600 font-semibold tracking-tight transition-all rounded-full hover:bg-primary-50 text-[13.5px];
       }
       .nav-link.active {
-        @apply text-primary-600 bg-primary-50;
+        @apply text-primary-600 bg-primary-50/50;
+      }
+      .mobile-nav-link {
+        @apply flex items-center gap-4 p-4 rounded-2xl hover:bg-slate-50 transition-all font-bold text-slate-900 border border-transparent hover:border-slate-100;
       }
     }
     @keyframes toastIn {
@@ -92,6 +95,77 @@
       to { transform: translateY(100px); opacity: 0; }
     }
   </style>
+  <style>
+    /* ── Custom Animation Keyframes ── */
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    @keyframes spin-reverse {
+      from {
+        transform: rotate(360deg);
+      }
+
+      to {
+        transform: rotate(0deg);
+      }
+    }
+
+    @keyframes marquee {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    @keyframes pulse-slow {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    /* ── Custom Animation Utility Classes ── */
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .animate-float-delayed {
+      animation: float 6s ease-in-out 3s infinite;
+    }
+
+    .animate-pulse-slow {
+      animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    .animate-spin-slow {
+      animation: spin 8s linear infinite;
+    }
+
+    .animate-spin-reverse-slow {
+      animation: spin-reverse 10s linear infinite;
+    }
+
+    .animate-marquee {
+      animation: marquee 25s linear infinite;
+    }
+  </style>
   {% block head %}{% endblock %}
 </head>
 
@@ -100,94 +174,135 @@
   <div id="loadingBar" class="fixed top-0 left-0 h-1 bg-primary-500 z-[100] transition-all duration-500 w-0"></div>
 
   <!-- Modern Navigation -->
-  <nav class="sticky top-0 z-[50] glass border-b border-slate-200">
+  <nav class="sticky top-0 z-[100] bg-white/70 backdrop-blur-xl border-b border-white/20 transition-all duration-300"
+    id="mainNav">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-20">
+      <div class="flex justify-between items-center h-16 md:h-20 transition-all duration-300" id="navContainer">
         <!-- Logo -->
         <div class="flex items-center gap-8">
-          <a href="/" class="flex items-center gap-2 group">
+          <a href="/" class="flex items-center gap-2.5 group">
             <div
-              class="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary-600/30 group-hover:rotate-12 transition-transform duration-300">
-              <i class="fa-solid fa-leaf text-xl"></i>
+              class="w-9 h-9 md:w-11 md:h-11 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary-500/30 group-hover:rotate-[15deg] transition-all duration-500">
+              <i class="fa-solid fa-leaf text-lg md:text-xl"></i>
             </div>
             <span
-              class="text-2xl font-outfit font-extrabold tracking-tight text-slate-900 group-hover:text-primary-600 transition-colors">AGRO
+              class="text-xl md:text-2xl font-outfit font-black tracking-tighter text-slate-900 group-hover:text-primary-600 transition-colors">AGRO
               WORLD</span>
           </a>
 
           <!-- Desktop Navigation -->
           <div class="hidden lg:flex items-center gap-1">
-            <a href="/weather" class="nav-link" data-key="nav_weather"><i class="fa-solid fa-cloud-sun text-sm"></i>
-              Weather</a>
-            <a href="/news" class="nav-link" data-key="nav_news"><i class="fa-solid fa-newspaper text-sm"></i> News</a>
-            <a href="/market" class="nav-link" data-key="nav_market"><i class="fa-solid fa-chart-line text-sm"></i>
-              Market</a>
-            <a href="/schemes" class="nav-link" data-key="nav_schemes"><i
-                class="fa-solid fa-hand-holding-dollar text-sm"></i> Schemes</a>
-            <a href="/tasks" class="nav-link" data-key="nav_tasks"><i class="fa-solid fa-list-check text-sm"></i>
-              Tasks</a>
-            <a href="/crop-care" class="nav-link" data-key="nav_crop"><i class="fa-solid fa-bug-slash text-sm"></i> Crop
-              Care</a>
-            <a href="/logistics" class="nav-link" data-key="nav_logistics"><i
-                class="fa-solid fa-truck-fast text-sm"></i> Logistics</a>
+            <a href="/weather" class="nav-link" data-key="nav_weather">Weather</a>
+            <a href="/news" class="nav-link" data-key="nav_news">News</a>
+            <a href="/market" class="nav-link" data-key="nav_market">Market</a>
+            <a href="/schemes" class="nav-link" data-key="nav_schemes">Schemes</a>
+            <a href="/tasks" class="nav-link" data-key="nav_tasks">Tasks</a>
+            <a href="/crop-care" class="nav-link" data-key="nav_crop">Crop Care</a>
+            <a href="/logistics" class="nav-link" data-key="nav_logistics">Logistics</a>
           </div>
         </div>
 
         <!-- Actions -->
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2 md:gap-4">
           <button onclick="toggleLanguage()" id="langBtn"
-            class="flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full font-semibold transition-all border border-slate-200">
-            <i class="fa-solid fa-language text-lg"></i>
+            class="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-slate-100/50 hover:bg-slate-200/50 text-slate-700 rounded-full font-semibold transition-all border border-slate-200/50 text-xs md:text-sm">
+            <i class="fa-solid fa-language text-lg text-primary-600"></i>
             <span>हिन्दी</span>
           </button>
 
-          {% if session.get('user_id') %}
-          <div class="flex items-center gap-3 pl-4 border-l border-slate-200">
-            <div
-              class="w-10 h-10 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center font-bold">
-              <i class="fa-solid fa-user"></i>
+          <div class="hidden sm:flex items-center gap-3">
+            {% if session.get('user_id') %}
+            <div class="flex items-center gap-3 pl-4 border-l border-slate-200/50">
+              <div
+                class="w-9 h-9 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center font-bold border border-primary-200">
+                <i class="fa-solid fa-user text-sm"></i>
+              </div>
+              <a href="/logout"
+                class="px-4 py-2 text-rose-600 hover:bg-rose-50 rounded-lg font-medium transition-colors text-sm">Logout</a>
             </div>
-            <a href="/logout"
-              class="px-4 py-2 text-rose-600 hover:bg-rose-50 rounded-lg font-medium transition-colors border border-rose-100 italic">Logout</a>
+            {% else %}
+            <a href="/login"
+              class="px-5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-full font-semibold transition-all shadow-lg hover:-translate-y-0.5 active:translate-y-0 text-sm"
+              data-key="nav_login">Login</a>
+            {% endif %}
           </div>
-          {% else %}
-          <a href="/login" class="btn-primary" data-key="nav_login">Login</a>
-          {% endif %}
 
           <!-- Mobile Menu Button -->
           <button
-            class="lg:hidden w-10 h-10 flex items-center justify-center text-slate-600 hover:bg-slate-100 rounded-lg"
-            onclick="toggleMobileMenu()">
-            <i class="fa-solid fa-bars text-xl"></i>
+            class="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 text-slate-600 hover:bg-slate-100 rounded-full transition-all"
+            onclick="toggleMobileMenu()" id="menuBtn">
+            <span class="w-6 h-0.5 bg-current rounded-full transition-all duration-300" id="bar1"></span>
+            <span class="w-6 h-0.5 bg-current rounded-full transition-all duration-300" id="bar2"></span>
+            <span class="w-6 h-0.5 bg-current rounded-full transition-all duration-300" id="bar3"></span>
           </button>
         </div>
       </div>
     </div>
   </nav>
 
-  <!-- Mobile Menu (Hidden by default) -->
-  <div id="mobileMenu" class="fixed inset-0 z-[60] bg-white hidden lg:hidden">
-    <div class="p-4 border-b">
-      <div class="flex justify-between items-center">
-        <span class="font-outfit font-extrabold text-xl text-primary-600">MENU</span>
-        <button onclick="toggleMobileMenu()" class="text-slate-600 text-2xl">&times;</button>
+  <!-- Mobile Menu (Full Screen Overlay) -->
+  <div id="mobileMenu"
+    class="fixed inset-0 z-[90] bg-white/95 backdrop-blur-2xl transition-all duration-500 opacity-0 pointer-events-none translate-y-[-20px] lg:hidden">
+    <div class="flex flex-col h-full pt-24 pb-8 px-6 overflow-y-auto">
+      <div class="flex flex-col gap-2">
+        <a href="/weather" class="mobile-nav-link" data-key="nav_weather" onclick="toggleMobileMenu()">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center"><i
+              class="fa-solid fa-cloud-sun"></i></div>
+          <span>Weather</span>
+        </a>
+        <a href="/news" class="mobile-nav-link" data-key="nav_news" onclick="toggleMobileMenu()">
+          <div class="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center"><i
+              class="fa-solid fa-newspaper"></i></div>
+          <span>News</span>
+        </a>
+        <a href="/market" class="mobile-nav-link" data-key="nav_market" onclick="toggleMobileMenu()">
+          <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center"><i
+              class="fa-solid fa-chart-line"></i></div>
+          <span>Market</span>
+        </a>
+        <a href="/schemes" class="mobile-nav-link" data-key="nav_schemes" onclick="toggleMobileMenu()">
+          <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center"><i
+              class="fa-solid fa-hand-holding-dollar"></i></div>
+          <span>Schemes</span>
+        </a>
+        <a href="/tasks" class="mobile-nav-link" data-key="nav_tasks" onclick="toggleMobileMenu()">
+          <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center"><i
+              class="fa-solid fa-list-check"></i></div>
+          <span>Tasks</span>
+        </a>
+        <a href="/crop-care" class="mobile-nav-link" data-key="nav_crop" onclick="toggleMobileMenu()">
+          <div class="w-10 h-10 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center"><i
+              class="fa-solid fa-bug-slash"></i></div>
+          <span>Crop Care</span>
+        </a>
+        <a href="/logistics" class="mobile-nav-link" data-key="nav_logistics" onclick="toggleMobileMenu()">
+          <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center"><i
+              class="fa-solid fa-truck-fast"></i></div>
+          <span>Logistics</span>
+        </a>
       </div>
-    </div>
-    <div class="p-4 flex flex-col gap-2 overflow-y-auto">
-      <a href="/weather" class="px-4 py-3 rounded-xl hover:bg-slate-50 font-medium flex items-center gap-3"><i
-          class="fa-solid fa-cloud-sun w-6"></i> Weather</a>
-      <a href="/news" class="px-4 py-3 rounded-xl hover:bg-slate-50 font-medium flex items-center gap-3"><i
-          class="fa-solid fa-newspaper w-6"></i> News</a>
-      <a href="/market" class="px-4 py-3 rounded-xl hover:bg-slate-50 font-medium flex items-center gap-3"><i
-          class="fa-solid fa-chart-line w-6"></i> Market</a>
-      <a href="/schemes" class="px-4 py-3 rounded-xl hover:bg-slate-50 font-medium flex items-center gap-3"><i
-          class="fa-solid fa-hand-holding-dollar w-6"></i> Schemes</a>
-      <a href="/tasks" class="px-4 py-3 rounded-xl hover:bg-slate-50 font-medium flex items-center gap-3"><i
-          class="fa-solid fa-list-check w-6"></i> Tasks</a>
-      <a href="/crop-care" class="px-4 py-3 rounded-xl hover:bg-slate-50 font-medium flex items-center gap-3"><i
-          class="fa-solid fa-bug-slash w-6"></i> Crop Care</a>
-      <a href="/logistics" class="px-4 py-3 rounded-xl hover:bg-slate-50 font-medium flex items-center gap-3"><i
-          class="fa-solid fa-truck-fast w-6"></i> Logistics</a>
+
+      <div class="mt-auto border-t border-slate-100 pt-8">
+        {% if session.get('user_id') %}
+        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl">
+          <div class="flex items-center gap-3">
+            <div
+              class="w-10 h-10 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center font-bold">
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <div>
+              <p class="font-bold text-slate-900">{{ session.get('user_name') }}</p>
+              <p class="text-xs text-slate-500">Premium User</p>
+            </div>
+          </div>
+          <a href="/logout" class="text-rose-600 font-bold">Logout</a>
+        </div>
+        {% else %}
+        <a href="/login"
+          class="flex items-center justify-center w-full py-4 bg-slate-900 text-white rounded-2xl font-bold shadow-xl">Login
+          to Agro World</a>
+        {% endif %}
+      </div>
     </div>
   </div>
 
@@ -195,63 +310,93 @@
     {% block content %}{% endblock %}
   </main>
 
-  <footer class="bg-slate-900 text-slate-400 py-16 mt-auto">
+  <footer class="bg-[#0a0a0a] text-slate-400 py-16 md:py-24 mt-auto">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
         <div class="col-span-1 lg:col-span-1">
-          <a href="/" class="flex items-center gap-2 mb-6">
-            <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center text-white">
+          <a href="/" class="flex items-center gap-2.5 mb-8">
+            <div
+              class="w-9 h-9 bg-primary-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary-600/20">
               <i class="fa-solid fa-leaf text-sm"></i>
             </div>
-            <span class="text-xl font-outfit font-extrabold text-white tracking-tight">AGRO WORLD</span>
+            <span class="text-xl font-outfit font-black text-white tracking-tighter">AGRO WORLD</span>
           </a>
-          <p class="text-sm leading-relaxed" data-key="footer_desc">Empowering small-scale farmers with big-scale
-            technology. Your partner in modern agriculture.</p>
-        </div>
-
-        <div>
-          <h4 class="text-white font-bold mb-6" data-key="footer_links">Quick Links</h4>
-          <ul class="space-y-4 text-sm">
-            <li><a href="/weather" class="hover:text-primary-400 transition-colors" data-key="footer_weather">Weather
-                Updates</a></li>
-            <li><a href="/logistics" class="hover:text-primary-400 transition-colors"
-                data-key="footer_logistics">Logistics Support</a></li>
-            <li><a href="/tasks" class="hover:text-primary-400 transition-colors" data-key="footer_tasks">Task
-                Manager</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="text-white font-bold mb-6" data-key="footer_support">Support</h4>
-          <ul class="space-y-4 text-sm">
-            <li class="flex items-center gap-3">
-              <i class="fa-solid fa-envelope text-primary-500"></i>
-              <span>help@agroworld.in</span>
-            </li>
-            <li class="flex items-center gap-3">
-              <i class="fa-solid fa-phone text-primary-500"></i>
-              <span>+91 1800-AGRO-SAFE</span>
-            </li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="text-white font-bold mb-6">Newsletter</h4>
-          <p class="text-sm mb-4">Get the latest farming tips and market updates directly.</p>
-          <div class="flex gap-2">
-            <input type="email" placeholder="Email address"
-              class="bg-slate-800 border-none rounded-lg px-4 py-2 text-sm w-full focus:ring-2 focus:ring-primary-500">
-            <button class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"><i
-                class="fa-solid fa-paper-plane"></i></button>
+          <p class="text-sm leading-relaxed text-slate-500 mb-8" data-key="footer_desc">Empowering small-scale farmers
+            with big-scale
+            technology. Your partner in modern agriculture through data-driven decisions and direct market access.</p>
+          <div class="flex gap-4">
+            <a href="#"
+              class="w-10 h-10 rounded-full bg-slate-800/50 flex items-center justify-center text-slate-400 hover:bg-primary-600 hover:text-white transition-all"><i
+                class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"
+              class="w-10 h-10 rounded-full bg-slate-800/50 flex items-center justify-center text-slate-400 hover:bg-primary-600 hover:text-white transition-all"><i
+                class="fa-brands fa-twitter"></i></a>
+            <a href="#"
+              class="w-10 h-10 rounded-full bg-slate-800/50 flex items-center justify-center text-slate-400 hover:bg-primary-600 hover:text-white transition-all"><i
+                class="fa-brands fa-instagram"></i></a>
           </div>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold mb-8 text-sm uppercase tracking-widest" data-key="footer_links">Sitemap</h4>
+          <ul class="space-y-4 text-[13px]">
+            <li><a href="/weather" class="hover:text-primary-400 transition-colors flex items-center gap-2"
+                data-key="footer_weather">Weather Predictions</a></li>
+            <li><a href="/logistics" class="hover:text-primary-400 transition-colors flex items-center gap-2"
+                data-key="footer_logistics">Logistics Pipeline</a></li>
+            <li><a href="/tasks" class="hover:text-primary-400 transition-colors flex items-center gap-2"
+                data-key="footer_tasks">Operational Tasks</a></li>
+            <li><a href="/market" class="hover:text-primary-400 transition-colors flex items-center gap-2">Mandi Price
+                Index</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold mb-8 text-sm uppercase tracking-widest" data-key="footer_support">Support
+            Center</h4>
+          <ul class="space-y-6 text-[13px]">
+            <li class="flex items-start gap-3">
+              <div
+                class="w-8 h-8 rounded-lg bg-slate-800/50 flex items-center justify-center text-primary-500 shrink-0"><i
+                  class="fa-solid fa-envelope"></i></div>
+              <div>
+                <p class="text-slate-500 mb-1">Email Support</p>
+                <p class="text-white font-medium">help@agroworld.in</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <div
+                class="w-8 h-8 rounded-lg bg-slate-800/50 flex items-center justify-center text-primary-500 shrink-0"><i
+                  class="fa-solid fa-phone"></i></div>
+              <div>
+                <p class="text-slate-500 mb-1">Toll Free</p>
+                <p class="text-white font-medium">+91 1800-AGRO-SAFE</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold mb-8 text-sm uppercase tracking-widest">Global Reach</h4>
+          <p class="text-[13px] text-slate-500 mb-6">Stay ahead with our unified farming intelligence platform.
+            Subscribed by 12k+ daily users.</p>
+          <form class="space-y-3">
+            <input type="email" placeholder="Email address"
+              class="w-full bg-[#161616] border border-white/5 rounded-xl px-5 py-3 text-sm focus:ring-2 focus:ring-primary-600 transition-all outline-none text-white">
+            <button
+              class="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 rounded-xl font-bold transition-all shadow-lg shadow-primary-600/20">Subscribe
+              Now</button>
+          </form>
         </div>
       </div>
 
-      <div class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
-        <p data-key="footer_copy">© 2026 Agro World | Smart Farming Decision Support System</p>
-        <div class="flex gap-6 text-slate-500">
-          <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-          <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+      <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+        <p class="text-[11px] text-slate-500 font-medium uppercase tracking-widest" data-key="footer_copy">© 2026 Agro
+          World | AGRI-TECH ECOSYSTEM INDIA</p>
+        <div class="flex gap-8 text-[11px] font-medium uppercase tracking-widest">
+          <a href="#" class="text-slate-500 hover:text-white transition-colors">Safety</a>
+          <a href="#" class="text-slate-500 hover:text-white transition-colors">Privacy Policy</a>
+          <a href="#" class="text-slate-500 hover:text-white transition-colors">Terms</a>
         </div>
       </div>
     </div>
@@ -287,93 +432,123 @@
 
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileMenu');
-      menu.classList.toggle('hidden');
+      const bar1 = document.getElementById('bar1');
+      const bar2 = document.getElementById('bar2');
+      const bar3 = document.getElementById('bar3');
+      const isHidden = menu.classList.contains('opacity-0');
+
+      if (isHidden) {
+        menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
+        menu.classList.add('opacity-100', 'translate-y-0');
+        bar1.style.transform = 'translateY(8px) rotate(45deg)';
+        bar2.style.opacity = '0';
+        bar3.style.transform = 'translateY(-8px) rotate(-45deg)';
+        document.body.style.overflow = 'hidden';
+      } else {
+        menu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
+        menu.classList.remove('opacity-100', 'translate-y-0');
+        bar1.style.transform = 'none';
+        bar2.style.opacity = '1';
+        bar3.style.transform = 'none';
+        document.body.style.overflow = 'auto';
+      }
     }
+
+    // Scroll effect for Navbar
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('mainNav');
+      const container = document.getElementById('navContainer');
+      if (window.scrollY > 20) {
+        nav.classList.add('bg-white/90', 'shadow-sm');
+        container.classList.remove('h-20');
+        container.classList.add('h-16');
+      } else {
+        nav.classList.remove('bg-white/90', 'shadow-sm');
+        nav.classList.add('bg-white/70');
+        container.classList.remove('h-16');
+        container.classList.add('h-20');
+      }
+    });
 
     const translations = {
       'en': {
         // Navigation & Footer
-        'nav_weather': 'Weather', 'nav_news': 'News', 'nav_tasks': 'Tasks', 'nav_crop': 'Crop Care', 'nav_logistics': 'Logistics', 'nav_market': 'Market Prices', 'nav_schemes': 'Govt Schemes', 'nav_login': 'Login',
-        'footer_desc': 'Empowering small-scale farmers with big-scale technology.', 'footer_links': 'Quick Links', 'footer_weather': 'Weather Updates', 'footer_logistics': 'Logistics Support', 'footer_tasks': 'Task Manager', 'footer_support': 'Support', 'footer_copy': '© 2026 Agro World | Smart Farming Decision Support System',
+        'nav_weather': 'Weather', 'nav_news': 'News', 'nav_tasks': 'Operations', 'nav_crop': 'Intelligence', 'nav_logistics': 'Supply Hub', 'nav_market': 'Mandi Index', 'nav_schemes': 'Welfare', 'nav_login': 'Access Node',
+        'footer_desc': 'Directing high-precision technology toward agrarian sovereignty.', 'footer_links': 'System Nodes', 'footer_weather': 'Climate Feed', 'footer_logistics': 'Logistics Network', 'footer_tasks': 'Ops Manager', 'footer_support': 'Support', 'footer_copy': '© 2026 Agro World | Precision Agrarian Decision System',
 
         // Home Page
-        'hero_title': 'Empowering Farmers <br>for a <span class="text-primary-600">Smarter Tomorrow</span>',
-        'hero_desc': 'Agro World is your bilingual digital assistant for real-time weather, crop disease guidance, and direct communication with suppliers.',
-        'cta_start': 'Get Started Now', 'cta_learn': 'Explore Features',
-        'sec_features': 'Our Core Capabilities', 'sec_abstract': 'Project Vision',
-        'f1_title': 'Weather Intelligence', 'f1_desc': '5-day location-based forecasts with precision updates on rain, humidity, and frost alerts.',
-        'f2_title': 'Crop Management', 'f2_desc': 'Identify diseases, learn about organic fertilizers, and optimize sowing schedules for 30+ crops.',
-        'f3_title': 'Task Manager', 'f3_desc': 'Structured daily and weekly reminders for irrigation, fertilization, and pest control.',
-        'f4_title': 'Direct Logistics', 'f4_desc': 'Connect directly with seed manufacturers and vehicle owners without any middlemen.',
-        'abstract_text': 'A platform helping farmers track climate data, find manufacturers/transporters for affordable seeds, and communicate with vehicle owners directly.',
-        'welcome_back': 'Welcome back', 'dash_ready': 'Your farming dashboard is ready.', 'features_desc': 'Comprehensive tools designed to solve modern agriculture challenges.',
-        'cta_title': 'Ready to transform your farm?', 'cta_desc': 'Join thousands of farmers already using Agro World to improve yield.',
-        'cta_btn_reg': 'Create Free Account', 'cta_btn_sup': 'Contact Support',
+        'hero_title': 'Sovereign Farming <br>via <span class="text-primary-600">Precision Intelligence</span>',
+        'hero_desc': 'Agro World is your high-fidelity digital core for climate analytics, botanical diagnostics, and direct industrial exchange.',
+        'cta_start': 'Initialize Core', 'cta_learn': 'Explore Nodes',
+        'sec_features': 'Strategic Capabilities', 'sec_abstract': 'Project Manifest',
+        'f1_title': 'Climate Intelligence', 'f1_desc': 'Hyper-local 5-day analytics with precision vectors on precipitation and thermal deviations.',
+        'f2_title': 'Botanical Core', 'f2_desc': 'Neural diagnostics for crop pathogens and organic remediation protocols for 30+ species.',
+        'f3_title': 'Operations Manager', 'f3_desc': 'High-precision scheduling for irrigation cycles, fertilization, and pest management protocols.',
+        'f4_title': 'industrial Exchange', 'f4_desc': 'Direct node-to-node connection with verified industrial suppliers and logistics networks.',
+        'abstract_text': 'A unified ecosystem designed to eliminate intermediaries, track climate vectors, and optimize agrarian output via neural diagnostics.',
+        'welcome_back': 'Access Granted', 'dash_ready': 'Your operational dashboard is synchronized.', 'features_desc': 'High-fidelity instruments engineered to solve modern agrarian complexities.',
+        'cta_title': 'Ready to optimize your output?', 'cta_desc': 'Join the network of sovereign farmers using Agro World for precision management.',
+        'cta_btn_reg': 'Initialize Account', 'cta_btn_sup': 'System Support',
 
         // Weather Page
-        'weather_title': 'Climate & Weather Forecast', 'weather_search_ph': 'Search City...', 'weather_btn_loc': 'Use My Location',
-        'weather_humidity': 'Humidity', 'weather_wind': 'Wind', 'weather_uv': 'UV Index', 'weather_alert_title': 'Weather Alerts',
-        'weather_smart_rec': 'Smart Tip', 'weather_forecast': '5-Day Forecast', 'weather_desc': 'Real-time agricultural weather insights for your crops.',
-        'Sunny': 'Sunny', 'Clear': 'Clear', 'Rainy': 'Rainy', 'Cloudy': 'Cloudy', 'Overcast': 'Overcast', 'Foggy': 'Foggy', 'Drizzle': 'Drizzle',
+        'weather_title': 'Atmospheric Analytics', 'weather_search_ph': 'Locate City...', 'weather_btn_loc': 'Sync Location',
+        'weather_humidity': 'Humidity', 'weather_wind': 'Velocity', 'weather_uv': 'UV Index', 'weather_alert_title': 'System Alerts',
+        'weather_smart_rec': 'Neural Tip', 'weather_forecast': '5-Day Analytics', 'weather_desc': 'High-resolution climate vectors for agrarian optimization.',
+        'Sunny': 'Solar Clear', 'Clear': 'Clear Sky', 'Rainy': 'Precipitating', 'Cloudy': 'Overcast High', 'Overcast': 'Overcast Dense', 'Foggy': 'Aerosol Dense', 'Drizzle': 'Light Precip',
 
         // News & Tasks
-        'news_page_title': 'Live Farming News', 'news_page_desc': 'Get the latest updates from the world of agriculture and policy.',
-        'news_read_more': 'Read Detailed Story', 'news_search_btn': 'Find Updates', 'news_load_more': 'Load More Articles',
-        'task_title': 'Smart Task Manager', 'task_desc': 'Organize your farming operations with professional precision.',
-        'task_add_title': 'Add New Operation', 'task_add_btn': 'Add Task', 'task_input_ph': 'e.g., Water the wheat field before noon',
-        'task_stat_total': 'Total Tasks', 'task_stat_pending': 'In Progress', 'task_stat_done': 'Completed',
-        'task_empty_title': 'No tasks pending', 'task_empty_desc': "You're all caught up! Add a new task above to get started.",
+        'news_page_title': 'Agricultural Intelligence', 'news_page_desc': 'Curated ecosystem intelligence analyzed for localized agrarian impact.',
+        'news_read_more': 'Analyze Full Feed', 'news_search_btn': 'Query Database', 'news_load_more': 'Fetch Historical Archives',
+        'task_title': 'Strategic Operations', 'task_desc': 'High-precision organizational infrastructure for your agrarian lifecycle management.',
+        'task_add_title': 'Schedule Protocol', 'task_add_btn': 'Initialize', 'task_input_ph': 'Describe the critical operation...',
+        'task_stat_total': 'Inventory', 'task_stat_pending': 'Pending', 'task_stat_done': 'Archived',
+        'task_empty_title': 'Neural Standby', 'task_empty_desc': 'All operational protocols have been finalized. Waiting for new schedule input.',
         'cat_irr': '💧 Irrigation', 'cat_fert': '🧪 Fertilizer', 'cat_pest': '🐛 Pest Control', 'cat_harv': '🌾 Harvest', 'cat_gen': '📌 General',
         'Irrigation': 'Irrigation', 'Fertilizer': 'Fertilizer', 'Pests': 'Pest Control', 'Harvest': 'Harvest', 'General': 'General',
 
         // Crop Care
-        'crop_page_title': 'Crops & Disease Management', 'crop_common_dis': 'Common Diseases', 'crop_care_tips': 'Expert Care Tips',
-        'crop_btn_view': 'View Full Protocol', 'crop_ai_title': 'AI Disease Detection', 'crop_ai_desc': 'Upload a photo of an infected leaf to get an instant organic treatment recommendation.',
-        'crop_ai_upload': 'Upload Leaf Image', 'crop_ai_results': 'AI Analysis Results',
-        'crop_ai_label_cond': 'Detected Condition:', 'crop_ai_label_sev': 'Severity Level:', 'crop_ai_label_treat': 'Recommended Treatment:',
+        'crop_page_title': 'Crop Intelligence Node', 'crop_common_dis': 'Biological Pathogens', 'crop_care_tips': 'Optimization Protocol',
+        'crop_btn_view': 'Explore Skillset', 'crop_ai_title': 'Neural Diagnostic Terminal', 'crop_ai_desc': 'Execute deep-learning analysis on botanical pathogens for organic remediation protocols.',
+        'crop_ai_upload': 'Upload Botanical Sample', 'crop_ai_results': 'Neural Analysis Output',
+        'crop_ai_label_cond': 'Identified Condition:', 'crop_ai_label_sev': 'Confidence Level:', 'crop_ai_label_treat': 'Remediation Protocol:',
 
         // Logistics & Auth
-        'log_title': 'Logistics & Marketplace', 'tab_mfg': 'Manufacturers', 'tab_trans': 'Transporters',
-        'btn_msg': 'Message Seller', 'btn_contact': 'Call Transporter',
-        'auth_login_title': 'Login to Agro World', 'auth_reg_title': 'Create Account', 'auth_email': 'Email/Phone', 'auth_pass': 'Password',
-        'auth_role': 'Business Role', 'auth_login_btn': 'Sign In', 'auth_reg_btn': 'Join Community',
-        'auth_new_here': "Don't have an account?", 'auth_have_acc': 'Already registered?', 'auth_create_acc': 'Sign Up',
-        'role_farmer': 'Farmer', 'role_mfg': 'Seed Manufacturer', 'role_trans': 'Transporter',
+        'log_title': 'Supply Chain Marketplace', 'tab_mfg': 'Industrial Suppliers', 'tab_trans': 'Transport Logistics',
+        'btn_msg': 'Secure Connection', 'btn_contact': 'Sync Logic',
+        'auth_login_title': 'Terminal Access', 'auth_reg_title': 'Initialize Identity', 'auth_email': 'Email/Phone', 'auth_pass': 'Access Key',
+        'auth_role': 'Domain Role', 'auth_login_btn': 'Enter System', 'auth_reg_btn': 'Join Network',
+        'auth_new_here': "Requires Identity?", 'auth_have_acc': 'Identity Verified?', 'auth_create_acc': 'Create Node',
+        'role_farmer': 'Agronomy Lead', 'role_mfg': 'Industrial Supplier', 'role_trans': 'Logistics Partner',
 
         // Dynamic Crops
-        'wheat_name': 'Wheat', 'rice_name': 'Rice', 'cotton_name': 'Cotton', 'soya_name': 'Soybean', 'corn_name': 'Corn', 'cane_name': 'Sugarcane', 'sun_name': 'Sunflower',
-        'wheat_care': 'Nitrogen and irrigation needed at CRI stage.', 'rice_care': 'Maintain 5cm water level. Watch for Stem Borer.', 'cotton_care': 'Deep ploughing & spacing is vital.',
-        'soya_care': 'Rhizobium treatment increases yield significantly.', 'corn_care': 'Nitrogen heavy feeder. Watch for Armyworm.', 'cane_care': 'Copious water & earthing up prevents lodging.', 'sun_care': 'Needs 6-8h sun. Protect from birds.',
+        'wheat_name': 'Wheat Core', 'rice_name': 'Rice Cluster', 'cotton_name': 'Cotton Fiber', 'soya_name': 'Soybean Protein', 'corn_name': 'Corn Maize', 'cane_name': 'Sugarcane', 'sun_name': 'Sunflower',
+        'wheat_care': 'Nitrogen vectors and irrigation synchronization required at CRI stage.', 'rice_care': 'Maintain 5cm hydraulic level. Monitor for Stem Borer vectors.', 'cotton_care': 'Sub-surface ploughing and spatial optimization is vital.',
+        'soya_care': 'Rhizobium inoculation improves output vectors significantly.', 'corn_care': 'High nitrogen consumption. Monitor for Armyworm pathogens.', 'cane_care': 'High hydraulic volume and soil reinforcement required.', 'sun_care': 'Requires 6-8h solar saturation. Protect from avian vectors.',
         'wheat_d1': 'Leaf Rust', 'wheat_d2': 'Smut', 'rice_d1': 'Blast', 'rice_d2': 'Blight', 'cotton_d1': 'Bollworm', 'cotton_d2': 'Leaf Spot',
         'soya_d1': 'Root Rot', 'soya_d2': 'Mildew', 'corn_d1': 'Armyworm', 'corn_d2': 'Blight', 'cane_d1': 'Red Rot', 'cane_d2': 'Wilt', 'sun_d1': 'Mildew', 'sun_d2': 'Blight',
-        'Blight': 'Bacterial Leaf Blight',
-        'schemes_desc': 'Explore financial aid, insurance, and development programs designed to support the Indian farming community.',
-        'scheme1_title': 'PM-Kisan Samman Nidhi', 'scheme1_desc': "Financial benefit of ₹6000/- per year is provided directly to all landholding farmers' families through 3 installments.",
-        'eligibility': 'Eligibility', 'benefit_amount': 'Benefit Amount', 'btn_scheme1': 'Apply on PM-Kisan Portal', 'per_year': '/ Year',
-        'scheme2_title': 'Pradhan Mantri Fasal Bima Yojana', 'scheme2_desc': 'Safety net for your hard work. Comprehensive insurance against crop loss due to natural calamities, pests or diseases.',
-        'coverage': 'Coverage', 'premium_rate': 'Premium Rate', 'btn_scheme2': 'Register Crop Insurance', 'fixed': 'Fixed',
-        'scheme3_title': 'Kisan Credit Card (KCC)', 'scheme3_desc': 'Unlock easy access to institutional credit. Supports purchase of seeds, fertilizers, and general farm maintenance.',
-        'loan_limit': 'Loan Limit', 'interest_rate': 'Interest Rate', 'btn_scheme3': 'View Bank Details',
-        'scheme4_title': 'Paramparagat Krishi Vikas', 'scheme4_desc': 'Dedicated push for commercial organic farming. Improve soil health and harvest premium chemical-free produce.',
-        'gov_aid': 'Govt Aid', 'duration_lbl': 'Duration', 'btn_scheme4': 'Apply for Aid', 'gov_india': 'Government of India',
-        'log_desc': 'Skip the middlemen. Connect directly with verified suppliers and reliable transporters.',
+        'Blight': 'Botanical Blight',
+        'schemes_desc': 'Direct financial assistance and security frameworks designed for the modernization of the agrarian community.',
+        'scheme1_title': 'PM-Kisan Samman', 'scheme1_desc': "Direct benefit transfer of ₹6000/- per annum into the validated bank accounts of land-holding families.",
+        'eligibility': 'Geo-Eligibility', 'benefit_amount': 'Annual Grant', 'btn_scheme1': 'Initiate Application', 'per_year': '/ FY',
+        'scheme2_title': 'Fasal Bima Yojana', 'scheme2_desc': 'Comprehensive multi-risk insurance mechanism covering output loss from climatic deviations.',
+        'coverage': 'Hazard Coverage', 'premium_rate': 'Service Premium', 'btn_scheme2': 'Secure My Harvest', 'fixed': 'Fixed',
+        'scheme3_title': 'Kisan Credit Card', 'scheme3_desc': 'Low-interest institutional credit bridge for input procurement and operational liquidity.',
+        'loan_limit': 'Capital Limit', 'interest_rate': 'Capital Cost', 'btn_scheme3': 'Procure Credit Info',
+        'scheme4_title': 'Paramparagat Krishi', 'scheme4_desc': 'Incentivizing the transition to certified organic agriculture through cluster-based ecological support.',
+        'gov_aid': 'Support Grant', 'duration_lbl': 'Duration Term', 'btn_scheme4': 'Apply for Aid', 'gov_india': 'Ministry of Agriculture',
+        'log_desc': 'Eliminate intermediaries. Connect directly with verified industrial suppliers and high-efficiency transport networks.',
         'crop_common_dis': 'Common Pathogens', 'crop_care_tips': 'Optimization Protocol', 'crop_btn_view': 'Explore Skillset',
-        'adv_skill': 'Advanced Skill Intelligence', 'diag_verified': 'This diagnostic data is verified by agricultural research institutes. For large-scale infections, consult an authorized agronomist.',
-        'market_title': 'Real-Time Mandi Prices', 'market_desc': 'Tracking thousands of APMC markets across the country.', 'market_last_sync': 'Last Sync:',
-        'market_label_region': 'Select Region', 'market_label_comm': 'Commodity Type', 'market_btn_update': 'Update Insight',
-        'market_th_mandi': 'Market / Mandi Hub', 'market_th_comm': 'Commodity', 'market_th_var': 'Variety', 'market_th_price': 'Price Range', 'market_th_trend': 'Market Trend',
-        'market_loading': 'Querying national APMC servers...',
+        'adv_skill': 'Advanced Skill Intelligence', 'diag_verified': 'This diagnostic data is verified by research institutes. For large-scale infections, consult an authorized agronomist.',
+        'market_title': 'Mandi Price Index', 'market_desc': 'Tracking thousands of APMC terminals across the sub-continent in real-time.', 'market_last_sync': 'Last Decryption:',
+        'market_label_region': 'Select Geo-Region', 'market_label_comm': 'Commodity Group', 'market_btn_update': 'Refresh Insights',
+        'market_th_mandi': 'Market Operations Hub', 'market_th_comm': 'Commodity', 'market_th_var': 'Strain / Variety', 'market_th_price': 'Price Orbit', 'market_th_trend': 'Vector Analysis',
+        'market_loading': 'Synchronizing with APMC Node Architecture...',
         'state_mh': 'Maharashtra', 'state_pb': 'Punjab', 'state_up': 'Uttar Pradesh', 'state_ap': 'Andhra Pradesh', 'state_ts': 'Telangana',
         'market_surging': 'SURGING', 'market_dip': 'DIP',
         'var_premium': 'A-Grade Premium', 'var_hybrid': 'Hybrid FAQ', 'var_eco': 'Eco Certified',
-        'market_live': 'Live Data'
+        'market_live': 'Precision Engine Active'
       },
       'hi': {
-        'nav_weather': 'मौसम', 'nav_news': 'समाचार', 'nav_tasks': 'कार्य', 'nav_crop': 'फसल देखभाल', 'nav_logistics': 'रसद', 'nav_market': 'मंडी भाव', 'nav_schemes': 'सरकारी योजनाएं', 'nav_login': 'लॉगिन',
-        'footer_desc': 'किसानों को आधुनिक तकनीक से सशक्त बनाना।', 'footer_links': 'त्वरित लिंक', 'footer_weather': 'मौसम अद्यतन', 'footer_logistics': 'लॉजिस्टिक्स सहायता', 'footer_tasks': 'कार्य प्रबंधक', 'footer_support': 'सहायता', 'footer_copy': '© 2026 एग्रो वर्ल्ड | स्मार्ट खेती सहायता प्रणाली',
-
-        'hero_title': 'किसानों का सशक्तिकरण <br>एक <span class="text-primary-600">बेहतर कल के लिए</span>',
-        'hero_desc': 'एग्रो वर्ल्ड मौसम, फसल रोग मार्गदर्शन और आपूर्तिकर्ताओं से सीधे संपर्क के लिए आपका डिजिटल सहायक है।',
         'cta_start': 'अभी शुरू करें', 'cta_learn': 'विशेषताएं देखें',
         'sec_features': 'हमारी मुख्य क्षमताएं', 'sec_abstract': 'परियोजना दृष्टि',
         'f1_title': 'मौसम की जानकारी', 'f1_desc': 'बारिश और पाले की सटीक जानकारी के साथ 5-दिवसीय पूर्वानुमान।',
