@@ -97,9 +97,24 @@
     </div>
 
     <div id="loadingState" class="hidden p-20 text-center">
-      <div class="flex flex-col items-center">
-        <div class="w-16 h-16 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin mb-6"></div>
-        <p class="text-slate-500 font-bold italic" data-key="market_loading">Querying national APMC servers...</p>
+      <div class="flex flex-col items-center max-w-sm mx-auto">
+        <!-- Premium Multi-ring Spinner -->
+        <div class="relative w-20 h-20 mb-8">
+          <div class="absolute inset-0 border-4 border-primary-600/10 rounded-full"></div>
+          <div class="absolute inset-0 border-4 border-t-primary-600 rounded-full animate-spin"></div>
+          <div class="absolute inset-4 border-4 border-b-primary-400 rounded-full animate-spin-reverse-slow"></div>
+          <i
+            class="fa-solid fa-server absolute inset-0 flex items-center justify-center text-primary-600/30 text-xl"></i>
+        </div>
+        <div class="space-y-4 w-full">
+          <p id="loadingStatusText" class="text-slate-900 font-black text-xs uppercase tracking-[0.2em] animate-pulse"
+            data-key="market_loading">Querying APMC Servers...</p>
+          <div class="h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+            <div id="loadingProgressBar" class="h-full bg-primary-600 w-0 transition-all duration-500 ease-out"></div>
+          </div>
+          <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Network Latency: <span
+              class="text-emerald-500">24ms</span></p>
+        </div>
       </div>
     </div>
   </div>
@@ -113,12 +128,27 @@
     const crop = document.getElementById('cropSelect').value;
     const tbody = document.getElementById('priceTableBody');
     const loading = document.getElementById('loadingState');
+    const statusText = document.getElementById('loadingStatusText');
+    const progressBar = document.getElementById('loadingProgressBar');
 
     tbody.innerHTML = '';
     loading.classList.remove('hidden');
+    progressBar.style.width = '0%';
+
+    // Multi-stage status updates
+    setTimeout(() => {
+      statusText.innerText = 'Connecting to APMC Gateway...';
+      progressBar.style.width = '30%';
+    }, 200);
+
+    setTimeout(() => {
+      statusText.innerText = 'Decrypting Local Node Data...';
+      progressBar.style.width = '70%';
+    }, 500);
 
     setTimeout(() => {
       const basePrice = { "Wheat": 2200, "Rice": 3100, "Cotton": 7000, "Soybean": 5500, "Corn": 2000 }[crop];
+      progressBar.style.width = '100%';
       loading.classList.add('hidden');
 
       const mandis = [

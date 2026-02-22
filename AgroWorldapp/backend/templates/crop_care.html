@@ -168,14 +168,34 @@
 
               <!-- Preview State -->
               <div id="previewContainer" class="hidden">
-                <div class="relative inline-block">
-                  <img id="previewImg" class="max-h-60 rounded-2xl shadow-2xl border-4 border-slate-800">
-                  <div class="absolute inset-0 bg-primary-500/20 rounded-2xl animate-pulse"></div>
+                <div class="relative inline-block group/preview">
+                  <img id="previewImg"
+                    class="max-h-60 rounded-2xl shadow-2xl border-4 border-slate-800 transition-all duration-700">
+                  <!-- Scanning Line Animation -->
+                  <div
+                    class="absolute inset-x-0 h-1 bg-primary-500 shadow-[0_0_15px_rgba(16,185,129,0.8)] z-20 animate-[scan_2s_infinite] opacity-80">
+                  </div>
+                  <!-- Grid Overlay -->
+                  <div
+                    class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/grid-me.png')] opacity-20 rounded-2xl">
+                  </div>
                 </div>
-                <div class="mt-6 flex items-center justify-center gap-3">
-                  <div class="w-2 h-2 rounded-full bg-primary-500 animate-bounce"></div>
-                  <span class="text-primary-500 font-bold text-xs tracking-[0.2em] uppercase">Processing Tensor
-                    Data...</span>
+                <div class="mt-8 space-y-4">
+                  <div class="flex items-center justify-center gap-4">
+                    <div class="flex gap-1">
+                      <div class="w-1.5 h-1.5 rounded-full bg-primary-500 animate-bounce"></div>
+                      <div class="w-1.5 h-1.5 rounded-full bg-primary-500 animate-bounce [animation-delay:-0.15s]">
+                      </div>
+                      <div class="w-1.5 h-1.5 rounded-full bg-primary-500 animate-bounce [animation-delay:-0.3s]"></div>
+                    </div>
+                    <span id="diagnosticStatusText"
+                      class="text-primary-500 font-black text-[10px] tracking-[0.25em] uppercase">Initializing Neural
+                      Link...</span>
+                  </div>
+                  <!-- Progress Bar System -->
+                  <div class="max-w-[200px] mx-auto h-0.5 bg-slate-800 rounded-full overflow-hidden">
+                    <div id="diagnosticProgressBar" class="h-full bg-primary-500 w-0 transition-all duration-300"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -244,6 +264,18 @@
 </div>
 
 <style>
+  @keyframes scan {
+
+    0%,
+    100% {
+      top: 0%;
+    }
+
+    50% {
+      top: 100%;
+    }
+  }
+
   @keyframes slideUp {
     from {
       transform: translateY(40px);
@@ -386,8 +418,25 @@
 
         showToast("Accessing Neural Processing Unit...", "success");
 
+        const diagStatus = document.getElementById('diagnosticStatusText');
+        const diagProgress = document.getElementById('diagnosticProgressBar');
+
+        // Stage 1: Texture Analysis
+        setTimeout(() => {
+          diagStatus.innerText = "Analyzing Leaf Textures...";
+          diagProgress.style.width = "40%";
+        }, 400);
+
+        // Stage 2: Database Cross-ref
+        setTimeout(() => {
+          diagStatus.innerText = "Cross-referencing Pathogens...";
+          diagProgress.style.width = "75%";
+        }, 1000);
+
+        // Final Inference
         setTimeout(() => {
           const mock = mockScenarios[Math.floor(Math.random() * mockScenarios.length)];
+          diagProgress.style.width = "100%";
 
           document.getElementById('mockDisease').innerText = mock.disease;
           document.getElementById('mockSeverity').innerText = mock.confidence || mock.severity;
@@ -398,7 +447,7 @@
 
           document.getElementById('aiResults').classList.remove('hidden');
           window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        }, 2800);
+        }, 1400);
       }
       reader.readAsDataURL(file);
     }

@@ -175,9 +175,11 @@ def get_live_news(query="agriculture OR farming india"):
         from bs4 import BeautifulSoup
         
         safe_query = urllib.parse.quote(query)
-        # Using Google News RSS for better reliability and coverage
+        # Using Google News RSS with requests for timeout control
         url = f"https://news.google.com/rss/search?q={safe_query}&hl=en-IN&gl=IN&ceid=IN:en"
-        feed = feedparser.parse(url)
+        import requests
+        response = requests.get(url, timeout=5)
+        feed = feedparser.parse(response.content)
         
         images = [
             "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=400",

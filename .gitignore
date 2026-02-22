@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+.DS_Store
+*.log
+*.sqlite
+.vercel/
+node_modules/
+dist/
+build/
+.cache/
+.dockerignore
+Dockerfile
+docker-compose.yml
