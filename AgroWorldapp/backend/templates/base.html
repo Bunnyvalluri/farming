@@ -405,12 +405,12 @@
           <ul class="space-y-4 text-[13px]">
             <li><a href="/weather" class="hover:text-primary-400 transition-colors flex items-center gap-2"
                 data-key="footer_weather">Weather Predictions</a></li>
+            <li><a href="/market" class="hover:text-primary-400 transition-colors flex items-center gap-2"
+                data-key="footer_market">Market Price Index</a></li>
             <li><a href="/logistics" class="hover:text-primary-400 transition-colors flex items-center gap-2"
                 data-key="footer_logistics">Logistics Pipeline</a></li>
             <li><a href="/tasks" class="hover:text-primary-400 transition-colors flex items-center gap-2"
                 data-key="footer_tasks">Operational Tasks</a></li>
-            <li><a href="/market" class="hover:text-primary-400 transition-colors flex items-center gap-2">Mandi Price
-                Index</a></li>
           </ul>
         </div>
 
@@ -536,7 +536,7 @@
     const translations = {
       'en': {
         // Navigation & Footer
-        'nav_weather': 'Weather', 'nav_news': 'News', 'nav_tasks': 'Operations', 'nav_crop': 'Intelligence', 'nav_logistics': 'Supply Hub', 'nav_market': 'Mandi Index', 'nav_schemes': 'Welfare', 'nav_login': 'Access Node',
+        'nav_weather': 'Weather', 'nav_news': 'News', 'nav_tasks': 'Operations', 'nav_crop': 'Intelligence', 'nav_logistics': 'Supply Hub', 'nav_market': 'Market Prices', 'nav_schemes': 'Welfare', 'nav_login': 'Access Node',
         'footer_desc': 'Directing high-precision technology toward agrarian sovereignty.', 'footer_links': 'System Nodes', 'footer_weather': 'Climate Feed', 'footer_logistics': 'Logistics Network', 'footer_tasks': 'Ops Manager', 'footer_support': 'Support', 'footer_copy': '© 2026 Agro World | Precision Agrarian Decision System',
 
         // Home Page
@@ -602,9 +602,9 @@
         'log_desc': 'Eliminate intermediaries. Connect directly with verified industrial suppliers and high-efficiency transport networks.',
         'crop_common_dis': 'Common Pathogens', 'crop_care_tips': 'Optimization Protocol', 'crop_btn_view': 'Explore Skillset',
         'adv_skill': 'Advanced Skill Intelligence', 'diag_verified': 'This diagnostic data is verified by research institutes. For large-scale infections, consult an authorized agronomist.',
-        'market_title': 'Mandi Price Index', 'market_desc': 'Tracking thousands of APMC terminals across the sub-continent in real-time.', 'market_last_sync': 'Last Decryption:',
+        'market_title': 'Market Price Index', 'market_desc': 'Tracking thousands of APMC terminals across the sub-continent in real-time.', 'market_last_sync': 'Last Decryption:',
         'market_label_region': 'Select Geo-Region', 'market_label_comm': 'Commodity Group', 'market_btn_update': 'Refresh Insights',
-        'market_th_mandi': 'Market Operations Hub', 'market_th_comm': 'Commodity', 'market_th_var': 'Strain / Variety', 'market_th_price': 'Price Orbit', 'market_th_trend': 'Vector Analysis',
+        'market_th_mandi': 'Exchange / Market', 'market_th_comm': 'Commodity', 'market_th_var': 'Strain / Variety', 'market_th_price': 'Price Orbit', 'market_th_trend': 'Vector Analysis',
         'market_loading': 'Synchronizing with APMC Node Architecture...',
         'state_mh': 'Maharashtra', 'state_pb': 'Punjab', 'state_up': 'Uttar Pradesh', 'state_ap': 'Andhra Pradesh', 'state_ts': 'Telangana',
         'market_surging': 'SURGING', 'market_dip': 'DIP',
@@ -668,7 +668,7 @@
         'adv_skill': 'उन्नत कौशल बुद्धिमत्ता', 'diag_verified': 'यह नैदानिक डेटा कृषि अनुसंधान संस्थानों द्वारा सत्यापित है। बड़े पैमाने पर संक्रमण के लिए, अधिकृत कृषिविद् से परामर्श लें।',
         'market_title': 'वास्तविक समय मंडी भाव', 'market_desc': 'देश भर के हजारों एपीएमसी बाजारों पर नज़र रखना।', 'market_last_sync': 'पिछला सिंक:',
         'market_label_region': 'क्षेत्र चुनें', 'market_label_comm': 'वस्तु का प्रकार', 'market_btn_update': 'अपडेट करें',
-        'market_th_mandi': 'मंडी हब', 'market_th_comm': 'वस्तु', 'market_th_var': 'किस्म', 'market_th_price': 'मूल्य सीमा', 'market_th_trend': 'बाजार का रुझान',
+        'market_th_mandi': 'बाजार केंद्र', 'market_th_comm': 'वस्तु', 'market_th_var': 'किस्म', 'market_th_price': 'मूल्य सीमा', 'market_th_trend': 'बाजार का रुझान',
         'market_loading': 'राष्ट्रीय एपीएमसी सर्वरों पर खोज जारी है...',
         'state_mh': 'महाराष्ट्र', 'state_pb': 'पंजाब', 'state_up': 'उत्तर प्रदेश', 'state_ap': 'आंध्र प्रदेश', 'state_ts': 'तेलंगाना',
         'market_surging': 'बढ़ रहा है', 'market_dip': 'गिर रहा है',
@@ -738,7 +738,7 @@
         'adv_skill': 'అధునాతన నైపుణ్య మేధస్సు', 'diag_verified': 'ఈ రోగనిర్ధారణ డేటా వ్యవసాయ పరిశోధనా సంస్థలచే ధృవీకరించబడింది. పెద్ద ఎత్తున ఇన్ఫెక్షన్ల కోసం ఒక వ్యవసాయ శాస్త్రవేత్తను సంప్రదించండి.',
         'market_title': 'నిజ-సమయ మార్కెట్ ధరలు', 'market_desc': 'దేశవ్యాప్తంగా వేల ఏపీఎంసీ మార్కెట్లను ట్రాక్ చేస్తోంది', 'market_last_sync': 'చివరి సమకాలీకరణ:',
         'market_label_region': 'ప్రాంతాన్ని ఎంచుకోండి', 'market_label_comm': 'వస్తువు రకం', 'market_btn_update': 'తాజా ధరలు',
-        'market_th_mandi': 'మార్కెట్ / మండి హబ్', 'market_th_comm': 'వస్తువు', 'market_th_var': 'రకం', 'market_th_price': 'ధర పరిధి', 'market_th_trend': 'మార్కెట్ ధోరణి',
+        'market_th_mandi': 'మార్కెట్ కేంద్రం', 'market_th_comm': 'వస్తువు', 'market_th_var': 'రకం', 'market_th_price': 'ధర పరిధి', 'market_th_trend': 'మార్కెట్ ధోరణి',
         'market_loading': 'జాతీయ ఏపీఎంసీ సర్వర్‌లను సంప్రదిస్తోంది...',
         'state_mh': 'మహారాష్ట్ర', 'state_pb': 'పంజాబ్', 'state_up': 'ఉత్తరప్రదేశ్', 'state_ap': 'ఆంధ్రప్రదేశ్', 'state_ts': 'తెలంగాణ',
         'market_surging': 'పెరుగుతోంది', 'market_dip': 'తగ్గుతోంది',

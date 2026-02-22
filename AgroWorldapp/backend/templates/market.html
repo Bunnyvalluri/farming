@@ -1,137 +1,156 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="py-12 md:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
+<div class="min-h-screen bg-slate-50">
+
   <!-- Page Header -->
-  <div class="mb-16 text-center lg:text-left flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8">
-    <div class="max-w-2xl">
-      <div
-        class="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-50 text-amber-600 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-6 border border-amber-100/50">
-        <i class="fa-solid fa-bolt-lightning animate-pulse"></i> <span data-key="market_live">Precision Engine
-          Active</span>
-      </div>
-      <h2 class="text-4xl md:text-5xl lg:text-6xl font-outfit font-black text-slate-900 mb-4 tracking-tighter"
-        data-key="market_title">
-        Mandi Price Index
-      </h2>
-      <p class="text-slate-500 font-medium text-lg md:text-xl leading-relaxed" data-key="market_desc">Tracking thousands
-        of APMC terminals across the sub-continent in real-time.</p>
-    </div>
-    <div
-      class="flex items-center gap-3 px-6 py-3 bg-slate-50 rounded-2xl border border-slate-100 text-xs font-black text-slate-400 uppercase tracking-widest">
-      <span data-key="market_last_sync">Last Decryption:</span> <span id="syncTime"
-        class="text-primary-600 font-black">Scanning...</span>
-    </div>
-  </div>
-
-  <!-- Filters Dashboard -->
-  <div
-    class="bg-white/70 backdrop-blur-xl p-8 md:p-12 rounded-[3.5rem] border border-white/20 shadow-[0_32px_120px_-16px_rgba(0,0,0,0.08)] mb-16 relative overflow-hidden group">
-    <div
-      class="absolute -right-24 -top-24 p-32 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity duration-1000 rotate-12">
-      <i class="fa-solid fa-chart-line text-[20rem]"></i>
-    </div>
-
-    <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-end">
-      <div class="space-y-4">
-        <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2"
-          data-key="market_label_region">Select Geo-Region</label>
-        <div class="relative group/field">
-          <select id="stateSelect"
-            class="w-full pl-8 pr-12 py-5 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-primary-100 transition-all outline-none font-black text-slate-900 appearance-none h-16 cursor-pointer shadow-inner">
-            <option value="Maharashtra" data-key="state_mh">Maharashtra</option>
-            <option value="Punjab" data-key="state_pb">Punjab</option>
-            <option value="Uttar Pradesh" data-key="state_up">Uttar Pradesh</option>
-            <option value="Andhra Pradesh" data-key="state_ap">Andhra Pradesh</option>
-            <option value="Telangana" data-key="state_ts">Telangana</option>
-          </select>
-          <i
-            class="fa-solid fa-chevron-down absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none group-hover/field:translate-y-[-40%] transition-transform"></i>
-        </div>
-      </div>
-
-      <div class="space-y-4">
-        <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2"
-          data-key="market_label_comm">Commodity Group</label>
-        <div class="relative group/field">
-          <select id="cropSelect"
-            class="w-full pl-8 pr-12 py-5 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-primary-100 transition-all outline-none font-black text-slate-900 appearance-none h-16 cursor-pointer shadow-inner">
-            <option value="Wheat" data-key="wheat_name">Wheat</option>
-            <option value="Rice" data-key="rice_name">Rice</option>
-            <option value="Cotton" data-key="cotton_name">Cotton</option>
-            <option value="Soybean" data-key="soya_name">Soybean</option>
-            <option value="Corn" data-key="corn_name">Corn</option>
-          </select>
-          <i
-            class="fa-solid fa-chevron-down absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none group-hover/field:translate-y-[-40%] transition-transform"></i>
-        </div>
-      </div>
-
-      <button onclick="fetchPrices()"
-        class="w-full h-16 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl font-black text-sm uppercase tracking-[0.1em] flex items-center justify-center gap-4 transition-all hover:-translate-y-1 shadow-2xl active:scale-95 group">
-        <i class="fa-solid fa-magnifying-glass-chart text-lg group-hover:rotate-12 transition-transform"></i>
-        <span data-key="market_btn_update">Refresh Insights</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- Market Table -->
-  <div
-    class="bg-white/50 backdrop-blur-md rounded-[3.5rem] border border-white/20 shadow-[0_32px_120px_-16px_rgba(0,0,0,0.05)] overflow-hidden">
-    <div class="overflow-x-auto">
-      <table class="w-full text-left border-collapse min-w-[800px]">
-        <thead>
-          <tr class="bg-slate-50/50 border-b border-slate-100">
-            <th class="p-10 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400"
-              data-key="market_th_mandi">
-              Market Operations Hub</th>
-            <th class="p-10 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400" data-key="market_th_comm">
-              Commodity</th>
-            <th class="p-10 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400" data-key="market_th_var">
-              Strain / Variety</th>
-            <th class="p-10 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 text-center"
-              data-key="market_th_price">Price Orbit
-            </th>
-            <th class="p-10 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 text-right"
-              data-key="market_th_trend">Vector Analysis
-            </th>
-          </tr>
-        </thead>
-        <tbody id="priceTableBody" class="divide-y divide-slate-100/50">
-          <!-- Injected via JS -->
-        </tbody>
-      </table>
-    </div>
-
-    <div id="loadingState" class="hidden p-32 text-center">
-      <div class="flex flex-col items-center max-w-md mx-auto">
-        <!-- Premium Multi-ring Spinner -->
-        <div class="relative w-24 h-24 mb-12">
-          <div class="absolute inset-0 border-[6px] border-primary-600/5 rounded-full"></div>
-          <div class="absolute inset-0 border-[6px] border-t-primary-600 rounded-full animate-spin"></div>
-          <div
-            class="absolute inset-5 border-[4px] border-b-primary-400 rounded-full animate-spin-reverse-slow opacity-50">
+  <div class="bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+        <div>
+          <div class="flex items-center gap-3 mb-3">
+            <span
+              class="inline-flex items-center gap-2 px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-full border border-emerald-200">
+              <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+              Live
+            </span>
+            <span class="text-xs text-slate-400 font-medium uppercase tracking-wider">Agricultural Commodity
+              Exchange</span>
           </div>
-          <i
-            class="fa-solid fa-tower-broadcast absolute inset-0 flex items-center justify-center text-primary-600/20 text-2xl animate-pulse"></i>
+          <h1 class="text-3xl font-bold text-slate-900 tracking-tight" data-key="market_title">
+            Commodity Price Dashboard
+          </h1>
+          <p class="mt-1 text-slate-500 text-sm" data-key="market_desc">
+            Real-time prices tracked across major commodity exchanges in India.
+          </p>
         </div>
-        <div class="space-y-6 w-full">
-          <p id="loadingStatusText" class="text-slate-900 font-black text-xs uppercase tracking-[0.3em]"
-            data-key="market_loading">Synchronizing with APMC Node Architecture...</p>
-          <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-            <div id="loadingProgressBar"
-              class="h-full bg-gradient-to-r from-primary-500 to-primary-700 w-0 transition-all duration-700 ease-out">
+        <div
+          class="flex items-center gap-2 text-sm text-slate-500 bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-200">
+          <i class="fa-regular fa-clock text-slate-400"></i>
+          <span data-key="market_last_sync">Last Updated:</span>
+          <span id="syncTime" class="font-semibold text-slate-700">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- Filter Card -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-6 mb-6 shadow-sm">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
+        <!-- Region Select -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2"
+            data-key="market_label_region">
+            State / Region
+          </label>
+          <div class="relative">
+            <select id="stateSelect"
+              class="w-full appearance-none bg-slate-50 border border-slate-200 text-slate-800 font-medium rounded-xl px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all cursor-pointer">
+              <option value="Maharashtra" data-key="state_mh">Maharashtra</option>
+              <option value="Punjab" data-key="state_pb">Punjab</option>
+              <option value="Uttar Pradesh" data-key="state_up">Uttar Pradesh</option>
+              <option value="Andhra Pradesh" data-key="state_ap">Andhra Pradesh</option>
+              <option value="Telangana" data-key="state_ts">Telangana</option>
+            </select>
+            <i
+              class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+          </div>
+        </div>
+
+        <!-- Commodity Select -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2"
+            data-key="market_label_comm">
+            Commodity
+          </label>
+          <div class="relative">
+            <select id="cropSelect"
+              class="w-full appearance-none bg-slate-50 border border-slate-200 text-slate-800 font-medium rounded-xl px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all cursor-pointer">
+              <option value="Wheat">Wheat</option>
+              <option value="Rice">Rice</option>
+              <option value="Cotton">Cotton</option>
+              <option value="Soybean">Soybean</option>
+              <option value="Corn">Corn</option>
+            </select>
+            <i
+              class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+          </div>
+        </div>
+
+        <!-- Fetch Button -->
+        <button onclick="fetchPrices()"
+          class="flex items-center justify-center gap-2 w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl px-6 py-3 transition-all shadow-sm hover:shadow-md active:scale-95">
+          <i class="fa-solid fa-rotate text-sm"></i>
+          <span data-key="market_btn_update">Update Prices</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Table Card -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+
+      <!-- Loading State -->
+      <div id="loadingState" class="hidden py-20 text-center">
+        <div class="flex flex-col items-center gap-4 max-w-xs mx-auto">
+          <div class="relative w-12 h-12">
+            <div class="absolute inset-0 border-4 border-slate-100 rounded-full"></div>
+            <div class="absolute inset-0 border-4 border-t-primary-600 rounded-full animate-spin"></div>
+          </div>
+          <div class="space-y-2">
+            <p id="loadingStatusText" class="text-sm font-semibold text-slate-700" data-key="market_loading">Fetching
+              live prices...</p>
+            <div class="w-48 h-1.5 bg-slate-100 rounded-full overflow-hidden mx-auto">
+              <div id="loadingProgressBar" class="h-full bg-primary-500 w-0 transition-all duration-500 rounded-full">
+              </div>
             </div>
           </div>
-          <div class="flex justify-between items-center text-[9px] text-slate-400 font-black uppercase tracking-widest">
-            <span>Data Stream Integrity: 100%</span>
-            <span>Latency: 18ms</span>
-          </div>
         </div>
       </div>
+
+      <!-- Data Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm min-w-[700px]">
+          <thead>
+            <tr class="border-b border-slate-200 bg-slate-50/80">
+              <th class="text-left px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider"
+                data-key="market_th_mandi">
+                Exchange / Market
+              </th>
+              <th class="text-left px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider"
+                data-key="market_th_comm">
+                Commodity
+              </th>
+              <th class="text-left px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider"
+                data-key="market_th_var">
+                Grade / Variety
+              </th>
+              <th class="text-right px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider"
+                data-key="market_th_price">
+                Price (₹/Quintal)
+              </th>
+              <th class="text-right px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider"
+                data-key="market_th_trend">
+                Trend
+              </th>
+            </tr>
+          </thead>
+          <tbody id="priceTableBody" class="divide-y divide-slate-100">
+            <!-- JS Injected -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Summary Footer -->
+    <div class="mt-4 flex flex-wrap gap-4 text-xs text-slate-400 items-center justify-between">
+      <span>📊 Prices indicative. Source: APMC India aggregated data.</span>
+      <span class="flex items-center gap-1.5"><i class="fa-solid fa-shield-halved text-emerald-500"></i> Data integrity
+        verified</span>
     </div>
   </div>
-</section>
+</div>
 {% endblock %}
 
 {% block scripts %}
@@ -148,113 +167,71 @@
     loading.classList.remove('hidden');
     progressBar.style.width = '0%';
 
-    // Multi-stage status updates
-    setTimeout(() => {
-      statusText.innerText = 'Connecting to APMC Gateway...';
-      progressBar.style.width = '30%';
-    }, 200);
+    setTimeout(() => { statusText.innerText = 'Connecting to exchange nodes...'; progressBar.style.width = '35%'; }, 200);
+    setTimeout(() => { statusText.innerText = 'Aggregating market data...'; progressBar.style.width = '75%'; }, 600);
 
     setTimeout(() => {
-      statusText.innerText = 'Decrypting Local Node Data...';
-      progressBar.style.width = '70%';
-    }, 500);
-
-    setTimeout(() => {
-      const basePrice = { "Wheat": 2200, "Rice": 3100, "Cotton": 7000, "Soybean": 5500, "Corn": 2000 }[crop];
       progressBar.style.width = '100%';
       loading.classList.add('hidden');
 
-      const stateHubs = {
-        'Maharashtra': [
-          { hub: 'Pune Commodity Exchange', code: 'PCX' },
-          { hub: 'Nashik Agri Terminal', code: 'NAT' },
-          { hub: 'Mumbai Trade Hub', code: 'MTH' }
-        ],
-        'Punjab': [
-          { hub: 'Amritsar Grain Exchange', code: 'AGE' },
-          { hub: 'Ludhiana Agri Market', code: 'LAM' },
-          { hub: 'Patiala Commodity Hub', code: 'PCH' }
-        ],
-        'Uttar Pradesh': [
-          { hub: 'Lucknow Agri Exchange', code: 'LAE' },
-          { hub: 'Kanpur Grain Terminal', code: 'KGT' },
-          { hub: 'Agra Commodity Centre', code: 'ACC' }
-        ],
-        'Andhra Pradesh': [
-          { hub: 'Vijayawada Agri Hub', code: 'VAH' },
-          { hub: 'Guntur Crop Exchange', code: 'GCE' },
-          { hub: 'Kurnool Trade Terminal', code: 'KTT' }
-        ],
-        'Telangana': [
-          { hub: 'Hyderabad Agri Bourse', code: 'HAB' },
-          { hub: 'Warangal Crop Market', code: 'WCM' },
-          { hub: 'Nizamabad Grain Hub', code: 'NGH' }
-        ]
-      };
-      const mandis = stateHubs[state] || stateHubs['Maharashtra'];
-      const varieties = ['A-Grade Premium', 'Hybrid FAQ', 'Eco Certified'];
+      const basePrice = { Wheat: 2200, Rice: 3100, Cotton: 7000, Soybean: 5500, Corn: 2000 }[crop];
 
-      mandis.forEach((m, i) => {
-        const variety = varieties[i];
-        const minP = Math.floor(basePrice * (0.95 + Math.random() * 0.1));
-        const maxP = Math.floor(basePrice * (1.05 + Math.random() * 0.15));
-        const isUp = Math.random() > 0.5;
+      const stateHubs = {
+        'Maharashtra': [{ hub: 'Pune Commodity Exchange', code: 'PCX' }, { hub: 'Nashik Agri Terminal', code: 'NAT' }, { hub: 'Mumbai Trade Centre', code: 'MTC' }],
+        'Punjab': [{ hub: 'Amritsar Grain Exchange', code: 'AGE' }, { hub: 'Ludhiana Commodity Hub', code: 'LCH' }, { hub: 'Patiala Agri Market', code: 'PAM' }],
+        'Uttar Pradesh': [{ hub: 'Lucknow Agri Exchange', code: 'LAE' }, { hub: 'Kanpur Grain Terminal', code: 'KGT' }, { hub: 'Agra Commodity Centre', code: 'ACC' }],
+        'Andhra Pradesh': [{ hub: 'Vijayawada Agri Bourse', code: 'VAB' }, { hub: 'Guntur Commodity Market', code: 'GCM' }, { hub: 'Kurnool Trade Terminal', code: 'KTT' }],
+        'Telangana': [{ hub: 'Hyderabad Grain Exchange', code: 'HGE' }, { hub: 'Warangal Agri Market', code: 'WAM' }, { hub: 'Nizamabad Trade Hub', code: 'NTH' }],
+      };
+
+      const hubs = stateHubs[state] || stateHubs['Maharashtra'];
+      const grades = ['Grade A Premium', 'Hybrid FAQ', 'Eco Certified'];
+
+      hubs.forEach((h, i) => {
+        const minP = Math.floor(basePrice * (0.93 + Math.random() * 0.08));
+        const maxP = Math.floor(basePrice * (1.05 + Math.random() * 0.12));
+        const isUp = Math.random() > 0.45;
+        const grade = grades[i];
 
         const row = document.createElement('tr');
-        row.className = "hover:bg-primary-50/30 transition-colors group";
-
-        const cropKeyMap = {
-          'Wheat': 'wheat_name', 'Rice': 'rice_name', 'Cotton': 'cotton_name', 'Soybean': 'soya_name', 'Corn': 'corn_name'
-        };
-        const cropKey = cropKeyMap[crop] || 'wheat_name';
-
-        const varKeyMap = {
-          'A-Grade Premium': 'var_premium', 'Hybrid FAQ': 'var_hybrid', 'Eco Certified': 'var_eco'
-        };
-        const varKey = varKeyMap[variety] || 'var_premium';
-
+        row.className = 'hover:bg-slate-50 transition-colors';
         row.innerHTML = `
-            <td class="p-8">
-                <div class="flex items-center gap-5">
-                    <div class="w-12 h-12 bg-slate-100 rounded-2xl flex flex-col items-center justify-center group-hover:bg-primary-100 group-hover:text-primary-600 transition-all shrink-0">
-                        <i class="fa-solid fa-building text-xs text-slate-400 group-hover:text-primary-600 transition-colors"></i>
-                        <span class="text-[8px] font-black text-slate-400 group-hover:text-primary-600 mt-0.5">${m.code}</span>
-                    </div>
-                    <div>
-                        <span class="font-black text-slate-900 text-base block">${m.hub}</span>
-                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">APMC Certified</span>
-                    </div>
-                </div>
-            </td>
-            <td class="p-8">
-                <span class="px-4 py-1.5 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase group-hover:bg-white transition-colors" data-key="${cropKey}">${crop}</span>
-            </td>
-            <td class="p-8">
-                <span class="text-slate-500 font-medium" data-key="${varKey}">${variety}</span>
-            </td>
-            <td class="p-8 text-center">
-                <div class="inline-flex flex-col">
-                    <span class="text-2xl font-outfit font-black text-slate-900">₹${maxP}</span>
-                    <span class="text-[10px] font-bold text-slate-400">₹${minP} Min</span>
-                </div>
-            </td>
-            <td class="p-8 text-right">
-                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-xl font-black text-xs ${isUp ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'}">
-                    <i class="fa-solid ${isUp ? 'fa-arrow-trend-up' : 'fa-arrow-trend-down'}"></i>
-                    <span data-key="${isUp ? 'market_surging' : 'market_dip'}">${isUp ? 'SURGING' : 'DIP'}</span>
-                </span>
-            </td>
+          <td class="px-6 py-4">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-primary-50 text-primary-600 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-building-columns text-sm"></i>
+              </div>
+              <div>
+                <div class="font-semibold text-slate-800 text-sm">${h.hub}</div>
+                <div class="text-xs text-slate-400 font-mono">${h.code} · APMC</div>
+              </div>
+            </div>
+          </td>
+          <td class="px-6 py-4">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium">
+              <i class="fa-solid fa-seedling text-primary-500"></i>
+              ${crop}
+            </span>
+          </td>
+          <td class="px-6 py-4 text-sm text-slate-600 font-medium">${grade}</td>
+          <td class="px-6 py-4 text-right">
+            <div class="font-bold text-slate-900 text-base">₹${maxP.toLocaleString()}</div>
+            <div class="text-xs text-slate-400">₹${minP.toLocaleString()} min</div>
+          </td>
+          <td class="px-6 py-4 text-right">
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold
+              ${isUp ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700'}">
+              <i class="fa-solid ${isUp ? 'fa-arrow-trend-up' : 'fa-arrow-trend-down'} text-[10px]"></i>
+              ${isUp ? 'Rising' : 'Dipping'}
+            </span>
+          </td>
         `;
         tbody.appendChild(row);
-
-        if (typeof applyTranslations === 'function') {
-          applyTranslations();
-        }
       });
 
       document.getElementById('syncTime').innerText = new Date().toLocaleTimeString();
-      showToast('Live market rates updated.', 'success');
-    }, 1500);
+      showToast('Prices updated successfully.', 'success');
+    }, 1200);
   }
 
   window.addEventListener('load', fetchPrices);

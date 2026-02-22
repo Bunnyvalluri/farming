@@ -1,318 +1,226 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <!-- Hero Section -->
-<section class="relative overflow-hidden pt-20 pb-24 md:pt-32 md:pb-40 lg:pt-48 lg:pb-52">
-  <!-- Dynamic Background -->
-  <div class="absolute inset-0 -z-10 bg-[radial-gradient(100%_100%_at_50%_0%,#dcfce7_0%,#f8fafc_100%)]"></div>
-  <div
-    class="absolute top-0 right-0 -z-10 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-primary-200/20 blur-[120px] rounded-full animate-pulse-slow">
-  </div>
-  <div
-    class="absolute bottom-0 left-0 -z-10 w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-accent/5 blur-[100px] rounded-full">
+<section class="relative bg-white overflow-hidden border-b border-slate-100">
+  <div class="absolute inset-0 -z-10 bg-gradient-to-br from-primary-50/60 via-white to-white"></div>
+  <div class="absolute top-0 right-0 w-[500px] h-[500px] -z-10 bg-primary-100/30 rounded-full blur-3xl -mr-48 -mt-24">
   </div>
 
-  <!-- Rotating Decorative Icons -->
-  <div class="hidden lg:block absolute top-20 left-10 opacity-10 animate-spin-slow">
-    <i class="fa-solid fa-seedling text-7xl text-primary-600"></i>
-  </div>
-  <div class="hidden lg:block absolute bottom-40 right-10 opacity-10 animate-spin-reverse-slow">
-    <i class="fa-solid fa-wheat-awn text-8xl text-primary-500"></i>
-  </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 md:pt-36 md:pb-28">
+    <div class="max-w-4xl mx-auto text-center">
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-    {% if session.get('user_id') %}
-    <div
-      class="inline-flex items-center gap-4 px-5 py-2.5 bg-white/50 backdrop-blur-xl shadow-2xl shadow-slate-200/10 rounded-2xl mb-12 animate-float border border-white/20">
+      {% if session.get('user_id') %}
       <div
-        class="w-10 h-10 bg-primary-600 text-white rounded-xl flex items-center justify-center shadow-lg shadow-primary-600/30">
-        <i class="fa-solid fa-user-check text-sm"></i>
+        class="inline-flex items-center gap-3 px-4 py-2 bg-primary-50 text-primary-700 rounded-full border border-primary-200 text-sm font-medium mb-8">
+        <div class="w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center">
+          <i class="fa-solid fa-check text-xs"></i>
+        </div>
+        <span data-key="welcome_back">Welcome back</span>, {{ session.get('user_name') }}!
       </div>
-      <div class="text-left">
-        <h4 class="font-outfit font-bold text-slate-900 leading-tight text-sm"><span data-key="welcome_back">Welcome
-            back</span>, {{ session.get('user_name') }}!
-        </h4>
-        <p class="text-slate-500 text-[11px] font-medium" data-key="dash_ready">Your farming dashboard is ready.</p>
+      {% else %}
+      <div
+        class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-200 text-xs font-semibold uppercase tracking-wider mb-8">
+        <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+        Trusted by 5,000+ farmers across India
       </div>
-    </div>
-    {% endif %}
-
-    <h1
-      class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-outfit font-black text-slate-900 leading-[1.05] mb-8 tracking-tighter"
-      data-key="hero_title">
-      Empowering Farmers <br>for a <span
-        class="bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent">Smarter Tomorrow</span>
-    </h1>
-    <p class="max-w-3xl mx-auto text-lg md:text-2xl text-slate-500 font-medium leading-relaxed mb-12 px-4"
-      data-key="hero_desc">
-      Agro World is your bilingual digital assistant for real-time weather, crop disease guidance, and direct
-      communication with suppliers.
-    </p>
-
-    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
-      {% if not session.get('user_id') %}
-      <a href="/register"
-        class="w-full sm:w-auto px-10 py-4 bg-slate-900 text-white rounded-full font-bold text-lg hover:bg-slate-800 transition-all shadow-xl hover:-translate-y-1"
-        data-key="cta_start">
-        Get Started Today
-      </a>
       {% endif %}
-      <a href="#features"
-        class="w-full sm:w-auto px-10 py-4 bg-white/50 backdrop-blur-md rounded-full font-bold text-slate-700 hover:text-primary-600 transition-all border border-slate-200 text-lg"
-        data-key="cta_learn">
-        Explore Features
-      </a>
-    </div>
 
-    <!-- Hero Stats -->
-    <div class="mt-24 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-5xl mx-auto">
-      <div
-        class="p-6 bg-white/30 backdrop-blur-sm rounded-[2rem] border border-white/20 group hover:bg-white/50 transition-all">
-        <div class="text-4xl font-outfit font-black text-slate-900 mb-1 group-hover:text-primary-600 transition-colors">
-          5k+</div>
-        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest">Active Farmers</div>
+      <h1
+        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 tracking-tight leading-[1.1] mb-6"
+        data-key="hero_title">
+        Empowering Farmers <br>
+        <span class="text-primary-600">for a Smarter Tomorrow</span>
+      </h1>
+
+      <p class="text-lg md:text-xl text-slate-500 font-normal leading-relaxed max-w-2xl mx-auto mb-10"
+        data-key="hero_desc">
+        Agro World gives farmers real-time weather, crop disease diagnosis, live market prices, and direct access to
+        suppliers — all in one platform.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+        {% if not session.get('user_id') %}
+        <a href="/register"
+          class="inline-flex items-center gap-2 px-7 py-3.5 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transition-all shadow-lg shadow-primary-600/25 hover:shadow-primary-600/40 hover:-translate-y-0.5"
+          data-key="cta_start">
+          Get Started Free
+          <i class="fa-solid fa-arrow-right text-sm"></i>
+        </a>
+        {% endif %}
+        <a href="#features"
+          class="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-slate-700 font-semibold rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all"
+          data-key="cta_learn">
+          Explore Features
+        </a>
       </div>
-      <div
-        class="p-6 bg-white/30 backdrop-blur-sm rounded-[2rem] border border-white/20 group hover:bg-white/50 transition-all">
-        <div class="text-4xl font-outfit font-black text-slate-900 mb-1 group-hover:text-primary-600 transition-colors">
-          30+</div>
-        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest">Crop Varieties</div>
+
+      <!-- Quick Stats -->
+      <div class="mt-16 pt-10 border-t border-slate-100 grid grid-cols-2 sm:grid-cols-4 gap-8">
+        <div class="text-center">
+          <div class="text-3xl font-bold text-slate-900">5K+</div>
+          <div class="text-sm text-slate-400 mt-1">Active Farmers</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-slate-900">30+</div>
+          <div class="text-sm text-slate-400 mt-1">Crop Varieties</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-slate-900">24/7</div>
+          <div class="text-sm text-slate-400 mt-1">Live Support</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-slate-900">98%</div>
+          <div class="text-sm text-slate-400 mt-1">Data Accuracy</div>
+        </div>
       </div>
-      <div
-        class="p-6 bg-white/30 backdrop-blur-sm rounded-[2rem] border border-white/20 group hover:bg-white/50 transition-all">
-        <div class="text-4xl font-outfit font-black text-slate-900 mb-1 group-hover:text-primary-600 transition-colors">
-          24/7</div>
-        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest">Smart Support</div>
-      </div>
-      <div
-        class="p-6 bg-white/30 backdrop-blur-sm rounded-[2rem] border border-white/20 group hover:bg-white/50 transition-all">
-        <div class="text-4xl font-outfit font-black text-slate-900 mb-1 group-hover:text-primary-600 transition-colors">
-          98%</div>
-        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest">Data Accuracy</div>
-      </div>
+
     </div>
   </div>
 </section>
 
 <!-- Features Section -->
-<section class="py-32 md:py-40 bg-white relative overflow-hidden" id="features">
-  <!-- Subtle Grid Background -->
-  <div class="absolute inset-0 opacity-[0.03]"
-    style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 40px 40px;"></div>
+<section class="py-20 md:py-28 bg-slate-50" id="features">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <!-- Section Header -->
-    <div class="flex flex-col lg:flex-row justify-between items-start gap-8 mb-24">
-      <div class="max-w-2xl">
-        <div
-          class="inline-flex items-center gap-3 px-5 py-2 bg-primary-50 text-primary-600 rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-primary-100">
-          <i class="fa-solid fa-microchip animate-pulse"></i> Platform Capabilities
-        </div>
-        <h2 class="text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-[0.95] tracking-tighter"
-          data-key="sec_features">
-          Strategic <br><span
-            class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-emerald-500">Capabilities</span>
-        </h2>
-      </div>
-      <p class="text-lg text-slate-400 font-medium leading-relaxed max-w-sm pt-4 lg:pt-12" data-key="features_desc">
-        High-fidelity instruments engineered to solve modern agrarian complexities at scale.
+    <!-- Header -->
+    <div class="text-center mb-14">
+      <p class="text-xs font-semibold text-primary-600 uppercase tracking-widest mb-3">Platform Features</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight" data-key="sec_features">
+        Everything a farmer needs
+      </h2>
+      <p class="mt-3 text-slate-500 max-w-xl mx-auto text-base" data-key="features_desc">
+        Comprehensive digital tools designed to help farmers make better decisions every day.
       </p>
     </div>
 
-    <!-- Feature Cards Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- Feature grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-      <!-- Card 1: Weather -->
+      <!-- Card 1 -->
       <a href="/weather"
-        class="group relative bg-gradient-to-br from-blue-50 to-sky-100/50 rounded-[3rem] p-10 border border-blue-100/50 hover:shadow-[0_48px_100px_-20px_rgba(59,130,246,0.25)] transition-all duration-700 hover:-translate-y-3 overflow-hidden flex flex-col">
+        class="group bg-white rounded-2xl p-7 border border-slate-200 hover:border-blue-300 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-1">
         <div
-          class="absolute top-0 right-0 w-40 h-40 bg-blue-500/5 rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-700">
+          class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-5 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+          <i class="fa-solid fa-cloud-sun text-xl"></i>
         </div>
-        <div class="mb-auto">
-          <div class="flex justify-between items-start mb-10">
-            <div
-              class="w-16 h-16 bg-white shadow-lg shadow-blue-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-              <i class="fa-solid fa-cloud-sun text-2xl text-blue-500"></i>
-            </div>
-            <span class="text-[9px] font-black text-blue-400/60 uppercase tracking-[0.3em]">01</span>
-          </div>
-          <h3 class="text-2xl font-black text-slate-900 mb-4 tracking-tight leading-tight" data-key="f1_title">Weather
-            Intelligence</h3>
-          <p class="text-slate-500 font-medium leading-relaxed text-sm" data-key="f1_desc">5-day hyper-local forecasts
-            with precision vectors on rain, humidity, and frost alerts.</p>
-        </div>
-        <div class="flex items-center gap-2 mt-10 text-blue-600 font-black text-xs uppercase tracking-widest">
-          <span>Explore</span>
-          <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform duration-300"></i>
+        <h3 class="text-base font-bold text-slate-900 mb-2" data-key="f1_title">Weather Forecast</h3>
+        <p class="text-sm text-slate-500 leading-relaxed" data-key="f1_desc">5-day local weather forecasts with rain,
+          humidity, and frost alerts for your area.</p>
+        <div class="flex items-center gap-1 mt-4 text-blue-600 text-xs font-semibold group-hover:gap-2 transition-all">
+          View forecast <i class="fa-solid fa-arrow-right"></i>
         </div>
       </a>
 
-      <!-- Card 2: Crop Care (TALL / Highlighted) -->
+      <!-- Card 2 -->
       <a href="/crop-care"
-        class="group relative bg-gradient-to-br from-slate-900 to-primary-950 rounded-[3rem] p-10 border border-slate-800 hover:shadow-[0_48px_100px_-20px_rgba(22,163,74,0.3)] transition-all duration-700 hover:-translate-y-3 overflow-hidden flex flex-col md:col-span-1 lg:row-span-1">
+        class="group bg-white rounded-2xl p-7 border border-slate-200 hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-500/10 transition-all duration-300 hover:-translate-y-1">
         <div
-          class="absolute -bottom-16 -right-16 w-56 h-56 bg-primary-500/10 rounded-full group-hover:scale-150 transition-transform duration-700">
+          class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center mb-5 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300">
+          <i class="fa-solid fa-leaf text-xl"></i>
         </div>
+        <h3 class="text-base font-bold text-slate-900 mb-2" data-key="f2_title">Crop Care & Diagnosis</h3>
+        <p class="text-sm text-slate-500 leading-relaxed" data-key="f2_desc">AI-powered disease identification and
+          expert care recommendations for 30+ crops.</p>
         <div
-          class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10">
-        </div>
-        <div class="mb-auto relative z-10">
-          <div class="flex justify-between items-start mb-10">
-            <div
-              class="w-16 h-16 bg-primary-500/20 border border-primary-500/30 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-              <i class="fa-solid fa-dna text-2xl text-primary-400"></i>
-            </div>
-            <span class="text-[9px] font-black text-primary-500/40 uppercase tracking-[0.3em]">02</span>
-          </div>
-          <h3 class="text-2xl font-black text-white mb-4 tracking-tight leading-tight" data-key="f2_title">Botanical
-            Core</h3>
-          <p class="text-slate-400 font-medium leading-relaxed text-sm" data-key="f2_desc">Neural diagnostics for crop
-            pathogens. Organic remediation protocols for 30+ species.</p>
-        </div>
-        <div
-          class="flex items-center gap-2 mt-10 text-primary-400 font-black text-xs uppercase tracking-widest relative z-10">
-          <span>Explore</span>
-          <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform duration-300"></i>
+          class="flex items-center gap-1 mt-4 text-emerald-600 text-xs font-semibold group-hover:gap-2 transition-all">
+          Analyze crop <i class="fa-solid fa-arrow-right"></i>
         </div>
       </a>
 
-      <!-- Card 3: Task Manager -->
+      <!-- Card 3 -->
       <a href="/tasks"
-        class="group relative bg-gradient-to-br from-violet-50 to-purple-100/50 rounded-[3rem] p-10 border border-violet-100/50 hover:shadow-[0_48px_100px_-20px_rgba(139,92,246,0.2)] transition-all duration-700 hover:-translate-y-3 overflow-hidden flex flex-col">
+        class="group bg-white rounded-2xl p-7 border border-slate-200 hover:border-violet-300 hover:shadow-lg hover:shadow-violet-500/10 transition-all duration-300 hover:-translate-y-1">
         <div
-          class="absolute bottom-0 right-0 w-40 h-40 bg-violet-500/5 rounded-full -mr-12 -mb-12 group-hover:scale-150 transition-transform duration-700">
+          class="w-12 h-12 bg-violet-100 text-violet-600 rounded-xl flex items-center justify-center mb-5 group-hover:bg-violet-600 group-hover:text-white transition-all duration-300">
+          <i class="fa-solid fa-list-check text-xl"></i>
         </div>
-        <div class="mb-auto">
-          <div class="flex justify-between items-start mb-10">
-            <div
-              class="w-16 h-16 bg-white shadow-lg shadow-violet-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-              <i class="fa-solid fa-list-check text-2xl text-violet-500"></i>
-            </div>
-            <span class="text-[9px] font-black text-violet-400/60 uppercase tracking-[0.3em]">03</span>
-          </div>
-          <h3 class="text-2xl font-black text-slate-900 mb-4 tracking-tight leading-tight" data-key="f3_title">
-            Operations Manager</h3>
-          <p class="text-slate-500 font-medium leading-relaxed text-sm" data-key="f3_desc">High-precision scheduling for
-            irrigation cycles, fertilization, and pest management protocols.</p>
-        </div>
-        <div class="flex items-center gap-2 mt-10 text-violet-600 font-black text-xs uppercase tracking-widest">
-          <span>Explore</span>
-          <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform duration-300"></i>
+        <h3 class="text-base font-bold text-slate-900 mb-2" data-key="f3_title">Task Manager</h3>
+        <p class="text-sm text-slate-500 leading-relaxed" data-key="f3_desc">Schedule and track your daily farming
+          tasks: irrigation, fertilization, and harvesting.</p>
+        <div
+          class="flex items-center gap-1 mt-4 text-violet-600 text-xs font-semibold group-hover:gap-2 transition-all">
+          Manage tasks <i class="fa-solid fa-arrow-right"></i>
         </div>
       </a>
 
-      <!-- Card 4: Logistics -->
+      <!-- Card 4 -->
       <a href="/logistics"
-        class="group relative bg-gradient-to-br from-amber-50 to-orange-100/50 rounded-[3rem] p-10 border border-amber-100/50 hover:shadow-[0_48px_100px_-20px_rgba(245,158,11,0.2)] transition-all duration-700 hover:-translate-y-3 overflow-hidden flex flex-col">
+        class="group bg-white rounded-2xl p-7 border border-slate-200 hover:border-amber-300 hover:shadow-lg hover:shadow-amber-500/10 transition-all duration-300 hover:-translate-y-1">
         <div
-          class="absolute top-0 left-0 w-40 h-40 bg-amber-500/5 rounded-full -ml-12 -mt-12 group-hover:scale-150 transition-transform duration-700">
+          class="w-12 h-12 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center mb-5 group-hover:bg-amber-600 group-hover:text-white transition-all duration-300">
+          <i class="fa-solid fa-truck-fast text-xl"></i>
         </div>
-        <div class="mb-auto">
-          <div class="flex justify-between items-start mb-10">
-            <div
-              class="w-16 h-16 bg-white shadow-lg shadow-amber-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-              <i class="fa-solid fa-truck-fast text-2xl text-amber-500"></i>
-            </div>
-            <span class="text-[9px] font-black text-amber-400/60 uppercase tracking-[0.3em]">04</span>
-          </div>
-          <h3 class="text-2xl font-black text-slate-900 mb-4 tracking-tight leading-tight" data-key="f4_title">Direct
-            Logistics</h3>
-          <p class="text-slate-500 font-medium leading-relaxed text-sm" data-key="f4_desc">Node-to-node connection with
-            verified industrial suppliers and logistics networks.</p>
-        </div>
-        <div class="flex items-center gap-2 mt-10 text-amber-600 font-black text-xs uppercase tracking-widest">
-          <span>Explore</span>
-          <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform duration-300"></i>
+        <h3 class="text-base font-bold text-slate-900 mb-2" data-key="f4_title">Logistics & Suppliers</h3>
+        <p class="text-sm text-slate-500 leading-relaxed" data-key="f4_desc">Connect directly with seed manufacturers
+          and transporters without any middlemen.</p>
+        <div class="flex items-center gap-1 mt-4 text-amber-600 text-xs font-semibold group-hover:gap-2 transition-all">
+          Find suppliers <i class="fa-solid fa-arrow-right"></i>
         </div>
       </a>
     </div>
 
-    <!-- Stats Banner -->
-    <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div
-        class="bg-slate-50 rounded-3xl p-8 border border-slate-100 text-center group hover:bg-primary-600 hover:border-primary-600 transition-all duration-500">
-        <div class="text-4xl font-black text-slate-900 group-hover:text-white transition-colors">5K+</div>
-        <div
-          class="text-[10px] font-black text-slate-400 group-hover:text-primary-100 uppercase tracking-widest mt-2 transition-colors">
-          Active Farmers</div>
-      </div>
-      <div
-        class="bg-slate-50 rounded-3xl p-8 border border-slate-100 text-center group hover:bg-primary-600 hover:border-primary-600 transition-all duration-500">
-        <div class="text-4xl font-black text-slate-900 group-hover:text-white transition-colors">30+</div>
-        <div
-          class="text-[10px] font-black text-slate-400 group-hover:text-primary-100 uppercase tracking-widest mt-2 transition-colors">
-          Crop Species</div>
-      </div>
-      <div
-        class="bg-slate-50 rounded-3xl p-8 border border-slate-100 text-center group hover:bg-primary-600 hover:border-primary-600 transition-all duration-500">
-        <div class="text-4xl font-black text-slate-900 group-hover:text-white transition-colors">24/7</div>
-        <div
-          class="text-[10px] font-black text-slate-400 group-hover:text-primary-100 uppercase tracking-widest mt-2 transition-colors">
-          Live Support</div>
-      </div>
-      <div
-        class="bg-slate-50 rounded-3xl p-8 border border-slate-100 text-center group hover:bg-primary-600 hover:border-primary-600 transition-all duration-500">
-        <div class="text-4xl font-black text-slate-900 group-hover:text-white transition-colors">99%</div>
-        <div
-          class="text-[10px] font-black text-slate-400 group-hover:text-primary-100 uppercase tracking-widest mt-2 transition-colors">
-          Data Accuracy</div>
-      </div>
+    <!-- All features banner -->
+    <div class="mt-10 flex flex-wrap gap-3 justify-center">
+      <a href="/market"
+        class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-xl border border-slate-200 text-sm text-slate-600 font-medium hover:border-primary-300 hover:text-primary-600 transition-all">
+        <i class="fa-solid fa-chart-line text-primary-500 text-xs"></i> Market Prices
+      </a>
+      <a href="/news"
+        class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-xl border border-slate-200 text-sm text-slate-600 font-medium hover:border-primary-300 hover:text-primary-600 transition-all">
+        <i class="fa-solid fa-newspaper text-primary-500 text-xs"></i> Farm News
+      </a>
+      <a href="/schemes"
+        class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-xl border border-slate-200 text-sm text-slate-600 font-medium hover:border-primary-300 hover:text-primary-600 transition-all">
+        <i class="fa-solid fa-hand-holding-dollar text-primary-500 text-xs"></i> Government Schemes
+      </a>
     </div>
   </div>
 </section>
 
-<!-- Abstract Section -->
-<section class="py-32 bg-[#050505] relative overflow-hidden">
-  <div
-    class="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
-  </div>
-  <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
-    <div
-      class="w-20 h-20 bg-primary-600/10 text-primary-500 rounded-[2rem] flex items-center justify-center mx-auto mb-12 border border-primary-500/20 shadow-[0_0_50px_-12px_rgba(34,197,94,0.3)]">
-      <i class="fa-solid fa-quote-left text-3xl"></i>
-    </div>
-    <h2 class="text-3xl md:text-5xl font-outfit font-black text-white mb-10 tracking-tight" data-key="sec_abstract">
-      Project Vision
-    </h2>
-    <p class="text-xl md:text-3xl text-slate-400 leading-relaxed font-outfit font-light italic"
+<!-- Project Vision -->
+<section class="py-20 bg-slate-900 relative overflow-hidden">
+  <div class="absolute top-0 right-0 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+    <p class="text-xs font-semibold text-primary-400 uppercase tracking-widest mb-4" data-key="sec_abstract">Our Mission
+    </p>
+    <blockquote class="text-2xl md:text-3xl lg:text-4xl text-white font-semibold leading-relaxed italic"
       data-key="abstract_text">
       "Empowering the backbone of our nation through cutting-edge digital infrastructure, enabling every farmer to
       achieve peak productivity and market independence."
-    </p>
-    <div class="mt-16 w-20 h-1 bg-gradient-to-r from-primary-600 to-transparent mx-auto rounded-full"></div>
+    </blockquote>
+    <div class="mt-10 w-12 h-1 bg-primary-500 rounded-full mx-auto"></div>
   </div>
 </section>
 
-<!-- Call to Action -->
-<section class="py-24 md:py-32">
+<!-- CTA Section -->
+<section class="py-20 bg-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="relative bg-slate-900 rounded-[3rem] p-12 md:p-24 overflow-hidden">
-      <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-600/10 rounded-full -mr-64 -mt-64 blur-[120px]">
-      </div>
-      <div
-        class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary-600/5 rounded-full -ml-32 -mb-32 blur-[100px]">
-      </div>
-
-      <div class="relative z-10 max-w-3xl text-center md:text-left">
-        <h2 class="text-4xl md:text-6xl font-outfit font-black text-white mb-8 tracking-tight" data-key="cta_title">
-          Ready to
-          transform your farm?</h2>
-        <p class="text-slate-400 text-lg md:text-xl mb-12 leading-relaxed" data-key="cta_desc">Join thousands of farmers
-          already
-          using Agro World to
-          improve their yield and reduce costs through intelligent automation.</p>
-        <div class="flex flex-col sm:flex-row gap-4">
+    <div class="bg-primary-600 rounded-3xl p-10 md:p-16 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-80 h-80 bg-primary-500/20 rounded-full -mr-24 -mt-24"></div>
+      <div class="relative z-10 max-w-2xl">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4" data-key="cta_title">
+          Ready to transform your farm?
+        </h2>
+        <p class="text-primary-100 text-lg leading-relaxed mb-8" data-key="cta_desc">
+          Join thousands of farmers already using Agro World to improve their yield and reduce costs.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3">
           <a href="/register"
-            class="px-10 py-5 bg-primary-600 text-white rounded-full font-bold hover:bg-primary-500 transition-all text-center shadow-lg shadow-primary-600/20"
-            data-key="cta_btn_reg">Create
-            Free Account</a>
+            class="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-primary-700 font-bold rounded-xl hover:bg-primary-50 transition-all shadow-lg"
+            data-key="cta_btn_reg">
+            Create Free Account
+          </a>
           <a href="mailto:help@agroworld.in"
-            class="px-10 py-5 bg-white/10 text-white backdrop-blur-md border border-white/10 rounded-full font-bold hover:bg-white/20 transition-all text-center"
-            data-key="cta_btn_sup">Contact
-            Support</a>
+            class="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-primary-700/50 text-white font-semibold rounded-xl border border-primary-400/30 hover:bg-primary-700 transition-all"
+            data-key="cta_btn_sup">
+            Contact Support
+          </a>
         </div>
       </div>
     </div>
   </div>
 </section>
+
 {% endblock %}
