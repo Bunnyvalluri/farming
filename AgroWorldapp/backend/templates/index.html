@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="hero">
+  <div class="hero-content">
+    {% if session.get('user_id') %}
+    <div
+      style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 1.5rem; border-radius: 24px; margin-bottom: 2rem; display: inline-flex; align-items: center; gap: 1rem; border: 1px solid rgba(255,255,255,0.2);">
+      <div
+        style="width: 50px; height: 50px; background: white; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+        <i class="fa-solid fa-user-check"></i>
+      </div>
+      <div style="text-align: left;">
+        <h4 style="margin: 0; font-size: 1.2rem;">Welcome back, {{ session.get('user_name') }}!</h4>
+        <p style="margin: 0; font-size: 0.8rem; opacity: 0.8;">Your farming dashboard is ready.</p>
+      </div>
+    </div>
+    {% endif %}
+
+    <h1 data-key="hero_title">Empowering Farmers <br>for a Smarter Tomorrow</h1>
+    <p data-key="hero_desc">Agro World is your bilingual digital assistant for real-time weather, crop disease guidance,
+      and direct communication with suppliers.</p>
+    <div style="display: flex; gap: 1rem; justify-content: center;">
+      {% if not session.get('user_id') %}
+      <a href="/register" class="lang-toggle" style="padding: 1rem 2rem; font-size: 1rem; text-decoration: none;"
+        data-key="cta_start">Get Started</a>
+      {% endif %}
+      <a href="#features" class="lang-toggle"
+        style="background: transparent; border: 2px solid white; padding: 1rem 2rem; font-size: 1rem; text-decoration: none;"
+        data-key="cta_learn">Explore Features</a>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="features">
+  <h2 class="section-title" data-key="sec_features">Core Features</h2>
+  <div class="feature-grid">
+    <div class="feature-card" onclick="location.href='/weather'" style="cursor: pointer;">
+      <i class="fa-solid fa-cloud-sun"></i>
+      <h3 data-key="f1_title">Weather Intelligence</h3>
+      <p data-key="f1_desc">5-day location-based forecasts with precision updates on rain, humidity, and frost alerts.
+      </p>
+    </div>
+    <div class="feature-card" onclick="location.href='/crop-care'" style="cursor: pointer;">
+      <i class="fa-solid fa-leaf"></i>
+      <h3 data-key="f2_title">Crop Management</h3>
+      <p data-key="f2_desc">Identify diseases, learn about organic fertilizers, and optimize sowing schedules for 30+
+        crops.</p>
+    </div>
+    <div class="feature-card" onclick="location.href='/tasks'" style="cursor: pointer;">
+      <i class="fa-solid fa-list-check"></i>
+      <h3 data-key="f3_title">Task Manager</h3>
+      <p data-key="f3_desc">Structured daily and weekly reminders for irrigation, fertilization, and pest control.</p>
+    </div>
+    <div class="feature-card" onclick="location.href='/logistics'" style="cursor: pointer;">
+      <i class="fa-solid fa-truck-fast"></i>
+      <h3 data-key="f4_title">Direct Logistics</h3>
+      <p data-key="f4_desc">Connect directly with seed manufacturers and vehicle owners without any middlemen.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background: white;">
+  <h2 class="section-title" data-key="sec_abstract">Project Abstract</h2>
+  <div
+    style="max-width: 900px; margin: 0 auto; text-align: center; color: var(--text-muted); font-size: 1.1rem; line-height: 2;">
+    <p style="text-align: justify;" data-key="abstract_text">
+      It is a farming application that helps farmers to track climate data and forecast information as well as
+      find manufacturers and transporters from which the farmer can purchase seeds at an affordable price.
+      The farmer can also communicate with the owner of the vehicle through the application.
+      Additionally, this app provides information regarding crops, flowers, fruits, diseases, and how to
+      expand skills to farmers.
+    </p>
+  </div>
+</section>
+{% endblock %}

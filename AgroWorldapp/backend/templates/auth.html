@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section">
+  <div style="max-width: 450px; margin: 0 auto;">
+    <div class="feature-card">
+      <h2 style="text-align: center; margin-bottom: 2rem;">
+        <span data-key="{% if type == 'login' %}auth_login_title{% else %}auth_reg_title{% endif %}">
+          {% if type == 'login' %}Login to Agro World{% else %}Create Farmer Account{% endif %}
+        </span>
+      </h2>
+
+      <form action="/login" method="POST" style="display: flex; flex-direction: column; gap: 1.5rem;">
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <label style="font-weight: 600;" data-key="auth_email">Email or Phone</label>
+          <input type="text" name="email" required placeholder="e.g., +91 98765 43210"
+            style="padding: 0.8rem 1rem; border-radius: 12px; border: 1px solid #ddd; outline: none;">
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <label style="font-weight: 600;" data-key="auth_pass">Password</label>
+          <input type="password" name="password" required placeholder="••••••••"
+            style="padding: 0.8rem 1rem; border-radius: 12px; border: 1px solid #ddd; outline: none;">
+        </div>
+
+        {% if type == 'register' %}
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <label style="font-weight: 600;" data-key="auth_role">Your Role</label>
+          <select name="role" style="padding: 0.8rem; border-radius: 12px; border: 1px solid #ddd;">
+            <option value="farmer" data-key="role_farmer">Farmer</option>
+            <option value="manufacturer" data-key="role_mfg">Seed Manufacturer</option>
+            <option value="transporter" data-key="role_trans">Transporter</option>
+          </select>
+        </div>
+        {% endif %}
+
+        <button type="submit" class="lang-toggle" style="width: 100%; padding: 1rem; margin-top: 1rem;"
+          data-key="{% if type == 'login' %}auth_login_btn{% else %}auth_reg_btn{% endif %}">
+          {% if type == 'login' %}Login{% else %}Join Community{% endif %}
+        </button>
+      </form>
+
+      <p style="text-align: center; margin-top: 2rem; color: var(--text-muted);">
+        {% if type == 'login' %}
+        <span data-key="auth_new_here">New here?</span> <a href="/register"
+          style="color: var(--primary); font-weight: 600;" data-key="auth_create_acc">Create an account</a>
+        {% else %}
+        <span data-key="auth_have_acc">Already have an account?</span> <a href="/login"
+          style="color: var(--primary); font-weight: 600;" data-key="auth_login_btn">Login</a>
+        {% endif %}
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,107 @@
+{% block content %}
+<section class="section">
+  <div
+    style="display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: 0 auto 1.5rem auto; flex-wrap: wrap; gap: 1rem;">
+    <h2 class="section-title" data-key="weather_title" style="margin-bottom: 0;">Climate & Weather Forecast</h2>
+    <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+      <form action="/weather" method="GET" style="display: flex; gap: 0.5rem; align-items: center;">
+        <input type="text" name="city" placeholder="Search City..." data-key="weather_search_ph" required
+          style="padding: 0.6rem 1rem; border-radius: 50px; border: 1px solid #ccc; outline: none; width: 140px; font-family: inherit;">
+        <button type="submit"
+          style="background: var(--primary); color: white; padding: 0.6rem 1rem; border-radius: 50px; border: none; font-weight: 600; cursor: pointer; transition: transform 0.2s;">
+          <i class="fa-solid fa-search"></i>
+        </button>
+      </form>
+      <button onclick="getRealLocation()" class="nav-links a"
+        style="background: var(--primary); color: white; padding: 0.6rem 1.2rem; border-radius: 50px; border: none; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: transform 0.2s;">
+        <i class="fa-solid fa-location-crosshairs"></i> <span data-key="weather_btn_loc">Use My Location</span>
+      </button>
+    </div>
+  </div>
+
+  <div style="max-width: 800px; margin: 0 auto;">
+    <!-- Current Weather -->
+    <div class="feature-card"
+      style="text-align: center; margin-bottom: 3rem; background: linear-gradient(to bottom right, #ffffff, #f0fdf4);">
+      <p style="font-size: 1.2rem; color: var(--text-muted);">{{ weather.current.location }}</p>
+      <i class="fa-solid fa-cloud-sun" style="font-size: 4rem; margin: 1rem 0;"></i>
+      <h1 style="font-size: 4rem; color: var(--primary);">{{ weather.current.temp }}°C</h1>
+      <p style="font-size: 1.5rem; font-weight: 600;">{{ weather.current.condition }}</p>
+
+      <div
+        style="display: flex; justify-content: space-around; margin-top: 2rem; border-top: 1px solid #eee; padding-top: 2rem;">
+        <div>
+          <p style="color: var(--text-muted);" data-key="weather_humidity">Humidity</p>
+          <p style="font-weight: 700;">{{ weather.current.humidity }}%</p>
+        </div>
+        <div>
+          <p style="color: var(--text-muted);" data-key="weather_wind">Wind Speed</p>
+          <p style="font-weight: 700;">{{ weather.current.wind }} km/h</p>
+        </div>
+        <div>
+          <p style="color: var(--text-muted);" data-key="weather_uv">UV Index</p>
+          <p style="font-weight: 700;">Moderate</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hyperlocal Alerts Section -->
+    {% if weather.alerts %}
+    <div class="feature-card" style="margin-bottom: 3rem; border-left: 5px solid #ef4444;">
+      <h3 style="margin-bottom: 1rem; color: #ef4444; display: flex; align-items: center; gap: 0.5rem;">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span data-key="weather_alert_title">Hyperlocal Weather Alerts</span>
+      </h3>
+      <div style="display: grid; gap: 1rem;">
+        {% for alert in weather.alerts %}
+        <div
+          style="background: {% if alert.type == 'danger' %}#fee2e2{% else %}#fef9c3{% endif %}; color: {% if alert.type == 'danger' %}#b91c1c{% else %}#a16207{% endif %}; padding: 1rem; border-radius: 12px; font-weight: 600;">
+          {{ alert.text }}
+        </div>
+        {% endfor %}
+      </div>
+
+      {% if weather.smart_tip %}
+      <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #eee;">
+        <h4 style="color: var(--primary); margin-bottom: 0.5rem;"><i class="fa-solid fa-lightbulb"></i> <span
+            data-key="weather_smart_rec">Smart
+            Recommendation</span></h4>
+        <p style="font-weight: 600;">{{ weather.smart_tip }}</p>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- 5-Day Forecast -->
+    <h3 style="margin-bottom: 1.5rem;" data-key="weather_forecast">5-Day Forecast</h3>
+    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem;">
+      {% for day in weather.forecast %}
+      <div class="feature-card" style="padding: 1.5rem; text-align: center;">
+        <p style="font-weight: 700; margin-bottom: 0.5rem;">{{ day.day }}</p>
+        <i class="fa-solid {% if day.cond == 'Sunny' %}fa-sun{% elif day.cond == 'Rainy' %}fa-cloud-showers-heavy{% else %}fa-cloud-sun{% endif %}"
+          style="font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
+        <p style="font-size: 1.2rem; font-weight: 600; color: var(--primary);">{{ day.temp }}°C</p>
+        <p style="font-size: 0.8rem; color: var(--text-muted);">{{ day.cond }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+  function getRealLocation() {
+    showToast("Detecting your location...", "info");
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        window.location.href = `/weather?lat=${lat}&lon=${lon}`;
+      }, function (error) {
+        showToast("Location access denied or unavailable. Using default.", "error");
+      });
+    } else {
+      showToast("Geolocation is not supported by this browser.", "error");
+    }
+  }
+</script>
+{% endblock %}
