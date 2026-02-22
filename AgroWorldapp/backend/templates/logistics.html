@@ -155,6 +155,18 @@
       opacity: 1;
     }
   }
+
+  @keyframes pulse {
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.5;
+    }
+  }
 </style>
 {% endblock %}
 
@@ -309,29 +321,71 @@
 
     // User Message
     const msgEl = document.createElement('div');
-    msgEl.style.cssText = "background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.8rem 1.2rem; border-radius: 18px 18px 4px 18px; align-self: flex-end; max-width: 85%; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);";
+    msgEl.style.cssText = "background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.8rem 1.2rem; border-radius: 18px 18px 4px 18px; align-self: flex-end; max-width: 85%; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2); margin-bottom: 0.5rem;";
     msgEl.innerText = msg;
     chatBox.appendChild(msgEl);
 
     input.value = '';
     chatBox.scrollTop = chatBox.scrollHeight;
 
-    // Auto Reply
-    setTimeout(() => {
-      const companyName = document.getElementById('chatTitle').innerText.replace(' Support', '');
+    // Typing Indicator
+    const typingId = 'typing-' + Date.now();
+    const typingEl = document.createElement('div');
+    typingEl.id = typingId;
+    typingEl.style.cssText = "background: #f1f5f9; padding: 0.8rem 1.2rem; border-radius: 18px 18px 18px 4px; align-self: flex-start; max-width: 85%; font-size: 0.9rem; color: #64748b; font-style: italic; margin-bottom: 0.5rem; animation: pulse 1.5s infinite;";
+    typingEl.innerText = "Typing...";
+    chatBox.appendChild(typingEl);
+    chatBox.scrollTop = chatBox.scrollHeight;
 
-      const replies = {
-        'en': `Thank you for reaching out. A representative from ${companyName} will respond to you shortly.`,
-        'hi': `संपर्क करने के लिए धन्यवाद। ${companyName} का एक प्रतिनिधि जल्द ही आपको जवाब देगा।`,
-        'te': `సంప్రదించినందుకు ధన్యవాదాలు. ${companyName} నుండి ప్రతినిధి త్వరలో మీకు ప్రతిస్పందిస్తారు.`
-      };
+    // Smart Auto Reply
+    setTimeout(() => {
+      // Remove typing indicator
+      const typingDiv = document.getElementById(typingId);
+      if (typingDiv) typingDiv.remove();
+
+      const titleEl = document.getElementById('chatTitle');
+      const companyName = titleEl ? titleEl.innerText.replace(' Support', '') : 'Our Company';
+      const isTransporter = companyName.toLowerCase().includes('transport') || companyName.toLowerCase().includes('logistics');
+
+      const lowerMsg = msg.toLowerCase();
+      let replyText = `Thank you for reaching out. A representative from ${companyName} will respond to you shortly.`;
+
+      // Keyword based simple logic
+      if (lowerMsg.includes('price') || lowerMsg.includes('cost') || lowerMsg.includes('rate') || lowerMsg.includes('how much')) {
+        replyText = isTransporter
+          ? `Our standard transportation rates start around ₹15 to ₹45 per km depending on the truck size. Can you specify your exact pickup and drop locations?`
+          : `Our seed/fertilizer prices vary based on quantity. We offer wholesale discounts for bulk orders over 100kg. What specific product are you looking for?`;
+      } else if (lowerMsg.includes('delivery') || lowerMsg.includes('time') || lowerMsg.includes('when') || lowerMsg.includes('truck')) {
+        replyText = isTransporter
+          ? `We can usually provide a truck within 24 hours of booking confirmation. How much load capacity (in tons) do you need?`
+          : `We provide direct farm delivery within 2-3 business days. Would you like to check delivery availability for your pincode?`;
+      } else if (lowerMsg.includes('hello') || lowerMsg.includes('hi ') || lowerMsg === 'hi' || lowerMsg.includes('hey')) {
+        replyText = `Hello! Welcome to ${companyName}. How can we help you with your agriculture or logistics needs today?`;
+      } else if (lowerMsg.includes('quality') || lowerMsg.includes('organic') || lowerMsg.includes('seed')) {
+        replyText = `All our products are government certified and we pride ourselves on high yield rates. Let us know exactly which crop you are planting next!`;
+      } else if (lowerMsg.includes('book') || lowerMsg.includes('order') || lowerMsg.includes('buy')) {
+        replyText = `Great! Please leave your contact number and exact requirements here, and our sales team will call you back within 15 minutes to confirm everything.`;
+      }
+
+      // Basic language support
+      if (currentLang === 'hi') {
+        if (replyText.includes('representative')) replyText = `संपर्क करने के लिए धन्यवाद। ${companyName} का एक प्रतिनिधि जल्द ही आपको जवाब देगा।`;
+        else if (lowerMsg.includes('hi') || lowerMsg.includes('hello')) replyText = `नमस्ते! हम आपकी कैसे मदद कर सकते हैं?`;
+        else if (lowerMsg.includes('price') || lowerMsg.includes('cost')) replyText = `कीमतें मात्रा पर निर्भर करती हैं। कृपया अपनी आवश्यकता बताएं ताकि हम सटीक दाम बता सकें।`;
+        else replyText = `धन्यवाद! हमारा एजेंट जल्द ही आपसे इस बारे में बात करेगा।`;
+      } else if (currentLang === 'te') {
+        if (replyText.includes('representative')) replyText = `సంప్రదించినందుకు ధన్యవాదాలు. ${companyName} నుండి ప్రతినిధి త్వరలో మీకు ప్రతిస్పందిస్తారు.`;
+        else if (lowerMsg.includes('hi') || lowerMsg.includes('hello')) replyText = `నమస్తే! మేము మీకు ఎలా సహాయం చేయగలం?`;
+        else if (lowerMsg.includes('price') || lowerMsg.includes('cost')) replyText = `ధరలు పరిమాణంపై ఆధారపడి ఉంటాయి. దయచేసి మీ అవసరాన్ని తెలపండి.`;
+        else replyText = `ధన్యవాదాలు! మా ఏజెంట్ త్వరలో మీతో మాట్లాడతారు.`;
+      }
 
       const replyEl = document.createElement('div');
-      replyEl.style.cssText = "background: #f1f5f9; padding: 0.8rem 1.2rem; border-radius: 18px 18px 18px 4px; align-self: flex-start; max-width: 85%; font-size: 0.95rem; color: #334155;";
-      replyEl.innerText = replies[currentLang] || replies['en'];
+      replyEl.style.cssText = "background: #f1f5f9; padding: 0.8rem 1.2rem; border-radius: 18px 18px 18px 4px; align-self: flex-start; max-width: 85%; font-size: 0.95rem; color: #334155; margin-bottom: 0.5rem; line-height: 1.5; box-shadow: 0 2px 5px rgba(0,0,0,0.02);";
+      replyEl.innerText = replyText;
       chatBox.appendChild(replyEl);
       chatBox.scrollTop = chatBox.scrollHeight;
-    }, 1200);
+    }, 1000 + Math.random() * 1000); // Dynamic delay
   }
 </script>
 {% endblock %}
