@@ -3,9 +3,14 @@
 {% block content %}
 <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
   <div class="mb-16 text-center">
-    <h2 class="text-4xl font-outfit font-extrabold text-slate-900 mb-4" data-key="log_title">Logistics & Marketplace
+    <h2 class="text-4xl font-outfit font-extrabold text-slate-900 mb-4 flex items-center justify-center gap-4"
+      data-key="log_title">
+      <i class="fa-solid fa-gear text-primary-600/20 animate-spin-slow"></i>
+      Logistics & Marketplace
+      <i class="fa-solid fa-gear text-primary-600/20 animate-spin-reverse-slow"></i>
     </h2>
-    <p class="text-slate-500 font-medium max-w-2xl mx-auto">Skip the middlemen. Connect directly with verified suppliers
+    <p class="text-slate-500 font-medium max-w-2xl mx-auto" data-key="log_desc">Skip the middlemen. Connect directly
+      with verified suppliers
       and reliable transporters.</p>
   </div>
 
@@ -15,13 +20,13 @@
       <button id="btnMfg" onclick="showTab('mfg')"
         class="tab-btn active px-8 py-3 rounded-full font-bold transition-all duration-300 flex items-center gap-2 group"
         data-key="tab_mfg">
-        <i class="fa-solid fa-seedling group-hover:rotate-12 transition-transform"></i>
+        <i class="fa-solid fa-seedling group-hover:rotate-[360deg] transition-transform duration-700"></i>
         Seed Manufacturers
       </button>
       <button id="btnTrans" onclick="showTab('trans')"
         class="tab-btn px-8 py-3 rounded-full font-bold text-slate-500 hover:text-slate-700 transition-all duration-300 flex items-center gap-2 group"
         data-key="tab_trans">
-        <i class="fa-solid fa-truck-fast group-hover:-translate-x-1 transition-transform"></i>
+        <i class="fa-solid fa-truck-fast group-hover:rotate-[360deg] transition-transform duration-700"></i>
         Transporters
       </button>
     </div>
@@ -32,7 +37,7 @@
     <!-- Card 1 -->
     <div
       class="group bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
-      <div class="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:scale-110 transition-transform duration-700">
+      <div class="absolute top-0 right-0 p-8 opacity-[0.03] animate-spin-slow">
         <i class="fa-solid fa-leaf text-9xl"></i>
       </div>
 
@@ -75,7 +80,7 @@
     <!-- Card 2 -->
     <div
       class="group bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
-      <div class="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:scale-110 transition-transform duration-700">
+      <div class="absolute top-0 right-0 p-8 opacity-[0.03] animate-spin-reverse-slow">
         <i class="fa-solid fa-flask-vial text-9xl"></i>
       </div>
 
@@ -121,7 +126,7 @@
     <!-- Card 1 -->
     <div
       class="group bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
-      <div class="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:scale-110 transition-transform duration-700">
+      <div class="absolute top-0 right-0 p-8 opacity-[0.03] animate-spin-slow">
         <i class="fa-solid fa-truck text-9xl"></i>
       </div>
 

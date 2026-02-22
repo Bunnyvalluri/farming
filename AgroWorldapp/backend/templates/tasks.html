@@ -5,7 +5,8 @@
   <!-- Dashboard Stats Header -->
   <div class="mb-12 text-center">
     <h2 class="text-4xl font-outfit font-extrabold text-slate-900 mb-4" data-key="task_title">Smart Task Manager</h2>
-    <p class="text-slate-500 font-medium mb-12">Organize your farming operations with professional precision.</p>
+    <p class="text-slate-500 font-medium mb-12" data-key="task_desc">Organize your farming operations with professional
+      precision.</p>
 
     {% set total = tasks|length %}
     {% set completed = tasks | selectattr('is_completed', 'equalto', true) | list | length %}
@@ -16,19 +17,22 @@
         class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-lg transition-all border-b-4 border-b-primary-500 group">
         <div class="text-4xl font-outfit font-black text-slate-900 mb-2 group-hover:scale-110 transition-transform">{{
           total }}</div>
-        <p class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Total Tasks</p>
+        <p class="text-[10px] uppercase font-bold tracking-widest text-slate-400" data-key="task_stat_total">Total Tasks
+        </p>
       </div>
       <div
         class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-lg transition-all border-b-4 border-b-amber-500 group">
         <div class="text-4xl font-outfit font-black text-amber-600 mb-2 group-hover:scale-110 transition-transform">{{
           pending }}</div>
-        <p class="text-[10px] uppercase font-bold tracking-widest text-slate-400">In Progress</p>
+        <p class="text-[10px] uppercase font-bold tracking-widest text-slate-400" data-key="task_stat_pending">In
+          Progress</p>
       </div>
       <div
         class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-lg transition-all border-b-4 border-b-emerald-500 group">
         <div class="text-4xl font-outfit font-black text-emerald-600 mb-2 group-hover:scale-110 transition-transform">{{
           completed }}</div>
-        <p class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Completed</p>
+        <p class="text-[10px] uppercase font-bold tracking-widest text-slate-400" data-key="task_stat_done">Completed
+        </p>
       </div>
     </div>
   </div>
@@ -50,18 +54,18 @@
 
     <div class="flex flex-col sm:flex-row gap-4 relative z-10">
       <div class="grow relative">
-        <input type="text" id="taskInput" placeholder="e.g., Water the wheat field before noon"
+        <input type="text" id="taskInput" placeholder="e.g., Water the wheat field before noon" data-key="task_input_ph"
           class="w-full pl-6 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none font-medium shadow-inner">
       </div>
 
       <div class="sm:w-48 relative">
         <select id="taskCat"
           class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none font-bold text-slate-700 appearance-none">
-          <option value="Irrigation">💧 Irrigation</option>
-          <option value="Fertilizer">🧪 Fertilizer</option>
-          <option value="Pests">🐛 Pest Control</option>
-          <option value="Harvest">🌾 Harvest</option>
-          <option value="General">📌 General</option>
+          <option value="Irrigation" data-key="cat_irr">💧 Irrigation</option>
+          <option value="Fertilizer" data-key="cat_fert">🧪 Fertilizer</option>
+          <option value="Pests" data-key="cat_pest">🐛 Pest Control</option>
+          <option value="Harvest" data-key="cat_harv">🌾 Harvest</option>
+          <option value="General" data-key="cat_gen">📌 General</option>
         </select>
         <i
           class="fa-solid fa-chevron-down absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs"></i>
@@ -98,7 +102,8 @@
           </h4>
           <div class="flex items-center gap-4">
             <span
-              class="px-3 py-1 bg-{{ cat_color }}-50 text-{{ cat_color }}-600 text-[10px] font-black uppercase tracking-widest rounded-full">
+              class="px-3 py-1 bg-{{ cat_color }}-50 text-{{ cat_color }}-600 text-[10px] font-black uppercase tracking-widest rounded-full"
+              data-key="{{ task.category }}">
               {{ task.category }}
             </span>
             <span class="text-[10px] font-bold text-slate-400 flex items-center gap-1.5 uppercase tracking-tighter">
@@ -120,8 +125,10 @@
         class="w-24 h-24 bg-slate-50 text-slate-200 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform duration-500">
         <i class="fa-solid fa-clipboard-check text-5xl"></i>
       </div>
-      <h3 class="text-2xl font-outfit font-extrabold text-slate-900 mb-2">No tasks pending</h3>
-      <p class="text-slate-500 font-medium">You're all caught up! Add a new task above to get started.</p>
+      <h3 class="text-2xl font-outfit font-extrabold text-slate-900 mb-2" data-key="task_empty_title">No tasks pending
+      </h3>
+      <p class="text-slate-500 font-medium" data-key="task_empty_desc">You're all caught up! Add a new task above to get
+        started.</p>
     </div>
     {% endif %}
   </div>

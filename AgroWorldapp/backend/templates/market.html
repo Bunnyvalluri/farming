@@ -7,36 +7,40 @@
     <div>
       <div
         class="inline-flex items-center gap-2 px-4 py-1 bg-amber-100 text-amber-700 rounded-full text-[10px] font-black uppercase tracking-widest mb-4">
-        <i class="fa-solid fa-bolt-lightning"></i> Live Data
+        <i class="fa-solid fa-bolt-lightning"></i> <span data-key="market_live">Live Data</span>
       </div>
-      <h2 class="text-4xl font-outfit font-extrabold text-slate-900 mb-2" data-key="nav_market">Real-Time Mandi Prices
+      <h2 class="text-4xl font-outfit font-extrabold text-slate-900 mb-2 flex items-center gap-3"
+        data-key="market_title">
+        Real-Time Mandi Prices
+        <i class="fa-solid fa-arrows-rotate text-primary-600/20 text-2xl animate-spin-slow"></i>
       </h2>
-      <p class="text-slate-500 font-medium">Tracking thousands of APMC markets across the country.</p>
+      <p class="text-slate-500 font-medium" data-key="market_desc">Tracking thousands of APMC markets across the
+        country.</p>
     </div>
     <div class="text-xs font-bold text-slate-400 uppercase tracking-tighter">
-      Last Sync: <span id="syncTime" class="text-primary-600">Just Now</span>
+      <span data-key="market_last_sync">Last Sync:</span> <span id="syncTime" class="text-primary-600">Just Now</span>
     </div>
   </div>
 
   <!-- Filters Dashboard -->
   <div
     class="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/50 mb-12 relative overflow-hidden group">
-    <div
-      class="absolute -right-16 -top-16 p-20 opacity-[0.03] group-hover:rotate-12 transition-transform duration-1000">
+    <div class="absolute -right-16 -top-16 p-20 opacity-[0.03] animate-spin-slow">
       <i class="fa-solid fa-chart-line text-[12rem]"></i>
     </div>
 
     <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
       <div class="space-y-2">
-        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Select Region</label>
+        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1"
+          data-key="market_label_region">Select Region</label>
         <div class="relative">
           <select id="stateSelect"
             class="w-full pl-6 pr-10 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none font-bold text-slate-700 appearance-none h-14 cursor-pointer">
-            <option value="Maharashtra">Maharashtra</option>
-            <option value="Punjab">Punjab</option>
-            <option value="Uttar Pradesh">Uttar Pradesh</option>
-            <option value="Andhra Pradesh">Andhra Pradesh</option>
-            <option value="Telangana">Telangana</option>
+            <option value="Maharashtra" data-key="state_mh">Maharashtra</option>
+            <option value="Punjab" data-key="state_pb">Punjab</option>
+            <option value="Uttar Pradesh" data-key="state_up">Uttar Pradesh</option>
+            <option value="Andhra Pradesh" data-key="state_ap">Andhra Pradesh</option>
+            <option value="Telangana" data-key="state_ts">Telangana</option>
           </select>
           <i
             class="fa-solid fa-map-location-dot absolute right-6 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none"></i>
@@ -44,15 +48,16 @@
       </div>
 
       <div class="space-y-2">
-        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Commodity Type</label>
+        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1"
+          data-key="market_label_comm">Commodity Type</label>
         <div class="relative">
           <select id="cropSelect"
             class="w-full pl-6 pr-10 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-all outline-none font-bold text-slate-700 appearance-none h-14 cursor-pointer">
-            <option value="Wheat">Wheat</option>
-            <option value="Rice">Rice</option>
-            <option value="Cotton">Cotton</option>
-            <option value="Soybean">Soybean</option>
-            <option value="Corn">Corn</option>
+            <option value="Wheat" data-key="wheat_name">Wheat</option>
+            <option value="Rice" data-key="rice_name">Rice</option>
+            <option value="Cotton" data-key="cotton_name">Cotton</option>
+            <option value="Soybean" data-key="soya_name">Soybean</option>
+            <option value="Corn" data-key="corn_name">Corn</option>
           </select>
           <i class="fa-solid fa-leaf absolute right-6 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none"></i>
         </div>
@@ -60,7 +65,7 @@
 
       <button onclick="fetchPrices()" class="btn-primary h-14 flex items-center justify-center gap-3 active:scale-95">
         <i class="fa-solid fa-magnifying-glass-chart"></i>
-        <span>Update Insight</span>
+        <span data-key="market_btn_update">Update Insight</span>
       </button>
     </div>
   </div>
@@ -71,12 +76,17 @@
       <table class="w-full text-left border-collapse">
         <thead>
           <tr class="bg-slate-50 border-b border-slate-100">
-            <th class="p-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">Market / Mandi Hub</th>
-            <th class="p-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">Commodity</th>
-            <th class="p-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">Variety</th>
-            <th class="p-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 text-center">Price Range
+            <th class="p-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400" data-key="market_th_mandi">
+              Market / Mandi Hub</th>
+            <th class="p-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400" data-key="market_th_comm">
+              Commodity</th>
+            <th class="p-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400" data-key="market_th_var">
+              Variety</th>
+            <th class="p-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 text-center"
+              data-key="market_th_price">Price Range
             </th>
-            <th class="p-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 text-right">Market Trend
+            <th class="p-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 text-right"
+              data-key="market_th_trend">Market Trend
             </th>
           </tr>
         </thead>
@@ -89,7 +99,7 @@
     <div id="loadingState" class="hidden p-20 text-center">
       <div class="flex flex-col items-center">
         <div class="w-16 h-16 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin mb-6"></div>
-        <p class="text-slate-500 font-bold italic">Querying national APMC servers...</p>
+        <p class="text-slate-500 font-bold italic" data-key="market_loading">Querying national APMC servers...</p>
       </div>
     </div>
   </div>
@@ -124,20 +134,41 @@
 
         const row = document.createElement('tr');
         row.className = "hover:bg-primary-50/30 transition-colors group";
+
+        // Map crop value to translation key
+        const cropKeyMap = {
+          'Wheat': 'wheat_name', 'Rice': 'rice_name', 'Cotton': 'cotton_name', 'Soybean': 'soya_name', 'Corn': 'corn_name'
+        };
+        const cropKey = cropKeyMap[crop] || 'wheat_name';
+
+        // Map state to translation key
+        const stateKeyMap = {
+          'Maharashtra': 'state_mh', 'Punjab': 'state_pb', 'Uttar Pradesh': 'state_up', 'Andhra Pradesh': 'state_ap', 'Telangana': 'state_ts'
+        };
+        const stateKey = stateKeyMap[state] || 'state_mh';
+
+        // Map variety to translation key
+        const varKeyMap = {
+          'A-Grade Premium': 'var_premium', 'Hybrid FAQ': 'var_hybrid', 'Eco Certified': 'var_eco'
+        };
+        const varKey = varKeyMap[m.variety] || 'var_premium';
+
         row.innerHTML = `
             <td class="p-8">
                 <div class="flex items-center gap-4">
                     <div class="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-primary-100 group-hover:text-primary-600 transition-all">
                         <i class="fa-solid fa-warehouse text-xs"></i>
                     </div>
-                    <span class="font-outfit font-black text-slate-900 text-lg">${m.name}</span>
+                    <span class="font-outfit font-black text-slate-900 text-lg">
+                      <span data-key="${stateKey}"></span> ${m.name.split(' ').slice(1).join(' ')}
+                    </span>
                 </div>
             </td>
             <td class="p-8">
-                <span class="px-4 py-1.5 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase group-hover:bg-white transition-colors">${crop}</span>
+                <span class="px-4 py-1.5 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase group-hover:bg-white transition-colors" data-key="${cropKey}">${crop}</span>
             </td>
             <td class="p-8">
-                <span class="text-slate-500 font-medium">${m.variety}</span>
+                <span class="text-slate-500 font-medium" data-key="${varKey}">${m.variety}</span>
             </td>
             <td class="p-8 text-center">
                 <div class="inline-flex flex-col">
@@ -148,11 +179,15 @@
             <td class="p-8 text-right">
                 <span class="inline-flex items-center gap-2 font-black italic ${isUp ? 'text-emerald-600' : 'text-rose-600'}">
                     <i class="fa-solid ${isUp ? 'fa-arrow-trend-up' : 'fa-arrow-trend-down'}"></i>
-                    ${isUp ? 'SURGING' : 'DIP'}
+                    <span data-key="${isUp ? 'market_surging' : 'market_dip'}">${isUp ? 'SURGING' : 'DIP'}</span>
                 </span>
             </td>
         `;
         tbody.appendChild(row);
+
+        if (typeof applyTranslations === 'function') {
+          applyTranslations();
+        }
       });
 
       document.getElementById('syncTime').innerText = new Date().toLocaleTimeString();

@@ -10,18 +10,33 @@
   </div>
   <div class="absolute bottom-0 left-0 -z-10 w-[400px] h-[400px] bg-accent/10 blur-[100px] rounded-full"></div>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+  <!-- Rotating Decorative Icons -->
+  <div class="hidden lg:block absolute top-20 left-10 opacity-20 animate-spin-slow">
+    <i class="fa-solid fa-seedling text-7xl text-primary-600"></i>
+  </div>
+  <div class="hidden lg:block absolute bottom-40 right-10 opacity-20 animate-spin-reverse-slow">
+    <i class="fa-solid fa-wheat-awn text-8xl text-primary-500"></i>
+  </div>
+  <div class="hidden lg:block absolute top-40 right-20 opacity-10 animate-float">
+    <i class="fa-solid fa-cloud-sun text-9xl text-slate-400"></i>
+  </div>
+  <div class="hidden lg:block absolute bottom-20 left-20 opacity-15 animate-float-delayed">
+    <i class="fa-solid fa-drone text-6xl text-primary-400"></i>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
     {% if session.get('user_id') %}
     <div
       class="inline-flex items-center gap-4 px-6 py-3 bg-white shadow-xl shadow-slate-200/50 rounded-2xl mb-12 animate-float border border-slate-100">
       <div
-        class="w-12 h-12 bg-primary-600 text-white rounded-xl flex items-center justify-center shadow-lg shadow-primary-600/30">
+        class="w-12 h-12 bg-primary-600 text-white rounded-xl flex items-center justify-center shadow-lg shadow-primary-600/30 animate-spin-slow">
         <i class="fa-solid fa-user-check text-xl"></i>
       </div>
       <div class="text-left">
-        <h4 class="font-outfit font-bold text-slate-900 leading-tight">Welcome back, {{ session.get('user_name') }}!
+        <h4 class="font-outfit font-bold text-slate-900 leading-tight"><span data-key="welcome_back">Welcome
+            back</span>, {{ session.get('user_name') }}!
         </h4>
-        <p class="text-slate-500 text-xs font-medium">Your farming dashboard is ready.</p>
+        <p class="text-slate-500 text-xs font-medium" data-key="dash_ready">Your farming dashboard is ready.</p>
       </div>
     </div>
     {% endif %}
@@ -37,9 +52,9 @@
 
     <div class="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
       {% if not session.get('user_id') %}
-      <a href="/register" class="btn-primary w-full sm:w-auto text-lg" data-key="cta_start">
+      <a href="/register" class="btn-primary w-full sm:w-auto text-lg group" data-key="cta_start">
         Get Started Today
-        <i class="fa-solid fa-arrow-right ml-2 text-sm opacity-70"></i>
+        <i class="fa-solid fa-arrow-right ml-2 text-sm opacity-70 group-hover:translate-x-1 transition-transform"></i>
       </a>
       {% endif %}
       <a href="#features"
@@ -51,20 +66,24 @@
 
     <!-- Hero Stats -->
     <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-      <div class="p-4">
-        <div class="text-3xl font-extrabold text-slate-900 mb-1">5k+</div>
+      <div class="p-4 group">
+        <div class="text-3xl font-extrabold text-slate-900 mb-1 group-hover:text-primary-600 transition-colors">5k+
+        </div>
         <div class="text-sm text-slate-500 font-medium">Active Farmers</div>
       </div>
-      <div class="p-4 border-l border-slate-200">
-        <div class="text-3xl font-extrabold text-slate-900 mb-1">30+</div>
+      <div class="p-4 border-l border-slate-200 group">
+        <div class="text-3xl font-extrabold text-slate-900 mb-1 group-hover:text-primary-600 transition-colors">30+
+        </div>
         <div class="text-sm text-slate-500 font-medium">Crop Varieties</div>
       </div>
-      <div class="p-4 border-l border-slate-200">
-        <div class="text-3xl font-extrabold text-slate-900 mb-1">24/7</div>
+      <div class="p-4 border-l border-slate-200 group">
+        <div class="text-3xl font-extrabold text-slate-900 mb-1 group-hover:text-primary-600 transition-colors">24/7
+        </div>
         <div class="text-sm text-slate-500 font-medium">Smart Support</div>
       </div>
-      <div class="p-4 border-l border-slate-200">
-        <div class="text-3xl font-extrabold text-slate-900 mb-1">98%</div>
+      <div class="p-4 border-l border-slate-200 group">
+        <div class="text-3xl font-extrabold text-slate-900 mb-1 group-hover:text-primary-600 transition-colors">98%
+        </div>
         <div class="text-sm text-slate-500 font-medium">Data Accuracy</div>
       </div>
     </div>
@@ -79,7 +98,8 @@
         class="inline-block px-4 py-1.5 bg-primary-100 text-primary-700 text-xs font-bold rounded-full uppercase tracking-widest mb-4">Features</span>
       <h2 class="text-4xl font-outfit font-extrabold text-slate-900 mb-4" data-key="sec_features">Our Core Capabilities
       </h2>
-      <p class="text-slate-500 max-w-xl mx-auto font-medium">Comprehensive tools designed to solve modern agriculture
+      <p class="text-slate-500 max-w-xl mx-auto font-medium" data-key="features_desc">Comprehensive tools designed to
+        solve modern agriculture
         challenges.</p>
     </div>
 
@@ -88,7 +108,7 @@
       <a href="/weather"
         class="group p-8 bg-slate-50 hover:bg-primary-600 rounded-[2rem] transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-600/20 text-left">
         <div
-          class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-primary-600 mb-8 shadow-lg group-hover:bg-primary-500 group-hover:text-white transition-colors duration-500">
+          class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-primary-600 mb-8 shadow-lg group-hover:bg-primary-500 group-hover:text-white transition-all duration-500 group-hover:rotate-[360deg]">
           <i class="fa-solid fa-cloud-sun text-3xl"></i>
         </div>
         <h3 class="text-xl font-bold text-slate-900 mb-4 group-hover:text-white transition-colors duration-500"
@@ -103,7 +123,7 @@
       <a href="/crop-care"
         class="group p-8 bg-slate-50 hover:bg-emerald-600 rounded-[2rem] transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-600/20 text-left">
         <div
-          class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-emerald-600 mb-8 shadow-lg group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-500">
+          class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-emerald-600 mb-8 shadow-lg group-hover:bg-emerald-500 group-hover:text-white transition-all duration-500 group-hover:rotate-[360deg]">
           <i class="fa-solid fa-leaf text-3xl"></i>
         </div>
         <h3 class="text-xl font-bold text-slate-900 mb-4 group-hover:text-white transition-colors duration-500"
@@ -118,7 +138,7 @@
       <a href="/tasks"
         class="group p-8 bg-slate-50 hover:bg-blue-600 rounded-[2rem] transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-600/20 text-left">
         <div
-          class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-blue-600 mb-8 shadow-lg group-hover:bg-blue-500 group-hover:text-white transition-colors duration-500">
+          class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-blue-600 mb-8 shadow-lg group-hover:bg-blue-500 group-hover:text-white transition-all duration-500 group-hover:rotate-[360deg]">
           <i class="fa-solid fa-list-check text-3xl"></i>
         </div>
         <h3 class="text-xl font-bold text-slate-900 mb-4 group-hover:text-white transition-colors duration-500"
@@ -133,7 +153,7 @@
       <a href="/logistics"
         class="group p-8 bg-slate-50 hover:bg-amber-600 rounded-[2rem] transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-600/20 text-left">
         <div
-          class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-amber-600 mb-8 shadow-lg group-hover:bg-amber-500 group-hover:text-white transition-colors duration-500">
+          class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-amber-600 mb-8 shadow-lg group-hover:bg-amber-500 group-hover:text-white transition-all duration-500 group-hover:rotate-[360deg]">
           <i class="fa-solid fa-truck-fast text-3xl"></i>
         </div>
         <h3 class="text-xl font-bold text-slate-900 mb-4 group-hover:text-white transition-colors duration-500"
@@ -147,13 +167,83 @@
   </div>
 </section>
 
+<!-- Tech Stack / Partners Marquee -->
+<section class="py-12 bg-slate-50 border-y border-slate-100 overflow-hidden">
+  <div class="flex whitespace-nowrap animate-marquee group">
+    <div class="flex items-center gap-16 px-8 select-none">
+      <div
+        class="flex items-center gap-4 text-slate-300 hover:text-primary-600 transition-colors cursor-default group/item">
+        <i
+          class="fa-solid fa-satellite-dish text-4xl group-hover/item:rotate-[360deg] transition-transform duration-1000"></i>
+        <span class="text-xl font-outfit font-black tracking-tighter">REMOTE SENSING</span>
+      </div>
+      <div
+        class="flex items-center gap-4 text-slate-300 hover:text-emerald-600 transition-colors cursor-default group/item">
+        <i
+          class="fa-solid fa-microchip text-4xl group-hover/item:rotate-[360deg] transition-transform duration-1000"></i>
+        <span class="text-xl font-outfit font-black tracking-tighter">AI DIAGNOSIS</span>
+      </div>
+      <div
+        class="flex items-center gap-4 text-slate-300 hover:text-blue-600 transition-colors cursor-default group/item">
+        <i
+          class="fa-solid fa-database text-4xl group-hover/item:rotate-[360deg] transition-transform duration-1000"></i>
+        <span class="text-xl font-outfit font-black tracking-tighter">MARKET ANALYTICS</span>
+      </div>
+      <div
+        class="flex items-center gap-4 text-slate-300 hover:text-amber-600 transition-colors cursor-default group/item">
+        <i
+          class="fa-solid fa-cloud-arrow-up text-4xl group-hover/item:rotate-[360deg] transition-transform duration-1000"></i>
+        <span class="text-xl font-outfit font-black tracking-tighter">CLOUD SYNC</span>
+      </div>
+      <div
+        class="flex items-center gap-4 text-slate-300 hover:text-rose-600 transition-colors cursor-default group/item">
+        <i class="fa-solid fa-robot text-4xl group-hover/item:rotate-[360deg] transition-transform duration-1000"></i>
+        <span class="text-xl font-outfit font-black tracking-tighter">SMART AUTOMATION</span>
+      </div>
+    </div>
+    <!-- Duplicate for seamless loop -->
+    <div class="flex items-center gap-16 px-8 select-none">
+      <div
+        class="flex items-center gap-4 text-slate-300 hover:text-primary-600 transition-colors cursor-default group/item">
+        <i
+          class="fa-solid fa-satellite-dish text-4xl group-hover/item:rotate-[360deg] transition-transform duration-1000"></i>
+        <span class="text-xl font-outfit font-black tracking-tighter">REMOTE SENSING</span>
+      </div>
+      <div
+        class="flex items-center gap-4 text-slate-300 hover:text-emerald-600 transition-colors cursor-default group/item">
+        <i
+          class="fa-solid fa-microchip text-4xl group-hover/item:rotate-[360deg] transition-transform duration-1000"></i>
+        <span class="text-xl font-outfit font-black tracking-tighter">AI DIAGNOSIS</span>
+      </div>
+      <div
+        class="flex items-center gap-4 text-slate-300 hover:text-blue-600 transition-colors cursor-default group/item">
+        <i
+          class="fa-solid fa-database text-4xl group-hover/item:rotate-[360deg] transition-transform duration-1000"></i>
+        <span class="text-xl font-outfit font-black tracking-tighter">MARKET ANALYTICS</span>
+      </div>
+      <div
+        class="flex items-center gap-4 text-slate-300 hover:text-amber-600 transition-colors cursor-default group/item">
+        <i
+          class="fa-solid fa-cloud-arrow-up text-4xl group-hover/item:rotate-[360deg] transition-transform duration-1000"></i>
+        <span class="text-xl font-outfit font-black tracking-tighter">CLOUD SYNC</span>
+      </div>
+      <div
+        class="flex items-center gap-4 text-slate-300 hover:text-rose-600 transition-colors cursor-default group/item">
+        <i class="fa-solid fa-robot text-4xl group-hover/item:rotate-[360deg] transition-transform duration-1000"></i>
+        <span class="text-xl font-outfit font-black tracking-tighter">SMART AUTOMATION</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Abstract Section -->
 <section class="py-24 bg-slate-900 relative overflow-hidden">
   <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
   </div>
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <!-- Rotating Abstract Icon -->
     <div
-      class="w-20 h-20 bg-primary-600/20 text-primary-500 rounded-3xl flex items-center justify-center mx-auto mb-10 border border-primary-500/30">
+      class="w-20 h-20 bg-primary-600/20 text-primary-500 rounded-3xl flex items-center justify-center mx-auto mb-10 border border-primary-500/30 animate-spin-slow">
       <i class="fa-solid fa-quote-left text-3xl"></i>
     </div>
     <h2 class="text-3xl md:text-4xl font-outfit font-extrabold text-white mb-8" data-key="sec_abstract">Project Vision
@@ -176,15 +266,19 @@
       <div class="absolute bottom-0 left-0 w-64 h-64 bg-accent/20 rounded-full -ml-32 -mb-32 blur-2xl"></div>
 
       <div class="relative z-10 max-w-2xl text-center md:text-left">
-        <h2 class="text-4xl md:text-5xl font-outfit font-extrabold text-white mb-6">Ready to transform your farm?</h2>
-        <p class="text-primary-100 text-lg mb-10 leading-relaxed">Join thousands of farmers already using Agro World to
+        <h2 class="text-4xl md:text-5xl font-outfit font-extrabold text-white mb-6" data-key="cta_title">Ready to
+          transform your farm?</h2>
+        <p class="text-primary-100 text-lg mb-10 leading-relaxed" data-key="cta_desc">Join thousands of farmers already
+          using Agro World to
           improve their yield and reduce costs.</p>
         <div class="flex flex-col sm:flex-row gap-4">
           <a href="/register"
-            class="px-8 py-4 bg-white text-primary-700 rounded-xl font-bold hover:bg-primary-50 transition-all text-center shadow-lg">Create
+            class="px-8 py-4 bg-white text-primary-700 rounded-xl font-bold hover:bg-primary-50 transition-all text-center shadow-lg"
+            data-key="cta_btn_reg">Create
             Free Account</a>
           <a href="mailto:help@agroworld.in"
-            class="px-8 py-4 bg-primary-800 text-white border border-primary-600 rounded-xl font-bold hover:bg-primary-700 transition-all text-center">Contact
+            class="px-8 py-4 bg-primary-800 text-white border border-primary-600 rounded-xl font-bold hover:bg-primary-700 transition-all text-center"
+            data-key="cta_btn_sup">Contact
             Support</a>
         </div>
       </div>

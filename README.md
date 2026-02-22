@@ -1,19 +1,23 @@
-# 🌱 Agro World | Smart Farming Decision Support System
-
-Welcome to **Agro World**, a comprehensive digital assistant designed to empower small-scale farmers with big-scale technology. Our platform bridges the gap between technology and traditional farming, offering real-time weather forecasts, crop disease guidance, and direct communication with suppliers.
+# 🌱 Agro World v2.0 | Precision Agriculture Decision Support
+Welcome to **Agro World v2.0**, a high-end digital ecosystem designed to empower farmers with laboratory-grade diagnostics and enterprise-level UI. We bridge the gap between traditional farming and modern software excellence, offering real-time intelligence, AI-driven crop pathology, and a seamless logistics marketplace.
 
 ---
 
-## 🚀 Features
+## 🔥 What's New in v2.0
+- **💎 Premium Software UI:** Completely overhauled interface featuring glassmorphism, dynamic background patterns, and a sleek high-tech aesthetic inspired by modern dev tool websites.
+- **🧠 Neural Diagnostic Engine:** Enhanced AI disease detection terminal with low-latency cellular pattern analysis and simulated laboratory precision.
+- **🇮🇳 Enhanced Bilingual Support:** Robust Telugu and Hindi integration with localized agricultural terminology (e.g., *బాక్టీరియా ఎండు తెగులు*) and bilingual labeling.
+- **🌪️ Advanced Micro-animations:** Smooth transitions, rotating icons, and reactive terminal states for a superior "Wow" factor.
 
-- **🌤️ Weather Intelligence:** Get 5-day location-based forecasts with precision updates on rain, humidity, and frost alerts. Keep track of hyperlocal weather conditions easily using Open-Meteo.
-- **📰 Live Farming News:** Stay updated with the latest live agricultural news. Features a dynamic search bar to find real news based on specific keywords (e.g., 'Wheat', 'Subsidies') using live Google News RSS feeds.
-- **📈 Market Prices (Mandi):** View real-time Mandi market prices to track price trends of crops like Wheat, Rice, and Cotton across multiple states.
-- **💵 Government Schemes (Yojanas):** Discover and apply for financial assistance schemes, including PM-Kisan, PMFBY (Crop Insurance), KCC, and more.
-- **🍃 Crop Management & AI Disease Detection:** Identify diseases by uploading infected leaf photos, learn about organic fertilizers, and optimize sowing schedules with detailed, crop-specific interactive guides (Soybean, Corn, Sugarcane, Sunflower).
-- **📝 Smart Task Manager:** A premium UI with dynamic statistics counters to keep your activities structured with daily and weekly reminders for irrigation, fertilization, and pest control.
-- **🚚 Direct Logistics Marketplace:** Connect directly with seed manufacturers and vehicle owners without any middlemen. Features a smart, context-aware AI chatbot that provides automated responses for inquiries.
-- **🌍 Multi-Lingual Support:** Completely accessible in English, Hindi, and Telugu, empowering a wider range of farmers.
+## 🚀 Core Features
+
+- **🌤️ Weather Intelligence:** 5-day location-based forecasts with precision updates on rain, humidity, and frost alerts using Open-Meteo.
+- **📰 Live Farming News:** Dynamic search-enabled agricultural news feeds utilizing live Google News RSS integration.
+- **📈 Market Prices (Mandi):** Real-time Mandi market price tracking for the national APMC network.
+- **💵 Government Schemes (Yojanas):** Intelligent directory for PM-Kisan, PMFBY, and KCC financial assistance programs.
+- **🍃 Crop Intelligence:** Interactive optimization protocols for 30+ crops with comprehensive interactive skillsets.
+- **📝 Smart Task Manager:** Data-driven activity tracker with dynamic counters and operation-specific reminders.
+- **🚚 Logistics Marketplace:** Direct connect platform for manufacturers and transporters with context-aware AI chat support.
 
 ---
 

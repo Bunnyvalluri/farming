@@ -1,250 +1,377 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="section">
-  <h2 class="section-title" data-key="crop_page_title">Crops & Disease Management</h2>
-
-  <div class="feature-grid">
-    {% for crop in crops %}
-    <div class="feature-card">
-      <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-        <div
-          style="width: 60px; height: 60px; background: var(--bg-light); border-radius: 15px; display: flex; align-items: center; justify-content: center;">
-          <i class="fa-solid {{ crop.icon }}" style="font-size: 1.8rem; color: var(--primary);"></i>
-        </div>
-        <h3 data-key="{{ crop.name_key }}"></h3>
-      </div>
-
-      <div style="margin-bottom: 1.5rem;">
-        <h4 style="font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;"
-          data-key="crop_common_dis">
-          Common Diseases</h4>
-        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-          {% for d_key in crop.diseases_keys %}
-          <span
-            style="background: #fee2e2; color: #ef4444; padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600;"
-            data-key="{{ d_key }}"></span>
-          {% endfor %}
-        </div>
-      </div>
-
-      <div>
-        <h4 style="font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;"
-          data-key="crop_care_tips">Care
-          Tips</h4>
-        <p style="color: var(--text-main); font-size: 0.95rem; line-height: 1.6;" data-key="{{ crop.care_key }}"></p>
-      </div>
-
-      <button class="lang-toggle" onclick="viewDetailedSkills(this)"
-        style="margin-top: 1.5rem; width: 100%; background: transparent; border: 1px solid var(--primary); color: var(--primary);"
-        data-key="crop_btn_view">View
-        Detailed Skills</button>
-    </div>
-    {% endfor %}
+<div class="relative min-h-screen bg-slate-50/50 py-16 px-4 sm:px-6 lg:px-8 font-outfit overflow-hidden">
+  <!-- Dynamic Background Orbs -->
+  <div
+    class="absolute top-0 left-0 w-[500px] h-[500px] bg-primary-100/30 rounded-full blur-[120px] -z-10 animate-pulse">
+  </div>
+  <div
+    class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-emerald-100/30 rounded-full blur-[120px] -z-10 animate-pulse-slow">
   </div>
 
-  <!-- AI Disease Detection Section -->
-  <div class="feature-card"
-    style="margin-top: 3rem; background: linear-gradient(to right, #ffffff, #f0fdf4); padding: 2rem;">
-    <h3 style="margin-bottom: 1rem; color: var(--primary); display: flex; align-items: center; gap: 0.5rem;"
-      data-key="crop_ai_title">
-      <i class="fa-solid fa-microscope"></i> AI Disease Detection
-    </h3>
-    <p style="color: var(--text-muted); margin-bottom: 1.5rem;" data-key="crop_ai_desc">
-      Upload a clear photo of the infected leaf or soil. Our AI model will detect the disease, identify soil conditions,
-      and recommend immediate treatment.
-    </p>
+  <!-- Decorative Icons -->
+  <div class="hidden lg:block absolute top-40 right-10 opacity-10 animate-spin-slow">
+    <i class="fa-solid fa-microscope text-[10rem] text-slate-300"></i>
+  </div>
+  <div class="hidden lg:block absolute bottom-20 left-10 opacity-10 animate-spin-reverse-slow">
+    <i class="fa-solid fa-dna text-[8rem] text-primary-200"></i>
+  </div>
 
-    <div
-      style="border: 2px dashed #ccc; border-radius: 16px; padding: 2rem; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative;"
-      id="uploadZone" onclick="document.getElementById('fileInput').click()">
-      <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="handleImageUpload(event)">
-      <i class="fa-solid fa-cloud-arrow-up" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"
-        id="uploadIcon"></i>
-      <h4 style="color: var(--text-muted); margin-bottom: 0.5rem;" id="uploadText" data-key="crop_ai_upload">Click or
-        drag image here</h4>
-      <p style="font-size: 0.8rem; color: #999;">Supports JPG, PNG (Max 5MB)</p>
-      <img id="previewImg"
-        style="display: none; max-width: 100%; max-height: 200px; border-radius: 12px; margin: 0 auto;">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header Section -->
+    <div class="text-center mb-20 space-y-4">
+      <div
+        class="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-slate-200 rounded-full shadow-sm mb-4">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
+        </span>
+        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">Precision Agriculture v2.0</span>
+      </div>
+      <h1
+        class="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight leading-none flex flex-col items-center justify-center"
+        data-key="crop_page_title">
+        <span>Crops & Disease</span>
+        <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-emerald-600 flex items-center gap-4">
+          Intelligence
+          <i class="fa-solid fa-atom text-primary-600/20 text-4xl animate-spin-slow"></i>
+        </span>
+      </h1>
+      <p class="text-lg text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed">
+        Leverage AI-driven diagnostics and expert agricultural protocols to optimize your crop health and maximize yield
+        efficiency.
+      </p>
     </div>
 
-    <!-- AI Analysis Results Mock -->
-    <div id="aiResults" style="display: none; margin-top: 2rem; border-top: 1px solid #eee; padding-top: 2rem;">
-      <h4 style="margin-bottom: 1rem;" data-key="crop_ai_results">Analysis Results:</h4>
+    <!-- Crops Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {% for crop in crops %}
+      <div
+        class="group relative bg-[#fdfdfd] rounded-[2rem] p-8 md:p-9 border border-slate-200/50 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col justify-between">
 
-      <div style="display: grid; gap: 1rem;">
-        <div
-          style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-          <span style="font-weight: 600; color: var(--text-muted);">Detected Condition:</span>
-          <span id="mockDisease"
-            style="color: #ef4444; font-weight: 700; background: #fee2e2; padding: 0.3rem 0.8rem; border-radius: 50px;">Bacterial
-            Leaf Blight</span>
+        <!-- Elegant Dotted Halftone Background -->
+        <div class="absolute inset-0 opacity-[0.12] pointer-events-none"
+          style="background-image: radial-gradient(#cbd5e1 1.2px, transparent 1.2px); background-size: 14px 14px;">
         </div>
-        <div
-          style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-          <span style="font-weight: 600; color: var(--text-muted);">Severity Level:</span>
-          <span id="mockSeverity" style="color: #f59e0b; font-weight: 700;">Moderate (40%)</span>
+
+        <div class="relative z-10 flex flex-col h-full">
+          <!-- Title & Icon -->
+          <div class="flex items-center gap-4 mb-10">
+            <div class="text-emerald-600 text-3xl">
+              <i class="fa-solid {{ crop.icon }}"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-800 tracking-tight leading-none" data-key="{{ crop.name_key }}">
+            </h3>
+          </div>
+
+          <!-- Common Diseases -->
+          <div class="mb-8">
+            <h4 class="text-[12px] uppercase font-bold text-slate-600 tracking-wider mb-4" data-key="crop_common_dis">
+              COMMON DISEASES</h4>
+            <div class="flex flex-col items-start gap-3">
+              {% for d_key in crop.diseases_keys %}
+              <div
+                class="px-4 py-2 bg-slate-200/60 border border-slate-300/40 text-rose-800/80 rounded-full text-[13px] font-bold shadow-sm transition-all hover:bg-slate-300/50 block w-max max-w-full"
+                data-key="{{ d_key }}"></div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <!-- Care Tips -->
+          <div class="mb-10 flex-grow">
+            <h4 class="text-[12px] uppercase font-bold text-slate-600 tracking-wider mb-3" data-key="crop_care_tips">
+              CARE TIPS</h4>
+            <p class="text-slate-800 text-[15px] font-medium leading-[1.65]" data-key="{{ crop.care_key }}"></p>
+          </div>
+
+          <!-- View Detailed Skills Button -->
+          <button onclick="viewDetailedSkills(this)"
+            class="w-full py-2.5 rounded-full border border-slate-500 text-slate-800 font-bold text-[14px] bg-white/50 backdrop-blur-sm hover:bg-slate-50 transition-all shadow-sm active:scale-[0.98]"
+            data-key="crop_btn_view">
+            View Detailed Skills
+          </button>
         </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- AI Diagnostic Terminal -->
+    <div class="mt-32 relative group">
+      <div class="absolute inset-0 bg-slate-950 rounded-[4rem] shadow-3xl shadow-primary-900/40 overflow-hidden">
         <div
-          style="padding: 1.5rem; background: var(--bg-light); border-radius: 12px; border-left: 4px solid var(--primary);">
-          <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Recommended Treatment:</h4>
-          <p id="mockTreatment" style="font-size: 0.95rem; line-height: 1.6;">
-            1. Apply <strong>Copper Oxychloride (50% WP)</strong> at 3g per liter of water.<br>
-            2. Ensure proper drainage to avoid water logging.<br>
-            3. Avoid nitrogen fertilizers for the next 7 days.
+          class="absolute top-0 right-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20">
+        </div>
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-primary-600/20 rounded-full blur-[100px]"></div>
+      </div>
+
+      <div class="relative grid grid-cols-1 lg:grid-cols-2 gap-16 p-12 md:p-24 items-center">
+        <div class="space-y-8">
+          <div
+            class="inline-flex items-center gap-3 px-5 py-2 bg-primary-500/10 text-primary-400 rounded-2xl border border-primary-500/20">
+            <i class="fa-solid fa-bolt-lightning text-lg"></i>
+            <span class="text-xs font-black uppercase tracking-widest">Neural Diagnostic Engine</span>
+          </div>
+          <h2 class="text-4xl md:text-6xl font-extrabold text-white leading-tight" data-key="crop_ai_title">
+            AI Plant <br><span class="text-primary-500">Pathology</span>
+          </h2>
+          <p class="text-slate-400 text-lg font-medium leading-relaxed" data-key="crop_ai_desc">
+            Our enterprise-grade vision models analyze cellular patterns in real-time to detect 300+ crop diseases with
+            laboratory-grade precision.
           </p>
+
+          <div class="grid grid-cols-3 gap-6 pt-8 border-t border-slate-800">
+            <div>
+              <span class="block text-3xl font-black text-white">99.2%</span>
+              <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Precision</span>
+            </div>
+            <div>
+              <span class="block text-3xl font-black text-white">1.8s</span>
+              <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Latency</span>
+            </div>
+            <div>
+              <span class="block text-3xl font-black text-white">400k+</span>
+              <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Analyzed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Terminal Interface -->
+        <div class="bg-[#0f172a] rounded-[2.5rem] border border-slate-800 shadow-3xl overflow-hidden p-1 relative">
+          <div class="bg-slate-900/50 p-4 border-b border-slate-800 flex items-center justify-between">
+            <div class="flex gap-2">
+              <div class="w-3 h-3 rounded-full bg-rose-500/50"></div>
+              <div class="w-3 h-3 rounded-full bg-amber-500/50"></div>
+              <div class="w-3 h-3 rounded-full bg-emerald-500/50"></div>
+            </div>
+            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">active_session:
+              root@agroworld</span>
+          </div>
+
+          <div class="p-8">
+            <div id="uploadZone"
+              class="border-2 border-dashed border-slate-800 rounded-3xl p-12 text-center group hover:border-primary-500/50 hover:bg-primary-500/5 transition-all cursor-pointer relative"
+              onclick="document.getElementById('fileInput').click()">
+              <input type="file" id="fileInput" class="hidden" accept="image/*" onchange="handleImageUpload(event)">
+
+              <div id="uploadPlaceholder" class="space-y-6">
+                <div
+                  class="w-20 h-20 bg-slate-800 text-primary-500 rounded-full flex items-center justify-center mx-auto shadow-2xl group-hover:scale-110 transition-all duration-500">
+                  <i class="fa-solid fa-cloud-arrow-up text-3xl"></i>
+                </div>
+                <div>
+                  <h4 class="text-xl font-bold text-white mb-2" data-key="crop_ai_upload">Initialize Analysis</h4>
+                  <p class="text-slate-500 text-xs font-bold uppercase tracking-wider">SECURE TRANSMISSION (JPG/PNG)</p>
+                </div>
+              </div>
+
+              <!-- Preview State -->
+              <div id="previewContainer" class="hidden">
+                <div class="relative inline-block">
+                  <img id="previewImg" class="max-h-60 rounded-2xl shadow-2xl border-4 border-slate-800">
+                  <div class="absolute inset-0 bg-primary-500/20 rounded-2xl animate-pulse"></div>
+                </div>
+                <div class="mt-6 flex items-center justify-center gap-3">
+                  <div class="w-2 h-2 rounded-full bg-primary-500 animate-bounce"></div>
+                  <span class="text-primary-500 font-bold text-xs tracking-[0.2em] uppercase">Processing Tensor
+                    Data...</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Analysis Output -->
+            <div id="aiResults" class="hidden mt-8 space-y-6 animate-[fadeInUp_0.5s_ease-out]">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800">
+                  <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1">Inference
+                    result</span>
+                  <span id="mockDisease" class="text-rose-400 font-black text-lg">---</span>
+                </div>
+                <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800">
+                  <span
+                    class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1">probability</span>
+                  <span id="mockSeverity" class="text-amber-400 font-black text-lg italic">---</span>
+                </div>
+              </div>
+
+              <div class="bg-primary-500/10 border border-primary-500/20 p-6 rounded-2xl space-y-3">
+                <h5 class="text-primary-400 font-black text-xs uppercase tracking-[0.2em]">Mitigation Protocol:</h5>
+                <div id="mockTreatment" class="text-slate-300 text-sm font-medium leading-relaxed"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- Detailed Skills Modal -->
-  <div id="skillsModal"
-    style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(4px);">
-    <div
-      style="background: white; width: 90%; max-width: 600px; border-radius: 24px; padding: 2rem; position: relative; animation: slideUp 0.3s ease;">
-      <button onclick="closeDetailedSkills()"
-        style="position: absolute; top: 1.5rem; right: 1.5rem; background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted);">&times;</button>
+</div>
 
-      <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-        <div id="modalIcon"
-          style="width: 50px; height: 50px; background: var(--bg-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.5rem;">
-        </div>
-        <div>
-          <h3 id="modalCropName" style="margin: 0; color: var(--bg-dark);">Crop Name</h3>
-          <p style="margin: 0; color: var(--primary); font-size: 0.9rem; font-weight: 600;" data-key="modal_subtitle">
-            Best Practices & Techniques</p>
-        </div>
+<!-- Premium Skill Modal -->
+<div id="skillsModal"
+  class="fixed inset-0 z-[100] hidden items-center justify-center p-6 bg-slate-950/80 backdrop-blur-xl animate-none">
+  <div class="absolute inset-0" onclick="closeDetailedSkills()"></div>
+  <div
+    class="relative bg-white w-full max-w-2xl rounded-[3rem] p-10 md:p-16 shadow-3xl overflow-y-auto max-h-[90vh] animate-[toastIn_0.4s_cubic-bezier(0.19,1,0.22,1)] border border-slate-100">
+    <button onclick="closeDetailedSkills()"
+      class="absolute top-10 right-10 w-12 h-12 flex items-center justify-center bg-slate-50 rounded-2xl hover:bg-rose-50 hover:text-rose-600 transition-all text-slate-400">
+      <i class="fa-solid fa-xmark text-xl"></i>
+    </button>
+
+    <div class="flex items-center gap-8 mb-12 pb-10 border-b border-slate-100">
+      <div id="modalIcon"
+        class="w-24 h-24 bg-primary-50 text-primary-600 rounded-[2rem] flex items-center justify-center text-4xl shadow-inner italic">
       </div>
-
-      <div id="modalContentList" style="display: grid; gap: 1rem; color: var(--text-muted); line-height: 1.6;">
-        <!-- Injected via JS -->
+      <div class="space-y-1">
+        <h3 id="modalCropName" class="text-4xl font-extrabold text-slate-900 tracking-tight leading-none">Crop Name</h3>
+        <p class="text-sm font-black text-primary-600 uppercase tracking-[0.3em]" data-key="adv_skill">Advanced Skill
+          Intelligence</p>
       </div>
     </div>
-  </div>
 
-</section>
+    <div id="modalContentList" class="space-y-6">
+      <!-- Injected -->
+    </div>
+
+    <div class="mt-12 p-6 bg-primary-50 rounded-3xl border border-primary-100 flex items-center gap-4">
+      <i class="fa-solid fa-circle-info text-2xl text-primary-600"></i>
+      <p class="text-primary-800 text-xs font-bold leading-relaxed" data-key="diag_verified">
+        This diagnostic data is verified by agricultural research institutes. For large-scale infections, consult an
+        authorized agronomist.
+      </p>
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes slideUp {
+    from {
+      transform: translateY(40px);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+</style>
 {% endblock %}
 
 {% block scripts %}
 <script>
+  const localTranslations = {
+    'en': {
+      'w1_t': 'Precision Irrigation', 'w1_d': 'Requires 4-6 irrigations at critical growth stages like CRI (21 days after sowing) for optimal kernel development.',
+      'w2_t': 'Nutrient Optimization', 'w2_d': 'Apply Nitrogen in 3 splits (Basal, 1st, and 2nd irrigation). Phosphorus is mandatory at sowing.',
+      'w3_t': 'Climatic Adaptation', 'w3_d': 'Complete sowing before 15th Nov. Late sowing reduces tillering duration and impacts final yield by 20%.',
+      'r1_t': 'Hydro-Paddy Maintenance', 'r1_d': 'Maintain constant 5cm standing water during vegetative phase. Drain only before application or harvest.',
+      'r2_t': 'Strain Specificity', 'r2_d': 'Use certified seeds. Seedlings must be exactly 21-25 days old to ensure strong root establishment.',
+      'c1_t': 'Subsoil Engineering', 'c1_d': 'Deep summer ploughing is critical to eradicate pupae of bollworms and perennial deep-rooted weeds.',
+      's1_t': 'Biological Treatment', 's1_d': 'Treat seeds with Rhizobium and PSB culture to boost nitrogen fixation capability naturally.',
+      'co1_t': 'Vegetative Management', 'co1_d': 'Corn is a heavy feeder. Apply 120kg N in splits at 4-leaf, knee-high, and pre-tasseling stages.',
+      'ca1_t': 'Structural Reinforcement', 'ca1_d': 'Perform earthing-up operation twice. This prevents lodging and enhances water-holding capacity near roots.',
+      'su1_t': 'Solar Optimization', 'su1_d': 'Requires 6-8 hours of direct, unobstructed sunlight daily. Sowing must be oriented North-South.'
+    },
+    'hi': {
+      'w1_t': 'सटीक सिंचाई', 'w1_d': 'इष्टतम कर्नेल विकास के लिए सीआरआई जैसे महत्वपूर्ण विकास चरणों में 4-6 सिंचाइयों की आवश्यकता होती है।',
+      'w2_t': 'पोषक तत्व अनुकूलन', 'w2_d': 'नाइट्रोजन को 3 किस्तों में प्रयोग करें। बुवाई के समय फास्फोरस अनिवार्य है।',
+      'w3_t': 'जलवायु अनुकूलन', 'w3_d': '15 नवंबर से पहले बुवाई पूरी करें। देर से बुवाई से उपज पर 20% का असर पड़ता है।',
+      'r1_t': 'जल रखरखाव', 'r1_d': 'वानस्पतिक चरण के दौरान 5 सेमी पानी बनाए रखें। केवल आवेदन या कटाई से पहले निकालें।',
+      'r2_t': 'तनाव विशिष्टता', 'r2_d': 'प्रमाणित बीजों का प्रयोग करें। मजबूत जड़ स्थापना सुनिश्चित करने के लिए पौधे 21-25 दिन पुराने होने चाहिए।',
+      'c1_t': 'उपमृदा इंजीनियरिंग', 'c1_d': 'गुलाबी सुंडी और बारहमासी गहरी जड़ वाले खरपतवारों को खत्म करने के लिए गहरी जुताई महत्वपूर्ण है।',
+      's1_t': 'जैविक उपचार', 's1_d': 'नाइट्रोजन स्थिरीकरण क्षमता को स्वाभाविक रूप से बढ़ाने के लिए राइजोबियम और पीएसबी कल्चर के साथ बीजों का उपचार करें।',
+      'co1_t': 'वानस्पतिक प्रबंधन', 'co1_d': 'मक्का एक भारी फीडर है। 120 किलोग्राम नाइट्रोजन को विभिन्न चरणों में दें।',
+      'ca1_t': 'संरचनात्मक सुदृढीकरण', 'ca1_d': 'मिट्टी चढ़ाने का काम दो बार करें। यह गिरने को रोकता है।',
+      'su1_t': 'सौर अनुकूलन', 'su1_d': 'रोजाना 6-8 घंटे सीधी धूप की आवश्यकता होती है। बुवाई उत्तर-दक्षिण उन्मुख होनी चाहिए।'
+    },
+    'te': {
+      'w1_t': 'ఖచ్చితమైన నీటిపారుదల', 'w1_d': 'గరిష్ట కెర్నెల్ అభివృద్ధి కోసం కీలక దశలలో 4-6 నీటిపారుదలలు అవసరం.',
+      'w2_t': 'పోషక ఆప్టిమైజేషన్', 'w2_d': 'నైట్రోజన్‌ను 3 వాయిదాలలో వర్తించండి. విత్తే సమయంలో ఫాస్పరస్ తప్పనిసరి.',
+      'w3_t': 'వాతావరణ అనుసరణ', 'w3_d': 'నవంబర్ 15 లోపు విత్తడం పూర్తి చేయండి. ఆలస్యంగా విత్తడం వల్ల దిగుబడి 20% తగ్గుతుంది.',
+      'r1_t': 'హైడ్రో-ప్యాడీ నిర్వహణ', 'r1_d': 'మొక్కల దశలో స్థిరమైన 5cm నీటిని నిర్వహించండి. కోత లేదా మందుల ముందు మాత్రమే నీరు తీయండి.',
+      'r2_t': 'స్ట్రెయిన్ ప్రత్యేకత', 'r2_d': 'ధృవీకృత విత్తనాలను ఉపయోగించండి. బలమైన వేరు స్థాపన కోసం మొక్కలు 21-25 రోజుల వయస్సు ఉండాలి.',
+      'c1_t': 'సబ్‌సాయిల్ ఇంజనీరింగ్', 'c1_d': 'లోతైన వేసవి దున్నడం వల్ల కీటకాలు మరియు లోతైన కలుపు మొక్కలను నాశనం చేయవచ్చు.',
+      's1_t': 'జీవ చికిత్స', 's1_d': 'నైట్రోజన్ వృద్ధిని సహజంగా పెంచడానికి రైజోబియం మరియు పీఎస్‌బీ తో విత్తనాలను శుద్ధి చేయండి.',
+      'co1_t': 'మొక్కల నిర్వహణ', 'co1_d': 'మొక్కజొన్నకు ఎక్కువ పోషణ అవసరం. వివిధ దశలలో 120కిలోల నైట్రోజన్ వేయండి.',
+      'ca1_t': 'నిర్మాణ బలోపేతం', 'ca1_d': 'మట్టి ఎగదోయడం రెండుసార్లు చేయండి. ఇది మొక్క పడిపోకుండా నివారిస్తుంది.',
+      'su1_t': 'సౌర ఆప్టిమైజేషన్', 'su1_d': 'రోజూ 6-8 గంటల ప్రత్యక్ష సూర్యకాంతి అవసరం. ఉత్తర-దక్షిణ దిశగా విత్తాలి.'
+    }
+  };
+
+  if (typeof translations !== 'undefined') {
+    Object.keys(localTranslations).forEach(lang => {
+      if (translations[lang]) Object.assign(translations[lang], localTranslations[lang]);
+    });
+  }
+
   const cropSkillsData = {
     'wheat_name': [
-      '<i class="fa-solid fa-droplet" style="color:var(--primary);"></i> <strong>Irrigation:</strong> Requires 4-6 irrigations at critical growth stages like Crown Root Initiation (CRI).',
-      '<i class="fa-solid fa-flask" style="color:var(--primary);"></i> <strong>Fertilizer:</strong> Apply Nitrogen in 3 splits. Basal dose of Phosphorus is mandatory.',
-      '<i class="fa-solid fa-temperature-empty" style="color:var(--primary);"></i> <strong>Climate:</strong> Ensure sowing is completed before temperatures drop severely to ensure high tillering.',
-      '<i class="fa-solid fa-scissors" style="color:var(--primary);"></i> <strong>Harvesting:</strong> Harvest when moisture content reaches 15-20% for safe storage.'
+      '<div class="flex items-start gap-5 p-6 rounded-3xl bg-slate-50 border border-slate-100/50 group hover:border-primary-300 transition-all duration-300"><div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary-600 shadow-sm"><i class="fa-solid fa-droplet text-xl"></i></div><div><h5 class="text-slate-900 font-bold mb-1" data-key="w1_t">Precision Irrigation</h5><p class="text-slate-500 text-sm leading-relaxed" data-key="w1_d">Requires 4-6 irrigations at critical growth stages like CRI (21 days after sowing) for optimal kernel development.</p></div></div>',
+      '<div class="flex items-start gap-5 p-6 rounded-3xl bg-slate-50 border border-slate-100/50 group hover:border-primary-300 transition-all duration-300"><div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary-600 shadow-sm"><i class="fa-solid fa-flask text-xl"></i></div><div><h5 class="text-slate-900 font-bold mb-1" data-key="w2_t">Nutrient Optimization</h5><p class="text-slate-500 text-sm leading-relaxed" data-key="w2_d">Apply Nitrogen in 3 splits (Basal, 1st, and 2nd irrigation). Phosphorus is mandatory at sowing.</p></div></div>',
+      '<div class="flex items-start gap-5 p-6 rounded-3xl bg-slate-50 border border-slate-100/50 group hover:border-primary-300 transition-all duration-300"><div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary-600 shadow-sm"><i class="fa-solid fa-wind text-xl"></i></div><div><h5 class="text-slate-900 font-bold mb-1" data-key="w3_t">Climatic Adaptation</h5><p class="text-slate-500 text-sm leading-relaxed" data-key="w3_d">Complete sowing before 15th Nov. Late sowing reduces tillering duration and impacts final yield by 20%.</p></div></div>'
     ],
     'rice_name': [
-      '<i class="fa-solid fa-water" style="color:var(--primary);"></i> <strong>Water Management:</strong> Maintain 5cm standing water during the vegetative phase.',
-      '<i class="fa-solid fa-seedling" style="color:var(--primary);"></i> <strong>Transplanting:</strong> Seedlings should be 20-25 days old for maximum yield.',
-      '<i class="fa-solid fa-spider" style="color:var(--primary);"></i> <strong>Pest Control:</strong> Regularly scout for Stem Borer; apply neem oil bi-weekly.',
-      '<i class="fa-solid fa-sun" style="color:var(--primary);"></i> <strong>Storage:</strong> Dry paddy properly to 12% moisture to prevent fungal buildup.'
+      '<div class="flex items-start gap-5 p-6 rounded-3xl bg-slate-50 border border-slate-100/50 group hover:border-primary-300 transition-all duration-300"><div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary-600 shadow-sm"><i class="fa-solid fa-water text-xl"></i></div><div><h5 class="text-slate-900 font-bold mb-1" data-key="r1_t">Hydro-Paddy Maintenance</h5><p class="text-slate-500 text-sm leading-relaxed" data-key="r1_d">Maintain constant 5cm standing water during vegetative phase. Drain only before application or harvest.</p></div></div>',
+      '<div class="flex items-start gap-5 p-6 rounded-3xl bg-slate-50 border border-slate-100/50 group hover:border-primary-300 transition-all duration-300"><div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary-600 shadow-sm"><i class="fa-solid fa-dna text-xl"></i></div><div><h5 class="text-slate-900 font-bold mb-1" data-key="r2_t">Strain Specificity</h5><p class="text-slate-500 text-sm leading-relaxed" data-key="r2_d">Use certified seeds. Seedlings must be exactly 21-25 days old to ensure strong root establishment.</p></div></div>'
     ],
     'cotton_name': [
-      '<i class="fa-solid fa-burst" style="color:var(--primary);"></i> <strong>Land Prep:</strong> Deep ploughing is necessary to destroy deep-rooted weeds and pests.',
-      '<i class="fa-solid fa-ruler" style="color:var(--primary);"></i> <strong>Spacing:</strong> Ensure 90x60 cm or 120x60 cm depending on soil fertility.',
-      '<i class="fa-solid fa-shield-cat" style="color:var(--primary);"></i> <strong>Protection:</strong> Use pheromone traps continuously to monitor Bollworm emergence.',
-      '<i class="fa-solid fa-hand" style="color:var(--primary);"></i> <strong>Picking:</strong> Pick cotton during early morning hours to maintain fiber quality.'
+      '<div class="flex items-start gap-5 p-6 rounded-3xl bg-slate-50 border border-slate-100/50 group hover:border-primary-300 transition-all duration-300"><div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary-600 shadow-sm"><i class="fa-solid fa-mountain text-xl"></i></div><div><h5 class="text-slate-900 font-bold mb-1" data-key="c1_t">Subsoil Engineering</h5><p class="text-slate-500 text-sm leading-relaxed" data-key="c1_d">Deep summer ploughing is critical to eradicate pupae of bollworms and perennial deep-rooted weeds.</p></div></div>'
     ],
     'soya_name': [
-      '<i class="fa-solid fa-seedling" style="color:var(--primary);"></i> <strong>Sowing:</strong> Ideal time is onset of monsoon. Seed treatment with Rhizobium is essential.',
-      '<i class="fa-solid fa-flask" style="color:var(--primary);"></i> <strong>Fertilizer:</strong> Requires high phosphorus and sulfur; apply 20:60:20 NPK kg/ha.',
-      '<i class="fa-solid fa-droplet" style="color:var(--primary);"></i> <strong>Irrigation:</strong> Highly sensitive to water-logging. Ensure proper field drainage.',
-      '<i class="fa-solid fa-bug" style="color:var(--primary);"></i> <strong>Weed Control:</strong> Keep field weed-free for the first 45 days using pre-emergence herbicides.'
+      '<div class="flex items-start gap-5 p-6 rounded-3xl bg-slate-50 border border-slate-100/50 group hover:border-primary-300 transition-all duration-300"><div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary-600 shadow-sm"><i class="fa-solid fa-vial-circle-check text-xl"></i></div><div><h5 class="text-slate-900 font-bold mb-1" data-key="s1_t">Biological Treatment</h5><p class="text-slate-500 text-sm leading-relaxed" data-key="s1_d">Treat seeds with Rhizobium and PSB culture to boost nitrogen fixation capability naturally.</p></div></div>'
     ],
     'corn_name': [
-      '<i class="fa-solid fa-sun" style="color:var(--primary);"></i> <strong>Climate:</strong> Needs warm weather and 500-750 mm of well-distributed rainfall.',
-      '<i class="fa-solid fa-flask" style="color:var(--primary);"></i> <strong>Nutrients:</strong> Heavy feeder. Apply Nitrogen in splits at knee-high and tasseling stages.',
-      '<i class="fa-solid fa-droplet" style="color:var(--primary);"></i> <strong>Watering:</strong> Silking and tasseling are critical stages; avoid moisture stress here.',
-      '<i class="fa-solid fa-shield" style="color:var(--primary);"></i> <strong>Protection:</strong> Scout for Fall Armyworm and apply targeted bio-pesticides early.'
+      '<div class="flex items-start gap-5 p-6 rounded-3xl bg-slate-50 border border-slate-100/50 group hover:border-primary-300 transition-all duration-300"><div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary-600 shadow-sm"><i class="fa-solid fa-leaf text-xl"></i></div><div><h5 class="text-slate-900 font-bold mb-1" data-key="co1_t">Vegetative Management</h5><p class="text-slate-500 text-sm leading-relaxed" data-key="co1_d">Corn is a heavy feeder. Apply 120kg N in splits at 4-leaf, knee-high, and pre-tasseling stages.</p></div></div>'
     ],
     'cane_name': [
-      '<i class="fa-solid fa-scissors" style="color:var(--primary);"></i> <strong>Planting:</strong> Use healthy 2-3 budded setts treated with fungicide.',
-      '<i class="fa-solid fa-water" style="color:var(--primary);"></i> <strong>Irrigation:</strong> Requires copious water (2000-2500 mm). Use drip irrigation for best efficiency.',
-      '<i class="fa-solid fa-mountain" style="color:var(--primary);"></i> <strong>Earthing Up:</strong> Essential after 120 days to prevent lodging during heavy winds.',
-      '<i class="fa-solid fa-tractor" style="color:var(--primary);"></i> <strong>Trashing:</strong> Remove dry lower leaves to improve aeration and reduce pest incidence.'
+      '<div class="flex items-start gap-5 p-6 rounded-3xl bg-slate-50 border border-slate-100/50 group hover:border-primary-300 transition-all duration-300"><div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary-600 shadow-sm"><i class="fa-solid fa-cubes-stacked text-xl"></i></div><div><h5 class="text-slate-900 font-bold mb-1" data-key="ca1_t">Structural Reinforcement</h5><p class="text-slate-500 text-sm leading-relaxed" data-key="ca1_d">Perform earthing-up operation twice. This prevents lodging and enhances water-holding capacity near roots.</p></div></div>'
     ],
     'sun_name': [
-      '<i class="fa-solid fa-sun" style="color:var(--primary);"></i> <strong>Sunlight:</strong> Requires 6-8 hours of direct, unobstructed daily sunlight.',
-      '<i class="fa-solid fa-seedling" style="color:var(--primary);"></i> <strong>Soil:</strong> Prefers well-drained, slightly alkaline soils (pH 6.5-8.0).',
-      '<i class="fa-solid fa-droplet" style="color:var(--primary);"></i> <strong>Irrigation:</strong> Moderate water needs; avoid overhead watering to prevent head rot.',
-      '<i class="fa-solid fa-dove" style="color:var(--primary);"></i> <strong>Protection:</strong> Protect from birds during the seed-filling stage using nets or scarers.'
+      '<div class="flex items-start gap-5 p-6 rounded-3xl bg-slate-50 border border-slate-100/50 group hover:border-primary-300 transition-all duration-300"><div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary-600 shadow-sm"><i class="fa-solid fa-sun-plant-wilt text-xl"></i></div><div><h5 class="text-slate-900 font-bold mb-1" data-key="su1_t">Solar Optimization</h5><p class="text-slate-500 text-sm leading-relaxed" data-key="su1_d">Requires 6-8 hours of direct, unobstructed sunlight daily. Sowing must be oriented North-South.</p></div></div>'
     ]
   };
 
   function viewDetailedSkills(btn) {
-    const card = btn.closest('.feature-card');
+    const card = btn.closest('.group');
     const titleEl = card.querySelector('h3');
-    const iconClass = card.querySelector('.fa-solid').className;
-
-    // Extract exact data-key name
+    const iconClass = card.querySelector('i').className;
     const cropKey = titleEl.getAttribute('data-key');
     const cropName = titleEl.innerText;
 
-    const toastMsgs = {
-      'en': `Opening detailed agricultural guide for ${cropName}...`,
-      'hi': `${cropName} के विस्तृत कृषि कौशल लोड हो रहे हैं...`,
-      'te': `${cropName} కోసం వ్యవసాయ మార్గదర్శకాలు తెరుచుకుంటున్నాయి...`
-    };
-    showToast(toastMsgs[currentLang] || toastMsgs['en'], 'success');
+    showToast(`Accessing Skill Intelligence for ${cropName}...`, 'success');
 
-    // Set Modal Data
     document.getElementById('modalCropName').innerText = cropName;
     document.getElementById('modalIcon').innerHTML = `<i class="${iconClass}"></i>`;
 
-    // Fetch relevant skills, fallback to wheat if key missing
     const skills = cropSkillsData[cropKey] || cropSkillsData['wheat_name'];
+    document.getElementById('modalContentList').innerHTML = skills.join('');
 
-    const contentList = document.getElementById('modalContentList');
-    contentList.innerHTML = skills.map((s, i) => `
-      <div style="background: var(--bg-light); padding: 1rem; border-radius: 12px; display: flex; gap: 1rem; border-left: 3px solid var(--primary); align-items: start;">
-        <div style="flex: 1;">${s}</div>
-      </div>
-    `).join('');
-
-    // Open Modal
     const modal = document.getElementById('skillsModal');
-    modal.style.display = 'flex';
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+
+    if (typeof applyTranslations === 'function') {
+      applyTranslations();
+    }
   }
 
   function closeDetailedSkills() {
-    document.getElementById('skillsModal').style.display = 'none';
-  }
-
-  // Close modal when clicking outside
-  window.onclick = function (event) {
-    const modal = document.getElementById('skillsModal');
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
+    document.getElementById('skillsModal').classList.add('hidden');
+    document.getElementById('skillsModal').classList.remove('flex');
+    document.body.style.overflow = 'auto';
   }
 
   const mockScenarios = [
-    {
-      disease: "Bacterial Leaf Blight",
-      severity: "Moderate (40%)",
-      treatment: "1. Apply <strong>Copper Oxychloride (50% WP)</strong> at 3g per liter of water.<br>2. Ensure proper drainage to avoid water logging.<br>3. Avoid nitrogen fertilizers for the next 7 days."
-    },
-    {
-      disease: "Powdery Mildew",
-      severity: "High (75%)",
-      treatment: "1. Spray <strong>Wettable Sulfur (80% WP)</strong> at 2g/L.<br>2. Remove and burn severely infected leaves.<br>3. Avoid overhead watering to reduce canopy humidity."
-    },
-    {
-      disease: "Late Blight",
-      severity: "Critical (85%)",
-      treatment: "1. Immediately apply <strong>Mancozeb (75% WP)</strong>.<br>2. Destroy all infected crops safely away from fields.<br>3. Halt irrigation immediately."
-    },
-    {
-      disease: "Healthy Leaf",
-      severity: "None (0%)",
-      treatment: "1. No active disease detected.<br>2. Continue regular nutrient scheduling.<br>3. Maintain normal irrigation cycle."
-    },
-    {
-      disease: "Nitrogen Deficiency",
-      severity: "Low (20%)",
-      treatment: "1. Apply a balanced Urea top-dressing.<br>2. Monitor soil pH to ensure nutrient absorption.<br>3. Re-evaluate within 7 to 10 days."
-    }
+    { disease: "Bacterial Blight", severity: "MODERATE (42.5%)", treatment: "<p>• Initiate application of Copper Oxychloride (50% WP) at 3g/L.</p><p>• Enhance irrigation field drainage immediately.</p><p>• Suspend all nitrogen-based fertilizers for 144 hours.</p>" },
+    { disease: "Powdery Mildew", severity: "HIGH (78.9%)", treatment: "<p>• Deploy Wettable Sulfur (80% WP) at concentration of 2.2g/L.</p><p>• Prune and biosecurely destroy all infected leaf biomass.</p><p>• Limit overhead irrigation to suppress humidity levels.</p>" },
+    { disease: "Healthy Vegetation", severity: "STABLE (0.01%)", treatment: "<p>• Active monitoring protocol sufficient.</p><p>• Maintain current standardized hydration and nutrient cycle.</p><p>• Next scheduled AI scan: 72 hours.</p>" },
+    { disease: "Rust Infection", severity: "CRITICAL (88.4%)", treatment: "<p>• Immediate deployment of Propiconazole (25% EC) at 1ml/L.</p><p>• Quarantine affected plot to prevent cross-contamination.</p><p>• Alert neighboring farming zones of spore presence.</p>" }
   ];
 
   function handleImageUpload(event) {
@@ -252,43 +379,26 @@
     if (file) {
       const reader = new FileReader();
       reader.onload = function (e) {
-        document.getElementById('uploadIcon').style.display = 'none';
-        document.getElementById('uploadText').style.display = 'none';
-        const preview = document.getElementById('previewImg');
-        preview.src = e.target.result;
-        preview.style.display = 'block';
+        document.getElementById('uploadPlaceholder').classList.add('hidden');
+        document.getElementById('previewContainer').classList.remove('hidden');
+        document.getElementById('previewImg').src = e.target.result;
+        document.getElementById('aiResults').classList.add('hidden');
 
-        document.getElementById('aiResults').style.display = 'none';
-
-        // Simulate AI loading process
-        showToast("Analyzing image via AI...", "success");
+        showToast("Accessing Neural Processing Unit...", "success");
 
         setTimeout(() => {
-          const randIdx = Math.floor(Math.random() * mockScenarios.length);
-          const mock = mockScenarios[randIdx];
+          const mock = mockScenarios[Math.floor(Math.random() * mockScenarios.length)];
 
-          document.getElementById('mockDisease').innerHTML = mock.disease;
-          document.getElementById('mockSeverity').innerHTML = mock.severity;
+          document.getElementById('mockDisease').innerText = mock.disease;
+          document.getElementById('mockSeverity').innerText = mock.confidence || mock.severity;
           document.getElementById('mockTreatment').innerHTML = mock.treatment;
 
-          // Color adjustments based on severity
-          if (mock.disease === 'Healthy Leaf') {
-            document.getElementById('mockDisease').style.color = '#10b981';
-            document.getElementById('mockDisease').style.background = '#d1fae5';
-            document.getElementById('mockSeverity').style.color = '#10b981';
-          } else if (mock.severity.includes('Critical')) {
-            document.getElementById('mockDisease').style.color = '#b91c1c';
-            document.getElementById('mockDisease').style.background = '#fef2f2';
-            document.getElementById('mockSeverity').style.color = '#b91c1c';
-          } else {
-            document.getElementById('mockDisease').style.color = '#ef4444';
-            document.getElementById('mockDisease').style.background = '#fee2e2';
-            document.getElementById('mockSeverity').style.color = '#f59e0b';
-          }
+          const colorClass = mock.disease === 'Healthy Vegetation' ? 'text-emerald-400' : 'text-rose-400';
+          document.getElementById('mockDisease').className = `font-black text-lg ${colorClass}`;
 
-          document.getElementById('aiResults').style.display = 'block';
+          document.getElementById('aiResults').classList.remove('hidden');
           window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        }, 2000);
+        }, 2800);
       }
       reader.readAsDataURL(file);
     }
